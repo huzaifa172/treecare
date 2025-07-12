@@ -1,0 +1,29 @@
+{
+  "name": "green-guardian",
+  "version": "1.0.0",
+  "description": "🌿 GreenGuardian – Own. Nurture. Impact. Fighting climate change by empowering individuals to become verified guardians of nature — one tree at a time.",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "build": "npm run build --workspaces",
+    "start": "npm run start --workspaces",
+    "backend:dev": "npm run dev --workspace=backend",
+    "frontend:dev": "npm run dev --workspace=frontend",
+    "db:generate": "npm run db:generate --workspace=backend",
+    "db:push": "npm run db:push --workspace=backend",
+    "db:studio": "npm run db:studio --workspace=backend"
+  },
+  "keywords": [
+    "climate-change",
+    "tree-planting",
+    "environmental",
+    "sustainability",
+    "green-tech"
+  ],
+  "author": "GreenGuardian Team",
+  "license": "MIT"
+}
