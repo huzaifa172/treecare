@@ -1,11 +1,15 @@
+import dotenv from 'dotenv';
+import path from 'path/win32';
+dotenv.config({
+  path: path.resolve(__dirname, '../.env'),
+});
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
-
+import { connectDatabase } from './utils/database';
 // Import routes
 import authRoutes from './routes/auth.routes';
 import treeRoutes from './routes/tree.routes';
@@ -20,8 +24,6 @@ import statsRoutes from './routes/stats.routes';
 import { errorHandler } from './middleware/error.middleware';
 import { notFound } from './middleware/notFound.middleware';
 
-// Load environment variables
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -115,11 +117,17 @@ app.use(errorHandler);
 
 // Start server
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
-    console.log(`🌱 GreenGuardian API Server running on port ${PORT}`);
-    console.log(`🔗 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
+  connectDatabase().then(() => {
+    app.listen(PORT, () => {
+      console.log(`🌱 GreenGuardian API Server running on port ${PORT}`);
+      console.log(`🔗 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
+    });
+  }).catch((err) => {
+    console.error('❌ Failed to start server due to database error:', err);
+    process.exit(1);
   });
 }
+
 
 export default app;

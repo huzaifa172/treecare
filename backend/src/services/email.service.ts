@@ -2,8 +2,10 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+
+
 export class EmailService {
-  private fromEmail = process.env.FROM_EMAIL || 'hello@greenguardian.com';
+  private fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 
   async sendWelcomeEmail(to: string, name: string) {
     try {
