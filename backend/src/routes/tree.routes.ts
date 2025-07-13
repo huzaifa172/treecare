@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { authenticateToken, optionalAuth } from '../middleware/auth.middleware';
 import { uploadMiddleware } from '../middleware/upload.middleware';
+import { requireTreeAccess, requireOwnership } from '../middleware/role.middleware';
 
 const router = Router();
 
@@ -164,6 +165,7 @@ router.get(
 router.put(
   '/:id',
   authenticateToken,
+  requireTreeAccess,
   (req, res) => {
     res.json({
       success: true,
@@ -184,6 +186,7 @@ router.put(
 router.post(
   '/:id/care',
   authenticateToken,
+  requireTreeAccess,
   uploadMiddleware.single('photo'),
   (req, res) => {
     res.json({
@@ -293,6 +296,7 @@ router.get(
 router.delete(
   '/:id',
   authenticateToken,
+  requireTreeAccess,
   (req, res) => {
     res.json({
       success: true,

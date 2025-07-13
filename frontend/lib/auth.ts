@@ -7,6 +7,7 @@ export interface User {
   profilePicture?: string;
   isProfilePublic?: boolean;
   lastLoginAt?: string;
+  role: 'user' | 'admin';
   createdAt: string;
   updatedAt?: string;
 }
