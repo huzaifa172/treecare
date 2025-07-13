@@ -267,4 +267,34 @@ export const treeAPI = {
 
     return handleResponse(response);
   },
+
+  // Get assigned trees for vendors/field agents
+  async getAssignedTrees(): Promise<APIResponse<{ assignedTrees: Tree[] }>> {
+    const response = await fetch(`${API_BASE_URL}/trees/assigned`, {
+      headers: getAuthHeaders(),
+    });
+
+    return handleResponse(response);
+  },
+
+  // Update tree care (for vendors/field agents)
+  async updateTreeCare(data: {
+    treeId: string;
+    healthStatus: string;
+    notes: string;
+    photoUrl: string;
+    gpsLocation?: { lat: number; lng: number };
+    careChecklist?: string[];
+  }): Promise<APIResponse<{ treeUpdate: any }>> {
+    const response = await fetch(`${API_BASE_URL}/trees/${data.treeId}/care`, {
+      method: 'POST',
+      headers: {
+        ...getAuthHeaders(),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    return handleResponse(response);
+  },
 };

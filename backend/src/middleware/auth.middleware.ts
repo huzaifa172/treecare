@@ -10,6 +10,7 @@ declare global {
       user: {
         id: string;
         email: string;
+        role: string;
       };
     }
   }
@@ -34,7 +35,7 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
     // Check if user still exists in database
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
-      select: { id: true, email: true, name: true }
+      select: { id: true, email: true, name: true, role: true }
     });
 
     if (!user) {
@@ -48,7 +49,8 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
     // Attach user to request object
     req.user = {
       id: user.id,
-      email: user.email
+      email: user.email,
+      role: user.role
     };
 
     return next();
@@ -71,13 +73,14 @@ export const optionalAuth = async (req: Request, res: Response, next: NextFuncti
       const decoded: JWTPayload = verifyToken(token);
       const user = await prisma.user.findUnique({
         where: { id: decoded.userId },
-        select: { id: true, email: true, name: true }
+        select: { id: true, email: true, name: true, role: true }
       });
 
       if (user) {
         req.user = {
           id: user.id,
-          email: user.email
+          email: user.email,
+          role: user.role
         };
       }
     }
