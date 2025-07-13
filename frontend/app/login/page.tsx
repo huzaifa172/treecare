@@ -16,6 +16,7 @@ import {
   FiCheck
 } from 'react-icons/fi';
 import { GiTreeBranch, GiForest } from 'react-icons/gi';
+import { useAuth } from '../../hooks/useAuth';
 
 // Validation schema
 const loginSchema = z.object({
@@ -28,23 +29,14 @@ type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { login, isLoginLoading } = useAuth();
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
     resolver: zodResolver(loginSchema)
   });
 
   const onSubmit = async (data: LoginForm) => {
-    setIsLoading(true);
-    try {
-      // TODO: Implement API call
-      console.log('Login data:', data);
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API call
-    } catch (error) {
-      console.error('Login error:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    login(data);
   };
 
   return (
@@ -231,12 +223,12 @@ export default function LoginPage() {
             {/* Submit Button */}
             <motion.button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoginLoading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="w-full btn-primary group disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? (
+              {isLoginLoading ? (
                 <div className="flex items-center justify-center space-x-2">
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   <span>Signing you in...</span>

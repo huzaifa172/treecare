@@ -17,6 +17,7 @@ import {
   FiAlertCircle
 } from 'react-icons/fi';
 import { GiTreeBranch, GiSeedling } from 'react-icons/gi';
+import { useAuth } from '../../hooks/useAuth';
 
 // Validation schema
 const signupSchema = z.object({
@@ -86,7 +87,7 @@ function PasswordStrength({ password }: { password: string }) {
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { signup, isSignupLoading } = useAuth();
 
   const { register, handleSubmit, formState: { errors }, watch } = useForm<SignupForm>({
     resolver: zodResolver(signupSchema)
@@ -95,16 +96,8 @@ export default function SignupPage() {
   const password = watch('password', '');
 
   const onSubmit = async (data: SignupForm) => {
-    setIsLoading(true);
-    try {
-      // TODO: Implement API call
-      console.log('Signup data:', data);
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API call
-    } catch (error) {
-      console.error('Signup error:', error);
-    } finally {
-      setIsLoading(false);
-    }
+    const { confirmPassword, agreeToTerms, ...signupData } = data;
+    signup(signupData);
   };
 
   return (
@@ -306,12 +299,12 @@ export default function SignupPage() {
             {/* Submit Button */}
             <motion.button
               type="submit"
-              disabled={isLoading}
+              disabled={isSignupLoading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="w-full btn-primary group disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? (
+              {isSignupLoading ? (
                 <div className="flex items-center justify-center space-x-2">
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   <span>Creating your account...</span>

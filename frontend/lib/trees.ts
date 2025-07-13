@@ -16,6 +16,16 @@ export interface Tree {
   careLogs: number;
   totalPoints: number;
   guardianId?: string;
+  guardian?: {
+    id: string;
+    name: string;
+    avatar: string;
+  };
+  milestones?: Array<{
+    type: string;
+    achievedAt: string;
+    pointsEarned: number;
+  }>;
 }
 
 export interface CareLog {
@@ -33,6 +43,21 @@ export interface CareLog {
   };
 }
 
+export interface AdoptableTree {
+  id: string;
+  species: string;
+  photoUrl: string;
+  location: {
+    latitude: number;
+    longitude: number;
+    address: string;
+  };
+  plantedAt: string;
+  previousGuardian: string;
+  reasonForAdoption: string;
+  healthScore: number;
+}
+
 export interface TreeRegistrationData {
   species: string;
   latitude: number;
@@ -47,8 +72,46 @@ export interface CareLogData {
   photo?: File;
 }
 
+export interface TransferRequest {
+  treeId: string;
+  newGuardianId: string;
+}
+
+export interface APIResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+  timestamp: string;
+}
+
+export interface PaginatedResponse<T> {
+  success: boolean;
+  message: string;
+  data: {
+    [key: string]: T[] | {
+      currentPage: number;
+      totalPages: number;
+      totalItems: number;
+      hasNext: boolean;
+      hasPrev: boolean;
+    };
+  };
+  timestamp: string;
+}
+
 // API Functions
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+
+class APIError extends Error {
+  constructor(
+    message: string,
+    public statusCode: number,
+    public error?: string
+  ) {
+    super(message);
+    this.name = 'APIError';
+  }
+}
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('auth_token');
@@ -57,9 +120,23 @@ const getAuthHeaders = () => {
   };
 };
 
+const handleResponse = async (response: Response): Promise<any> => {
+  const data = await response.json();
+  
+  if (!response.ok) {
+    throw new APIError(
+      data.message || 'An error occurred',
+      response.status,
+      data.error
+    );
+  }
+  
+  return data;
+};
+
 export const treeAPI = {
   // Get user's trees
-  async getUserTrees(params?: { page?: number; limit?: number; status?: string; species?: string }) {
+  async getUserTrees(params?: { page?: number; limit?: number; status?: string; species?: string }): Promise<PaginatedResponse<Tree>> {
     const searchParams = new URLSearchParams();
     if (params?.page) searchParams.append('page', params.page.toString());
     if (params?.limit) searchParams.append('limit', params.limit.toString());
@@ -70,28 +147,20 @@ export const treeAPI = {
       headers: getAuthHeaders(),
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch trees');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Get specific tree
-  async getTree(id: string) {
+  async getTree(id: string): Promise<APIResponse<{ tree: Tree }>> {
     const response = await fetch(`${API_BASE_URL}/trees/${id}`, {
       headers: getAuthHeaders(),
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch tree');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Register new tree
-  async registerTree(data: TreeRegistrationData) {
+  async registerTree(data: TreeRegistrationData): Promise<APIResponse<{ tree: Tree; pointsEarned: number }>> {
     const formData = new FormData();
     formData.append('species', data.species);
     formData.append('latitude', data.latitude.toString());
@@ -105,15 +174,11 @@ export const treeAPI = {
       body: formData,
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to register tree');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Update tree
-  async updateTree(id: string, data: Partial<Tree>) {
+  async updateTree(id: string, data: Partial<Tree>): Promise<APIResponse<{ tree: Tree }>> {
     const response = await fetch(`${API_BASE_URL}/trees/${id}`, {
       method: 'PUT',
       headers: {
@@ -123,15 +188,11 @@ export const treeAPI = {
       body: JSON.stringify(data),
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to update tree');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Submit care log
-  async submitCareLog(treeId: string, data: CareLogData) {
+  async submitCareLog(treeId: string, data: CareLogData): Promise<APIResponse<{ careLog: CareLog; treeHealthUpdate: { healthScore: number; lastCareAt: string } }>> {
     const formData = new FormData();
     formData.append('type', data.type);
     formData.append('description', data.description);
@@ -145,15 +206,11 @@ export const treeAPI = {
       body: formData,
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to submit care log');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Get care logs
-  async getCareLogs(treeId: string, params?: { page?: number; limit?: number }) {
+  async getCareLogs(treeId: string, params?: { page?: number; limit?: number }): Promise<PaginatedResponse<CareLog>> {
     const searchParams = new URLSearchParams();
     if (params?.page) searchParams.append('page', params.page.toString());
     if (params?.limit) searchParams.append('limit', params.limit.toString());
@@ -162,15 +219,11 @@ export const treeAPI = {
       headers: getAuthHeaders(),
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch care logs');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Get adoptable trees
-  async getAdoptableTrees(params?: { latitude?: number; longitude?: number; radius?: number }) {
+  async getAdoptableTrees(params?: { latitude?: number; longitude?: number; radius?: number }): Promise<APIResponse<{ adoptableTrees: AdoptableTree[] }>> {
     const searchParams = new URLSearchParams();
     if (params?.latitude) searchParams.append('latitude', params.latitude.toString());
     if (params?.longitude) searchParams.append('longitude', params.longitude.toString());
@@ -178,29 +231,21 @@ export const treeAPI = {
 
     const response = await fetch(`${API_BASE_URL}/trees/adoptable?${searchParams}`);
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch adoptable trees');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Adopt tree
-  async adoptTree(treeId: string) {
+  async adoptTree(treeId: string): Promise<APIResponse<{ tree: Tree; pointsEarned: number }>> {
     const response = await fetch(`${API_BASE_URL}/trees/${treeId}/adopt`, {
       method: 'POST',
       headers: getAuthHeaders(),
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to adopt tree');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Transfer tree
-  async transferTree(treeId: string, newGuardianId: string) {
+  async transferTree(treeId: string, newGuardianId: string): Promise<APIResponse<{ transferRequest: any }>> {
     const response = await fetch(`${API_BASE_URL}/trees/${treeId}/transfer`, {
       method: 'POST',
       headers: {
@@ -210,24 +255,16 @@ export const treeAPI = {
       body: JSON.stringify({ newGuardianId }),
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to transfer tree');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Delete tree
-  async deleteTree(treeId: string) {
+  async deleteTree(treeId: string): Promise<APIResponse<null>> {
     const response = await fetch(`${API_BASE_URL}/trees/${treeId}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to delete tree');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 };

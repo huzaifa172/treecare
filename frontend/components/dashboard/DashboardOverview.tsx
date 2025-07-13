@@ -101,7 +101,7 @@ export default function DashboardOverview() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold mb-2">
-              Welcome back, {user?.firstName || 'Tree Guardian'}! 🌿
+              Welcome back, {user?.name || 'Tree Guardian'}! 🌿
             </h1>
             <p className="text-green-100">
               You're making a difference with {totalTrees} trees under your care
@@ -156,7 +156,7 @@ export default function DashboardOverview() {
       {/* Recent Activity */}
       <div className="bg-white rounded-xl shadow-md p-6">
         <h2 className="text-xl font-semibold text-green-800 mb-6">Recent Activity</h2>
-        {trees.length > 0 ? (
+        {Array.isArray(trees) && trees.length > 0 ? (
           <div className="space-y-4">
             {trees.slice(0, 3).map((tree) => (
               <div key={tree.id} className="flex items-center space-x-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-100">

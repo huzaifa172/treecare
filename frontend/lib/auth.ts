@@ -1,12 +1,14 @@
 // Types
 export interface User {
   id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
-  userType: 'individual' | 'organization' | 'vendor';
+  greenPoints: number;
+  profilePicture?: string;
+  isProfilePublic?: boolean;
+  lastLoginAt?: string;
   createdAt: string;
-  updatedAt: string;
+  updatedAt?: string;
 }
 
 export interface LoginCredentials {
@@ -16,20 +18,56 @@ export interface LoginCredentials {
 }
 
 export interface SignupData {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   password: string;
-  userType: 'individual' | 'organization' | 'vendor';
 }
 
 export interface AuthResponse {
-  user: User;
-  token: string;
+  success: boolean;
+  message: string;
+  data: {
+    user: User;
+    token: string;
+  };
+  timestamp: string;
+}
+
+export interface APIErrorResponse {
+  success: false;
+  message: string;
+  error?: string;
+  statusCode?: number;
+  timestamp: string;
 }
 
 // API Functions
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+
+class APIError extends Error {
+  constructor(
+    message: string,
+    public statusCode: number,
+    public error?: string
+  ) {
+    super(message);
+    this.name = 'APIError';
+  }
+}
+
+const handleResponse = async (response: Response): Promise<any> => {
+  const data = await response.json();
+  
+  if (!response.ok) {
+    throw new APIError(
+      data.message || 'An error occurred',
+      response.status,
+      data.error
+    );
+  }
+  
+  return data;
+};
 
 export const authAPI = {
   // Login
@@ -42,16 +80,12 @@ export const authAPI = {
       body: JSON.stringify(credentials),
     });
 
-    if (!response.ok) {
-      throw new Error('Login failed');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Signup
   async signup(data: SignupData): Promise<AuthResponse> {
-    const response = await fetch(`${API_BASE_URL}/auth/signup`, {
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,11 +93,7 @@ export const authAPI = {
       body: JSON.stringify(data),
     });
 
-    if (!response.ok) {
-      throw new Error('Signup failed');
-    }
-
-    return response.json();
+    return handleResponse(response);
   },
 
   // Get current user
@@ -71,20 +101,61 @@ export const authAPI = {
     const token = localStorage.getItem('auth_token');
     
     if (!token) {
-      throw new Error('No token found');
+      throw new APIError('No token found', 401);
     }
 
-    const response = await fetch(`${API_BASE_URL}/auth/me`, {
+    const response = await fetch(`${API_BASE_URL}/auth/verify`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to get user');
+    const data = await handleResponse(response);
+    return data.data.user;
+  },
+
+  // Forgot password
+  async forgotPassword(email: string): Promise<{ success: boolean; message: string }> {
+    const response = await fetch(`${API_BASE_URL}/auth/forgot`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    return handleResponse(response);
+  },
+
+  // Reset password
+  async resetPassword(token: string, password: string): Promise<{ success: boolean; message: string }> {
+    const response = await fetch(`${API_BASE_URL}/auth/reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token, password }),
+    });
+
+    return handleResponse(response);
+  },
+
+  // Refresh token
+  async refreshToken(): Promise<{ success: boolean; data: any }> {
+    const token = localStorage.getItem('auth_token');
+    
+    if (!token) {
+      throw new APIError('No token found', 401);
     }
 
-    return response.json();
+    const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    return handleResponse(response);
   },
 
   // Logout
