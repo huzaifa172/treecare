@@ -19,6 +19,21 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Organization
+ * 
+ */
+export type Organization = $Result.DefaultSelection<Prisma.$OrganizationPayload>
+/**
+ * Model OrganizationMember
+ * 
+ */
+export type OrganizationMember = $Result.DefaultSelection<Prisma.$OrganizationMemberPayload>
+/**
+ * Model Campaign
+ * 
+ */
+export type Campaign = $Result.DefaultSelection<Prisma.$CampaignPayload>
+/**
  * Model Tree
  * 
  */
@@ -33,6 +48,21 @@ export type TreeUpdate = $Result.DefaultSelection<Prisma.$TreeUpdatePayload>
  * 
  */
 export type TreeAdoption = $Result.DefaultSelection<Prisma.$TreeAdoptionPayload>
+/**
+ * Model AIInteraction
+ * 
+ */
+export type AIInteraction = $Result.DefaultSelection<Prisma.$AIInteractionPayload>
+/**
+ * Model AIRecommendation
+ * 
+ */
+export type AIRecommendation = $Result.DefaultSelection<Prisma.$AIRecommendationPayload>
+/**
+ * Model AIInsight
+ * 
+ */
+export type AIInsight = $Result.DefaultSelection<Prisma.$AIInsightPayload>
 /**
  * Model Badge
  * 
@@ -78,11 +108,40 @@ export type GlobalStats = $Result.DefaultSelection<Prisma.$GlobalStatsPayload>
  * Enums
  */
 export namespace $Enums {
-  export const TreeSource: {
-  NURSERY: 'NURSERY',
-  HOMEGROWN: 'HOMEGROWN',
-  GRAFTED: 'GRAFTED',
-  WILD_SEEDLING: 'WILD_SEEDLING'
+  export const UserRole: {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  MODERATOR: 'MODERATOR'
+};
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const OrganizationRole: {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+};
+
+export type OrganizationRole = (typeof OrganizationRole)[keyof typeof OrganizationRole]
+
+
+export const CampaignStatus: {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  PAUSED: 'PAUSED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type CampaignStatus = (typeof CampaignStatus)[keyof typeof CampaignStatus]
+
+
+export const TreeSource: {
+  SEEDLING: 'SEEDLING',
+  SAPLING: 'SAPLING',
+  MATURE_TREE: 'MATURE_TREE',
+  CUTTING: 'CUTTING',
+  SEED: 'SEED'
 };
 
 export type TreeSource = (typeof TreeSource)[keyof typeof TreeSource]
@@ -101,24 +160,74 @@ export const HealthStatus: {
 export type HealthStatus = (typeof HealthStatus)[keyof typeof HealthStatus]
 
 
+export const AIInteractionType: {
+  TREE_HEALTH_ANALYSIS: 'TREE_HEALTH_ANALYSIS',
+  CARE_RECOMMENDATION: 'CARE_RECOMMENDATION',
+  SPECIES_IDENTIFICATION: 'SPECIES_IDENTIFICATION',
+  GROWTH_PREDICTION: 'GROWTH_PREDICTION',
+  CLIMATE_IMPACT: 'CLIMATE_IMPACT',
+  CARE_SCHEDULE: 'CARE_SCHEDULE',
+  TROUBLESHOOTING: 'TROUBLESHOOTING',
+  GENERAL_QUERY: 'GENERAL_QUERY'
+};
+
+export type AIInteractionType = (typeof AIInteractionType)[keyof typeof AIInteractionType]
+
+
+export const AIRecommendationType: {
+  WATERING_SCHEDULE: 'WATERING_SCHEDULE',
+  FERTILIZATION: 'FERTILIZATION',
+  PRUNING: 'PRUNING',
+  PEST_CONTROL: 'PEST_CONTROL',
+  CLIMATE_ADAPTATION: 'CLIMATE_ADAPTATION',
+  GROWTH_OPTIMIZATION: 'GROWTH_OPTIMIZATION',
+  HEALTH_IMPROVEMENT: 'HEALTH_IMPROVEMENT',
+  MAINTENANCE: 'MAINTENANCE'
+};
+
+export type AIRecommendationType = (typeof AIRecommendationType)[keyof typeof AIRecommendationType]
+
+
+export const Priority: {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+};
+
+export type Priority = (typeof Priority)[keyof typeof Priority]
+
+
+export const AIInsightType: {
+  HEALTH_TREND: 'HEALTH_TREND',
+  GROWTH_PATTERN: 'GROWTH_PATTERN',
+  CLIMATE_IMPACT: 'CLIMATE_IMPACT',
+  CARE_EFFECTIVENESS: 'CARE_EFFECTIVENESS',
+  OPTIMIZATION_OPPORTUNITY: 'OPTIMIZATION_OPPORTUNITY',
+  RISK_ASSESSMENT: 'RISK_ASSESSMENT',
+  SUCCESS_METRIC: 'SUCCESS_METRIC'
+};
+
+export type AIInsightType = (typeof AIInsightType)[keyof typeof AIInsightType]
+
+
 export const BadgeCategory: {
-  STARTER: 'STARTER',
-  GROWTH: 'GROWTH',
-  CARE: 'CARE',
+  TREE_CARE: 'TREE_CARE',
+  ENVIRONMENTAL_IMPACT: 'ENVIRONMENTAL_IMPACT',
   COMMUNITY: 'COMMUNITY',
-  IMPACT: 'IMPACT',
-  SPECIAL: 'SPECIAL'
+  MILESTONE: 'MILESTONE',
+  SPECIAL_EVENT: 'SPECIAL_EVENT'
 };
 
 export type BadgeCategory = (typeof BadgeCategory)[keyof typeof BadgeCategory]
 
 
 export const RewardCategory: {
-  MERCHANDISE: 'MERCHANDISE',
-  DISCOUNTS: 'DISCOUNTS',
-  EVENTS: 'EVENTS',
-  DIGITAL: 'DIGITAL',
-  PHYSICAL: 'PHYSICAL'
+  ECO_FRIENDLY_PRODUCTS: 'ECO_FRIENDLY_PRODUCTS',
+  TREE_CARE_TOOLS: 'TREE_CARE_TOOLS',
+  EDUCATIONAL_MATERIALS: 'EDUCATIONAL_MATERIALS',
+  EXPERIENCES: 'EXPERIENCES',
+  DONATIONS: 'DONATIONS'
 };
 
 export type RewardCategory = (typeof RewardCategory)[keyof typeof RewardCategory]
@@ -136,10 +245,11 @@ export type RedemptionStatus = (typeof RedemptionStatus)[keyof typeof Redemption
 
 
 export const CertificateType: {
-  TREE_OWNERSHIP: 'TREE_OWNERSHIP',
-  ADOPTION: 'ADOPTION',
-  ACHIEVEMENT: 'ACHIEVEMENT',
-  PARTICIPATION: 'PARTICIPATION'
+  TREE_GUARDIAN: 'TREE_GUARDIAN',
+  ENVIRONMENTAL_STEWARD: 'ENVIRONMENTAL_STEWARD',
+  CARBON_OFFSET: 'CARBON_OFFSET',
+  MILESTONE: 'MILESTONE',
+  CUSTOM: 'CUSTOM'
 };
 
 export type CertificateType = (typeof CertificateType)[keyof typeof CertificateType]
@@ -150,8 +260,9 @@ export const NotificationType: {
   ADOPTION_REQUEST: 'ADOPTION_REQUEST',
   BADGE_EARNED: 'BADGE_EARNED',
   POINT_MILESTONE: 'POINT_MILESTONE',
-  SYSTEM_UPDATE: 'SYSTEM_UPDATE',
-  COMMUNITY_NEWS: 'COMMUNITY_NEWS'
+  CAMPAIGN_UPDATE: 'CAMPAIGN_UPDATE',
+  AI_RECOMMENDATION: 'AI_RECOMMENDATION',
+  SYSTEM_ANNOUNCEMENT: 'SYSTEM_ANNOUNCEMENT'
 };
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -160,12 +271,25 @@ export type NotificationType = (typeof NotificationType)[keyof typeof Notificati
 export const Difficulty: {
   BEGINNER: 'BEGINNER',
   INTERMEDIATE: 'INTERMEDIATE',
-  ADVANCED: 'ADVANCED'
+  ADVANCED: 'ADVANCED',
+  EXPERT: 'EXPERT'
 };
 
 export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
 
 }
+
+export type UserRole = $Enums.UserRole
+
+export const UserRole: typeof $Enums.UserRole
+
+export type OrganizationRole = $Enums.OrganizationRole
+
+export const OrganizationRole: typeof $Enums.OrganizationRole
+
+export type CampaignStatus = $Enums.CampaignStatus
+
+export const CampaignStatus: typeof $Enums.CampaignStatus
 
 export type TreeSource = $Enums.TreeSource
 
@@ -174,6 +298,22 @@ export const TreeSource: typeof $Enums.TreeSource
 export type HealthStatus = $Enums.HealthStatus
 
 export const HealthStatus: typeof $Enums.HealthStatus
+
+export type AIInteractionType = $Enums.AIInteractionType
+
+export const AIInteractionType: typeof $Enums.AIInteractionType
+
+export type AIRecommendationType = $Enums.AIRecommendationType
+
+export const AIRecommendationType: typeof $Enums.AIRecommendationType
+
+export type Priority = $Enums.Priority
+
+export const Priority: typeof $Enums.Priority
+
+export type AIInsightType = $Enums.AIInsightType
+
+export const AIInsightType: typeof $Enums.AIInsightType
 
 export type BadgeCategory = $Enums.BadgeCategory
 
@@ -333,6 +473,36 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs>;
 
   /**
+   * `prisma.organization`: Exposes CRUD operations for the **Organization** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Organizations
+    * const organizations = await prisma.organization.findMany()
+    * ```
+    */
+  get organization(): Prisma.OrganizationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.organizationMember`: Exposes CRUD operations for the **OrganizationMember** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OrganizationMembers
+    * const organizationMembers = await prisma.organizationMember.findMany()
+    * ```
+    */
+  get organizationMember(): Prisma.OrganizationMemberDelegate<ExtArgs>;
+
+  /**
+   * `prisma.campaign`: Exposes CRUD operations for the **Campaign** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Campaigns
+    * const campaigns = await prisma.campaign.findMany()
+    * ```
+    */
+  get campaign(): Prisma.CampaignDelegate<ExtArgs>;
+
+  /**
    * `prisma.tree`: Exposes CRUD operations for the **Tree** model.
     * Example usage:
     * ```ts
@@ -361,6 +531,36 @@ export class PrismaClient<
     * ```
     */
   get treeAdoption(): Prisma.TreeAdoptionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.aIInteraction`: Exposes CRUD operations for the **AIInteraction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AIInteractions
+    * const aIInteractions = await prisma.aIInteraction.findMany()
+    * ```
+    */
+  get aIInteraction(): Prisma.AIInteractionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.aIRecommendation`: Exposes CRUD operations for the **AIRecommendation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AIRecommendations
+    * const aIRecommendations = await prisma.aIRecommendation.findMany()
+    * ```
+    */
+  get aIRecommendation(): Prisma.AIRecommendationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.aIInsight`: Exposes CRUD operations for the **AIInsight** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AIInsights
+    * const aIInsights = await prisma.aIInsight.findMany()
+    * ```
+    */
+  get aIInsight(): Prisma.AIInsightDelegate<ExtArgs>;
 
   /**
    * `prisma.badge`: Exposes CRUD operations for the **Badge** model.
@@ -883,9 +1083,15 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Organization: 'Organization',
+    OrganizationMember: 'OrganizationMember',
+    Campaign: 'Campaign',
     Tree: 'Tree',
     TreeUpdate: 'TreeUpdate',
     TreeAdoption: 'TreeAdoption',
+    AIInteraction: 'AIInteraction',
+    AIRecommendation: 'AIRecommendation',
+    AIInsight: 'AIInsight',
     Badge: 'Badge',
     UserBadge: 'UserBadge',
     Reward: 'Reward',
@@ -909,7 +1115,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "tree" | "treeUpdate" | "treeAdoption" | "badge" | "userBadge" | "reward" | "rewardRedemption" | "certificate" | "notification" | "learningModule" | "globalStats"
+      modelProps: "user" | "organization" | "organizationMember" | "campaign" | "tree" | "treeUpdate" | "treeAdoption" | "aIInteraction" | "aIRecommendation" | "aIInsight" | "badge" | "userBadge" | "reward" | "rewardRedemption" | "certificate" | "notification" | "learningModule" | "globalStats"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -980,6 +1186,216 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Organization: {
+        payload: Prisma.$OrganizationPayload<ExtArgs>
+        fields: Prisma.OrganizationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OrganizationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OrganizationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          findFirst: {
+            args: Prisma.OrganizationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OrganizationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          findMany: {
+            args: Prisma.OrganizationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>[]
+          }
+          create: {
+            args: Prisma.OrganizationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          createMany: {
+            args: Prisma.OrganizationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OrganizationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>[]
+          }
+          delete: {
+            args: Prisma.OrganizationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          update: {
+            args: Prisma.OrganizationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          deleteMany: {
+            args: Prisma.OrganizationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OrganizationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OrganizationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          aggregate: {
+            args: Prisma.OrganizationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOrganization>
+          }
+          groupBy: {
+            args: Prisma.OrganizationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OrganizationCountArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationCountAggregateOutputType> | number
+          }
+        }
+      }
+      OrganizationMember: {
+        payload: Prisma.$OrganizationMemberPayload<ExtArgs>
+        fields: Prisma.OrganizationMemberFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OrganizationMemberFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OrganizationMemberFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload>
+          }
+          findFirst: {
+            args: Prisma.OrganizationMemberFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OrganizationMemberFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload>
+          }
+          findMany: {
+            args: Prisma.OrganizationMemberFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload>[]
+          }
+          create: {
+            args: Prisma.OrganizationMemberCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload>
+          }
+          createMany: {
+            args: Prisma.OrganizationMemberCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OrganizationMemberCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload>[]
+          }
+          delete: {
+            args: Prisma.OrganizationMemberDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload>
+          }
+          update: {
+            args: Prisma.OrganizationMemberUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload>
+          }
+          deleteMany: {
+            args: Prisma.OrganizationMemberDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OrganizationMemberUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OrganizationMemberUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationMemberPayload>
+          }
+          aggregate: {
+            args: Prisma.OrganizationMemberAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOrganizationMember>
+          }
+          groupBy: {
+            args: Prisma.OrganizationMemberGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationMemberGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OrganizationMemberCountArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationMemberCountAggregateOutputType> | number
+          }
+        }
+      }
+      Campaign: {
+        payload: Prisma.$CampaignPayload<ExtArgs>
+        fields: Prisma.CampaignFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CampaignFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CampaignFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload>
+          }
+          findFirst: {
+            args: Prisma.CampaignFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CampaignFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload>
+          }
+          findMany: {
+            args: Prisma.CampaignFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload>[]
+          }
+          create: {
+            args: Prisma.CampaignCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload>
+          }
+          createMany: {
+            args: Prisma.CampaignCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CampaignCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload>[]
+          }
+          delete: {
+            args: Prisma.CampaignDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload>
+          }
+          update: {
+            args: Prisma.CampaignUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload>
+          }
+          deleteMany: {
+            args: Prisma.CampaignDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CampaignUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CampaignUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CampaignPayload>
+          }
+          aggregate: {
+            args: Prisma.CampaignAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCampaign>
+          }
+          groupBy: {
+            args: Prisma.CampaignGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CampaignGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CampaignCountArgs<ExtArgs>
+            result: $Utils.Optional<CampaignCountAggregateOutputType> | number
           }
         }
       }
@@ -1190,6 +1606,216 @@ export namespace Prisma {
           count: {
             args: Prisma.TreeAdoptionCountArgs<ExtArgs>
             result: $Utils.Optional<TreeAdoptionCountAggregateOutputType> | number
+          }
+        }
+      }
+      AIInteraction: {
+        payload: Prisma.$AIInteractionPayload<ExtArgs>
+        fields: Prisma.AIInteractionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AIInteractionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AIInteractionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload>
+          }
+          findFirst: {
+            args: Prisma.AIInteractionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AIInteractionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload>
+          }
+          findMany: {
+            args: Prisma.AIInteractionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload>[]
+          }
+          create: {
+            args: Prisma.AIInteractionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload>
+          }
+          createMany: {
+            args: Prisma.AIInteractionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AIInteractionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload>[]
+          }
+          delete: {
+            args: Prisma.AIInteractionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload>
+          }
+          update: {
+            args: Prisma.AIInteractionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload>
+          }
+          deleteMany: {
+            args: Prisma.AIInteractionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AIInteractionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AIInteractionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInteractionPayload>
+          }
+          aggregate: {
+            args: Prisma.AIInteractionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIInteraction>
+          }
+          groupBy: {
+            args: Prisma.AIInteractionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIInteractionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AIInteractionCountArgs<ExtArgs>
+            result: $Utils.Optional<AIInteractionCountAggregateOutputType> | number
+          }
+        }
+      }
+      AIRecommendation: {
+        payload: Prisma.$AIRecommendationPayload<ExtArgs>
+        fields: Prisma.AIRecommendationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AIRecommendationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AIRecommendationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload>
+          }
+          findFirst: {
+            args: Prisma.AIRecommendationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AIRecommendationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload>
+          }
+          findMany: {
+            args: Prisma.AIRecommendationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload>[]
+          }
+          create: {
+            args: Prisma.AIRecommendationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload>
+          }
+          createMany: {
+            args: Prisma.AIRecommendationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AIRecommendationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload>[]
+          }
+          delete: {
+            args: Prisma.AIRecommendationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload>
+          }
+          update: {
+            args: Prisma.AIRecommendationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload>
+          }
+          deleteMany: {
+            args: Prisma.AIRecommendationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AIRecommendationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AIRecommendationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIRecommendationPayload>
+          }
+          aggregate: {
+            args: Prisma.AIRecommendationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIRecommendation>
+          }
+          groupBy: {
+            args: Prisma.AIRecommendationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIRecommendationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AIRecommendationCountArgs<ExtArgs>
+            result: $Utils.Optional<AIRecommendationCountAggregateOutputType> | number
+          }
+        }
+      }
+      AIInsight: {
+        payload: Prisma.$AIInsightPayload<ExtArgs>
+        fields: Prisma.AIInsightFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AIInsightFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AIInsightFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload>
+          }
+          findFirst: {
+            args: Prisma.AIInsightFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AIInsightFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload>
+          }
+          findMany: {
+            args: Prisma.AIInsightFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload>[]
+          }
+          create: {
+            args: Prisma.AIInsightCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload>
+          }
+          createMany: {
+            args: Prisma.AIInsightCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AIInsightCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload>[]
+          }
+          delete: {
+            args: Prisma.AIInsightDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload>
+          }
+          update: {
+            args: Prisma.AIInsightUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload>
+          }
+          deleteMany: {
+            args: Prisma.AIInsightDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AIInsightUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AIInsightUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AIInsightPayload>
+          }
+          aggregate: {
+            args: Prisma.AIInsightAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAIInsight>
+          }
+          groupBy: {
+            args: Prisma.AIInsightGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AIInsightGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AIInsightCountArgs<ExtArgs>
+            result: $Utils.Optional<AIInsightCountAggregateOutputType> | number
           }
         }
       }
@@ -1922,6 +2548,12 @@ export namespace Prisma {
     rewards: number
     notifications: number
     certificates: number
+    organizationMemberships: number
+    aiInteractions: number
+    aiRecommendations: number
+    aiInsights: number
+    ownedOrganizations: number
+    createdCampaigns: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1933,6 +2565,12 @@ export namespace Prisma {
     rewards?: boolean | UserCountOutputTypeCountRewardsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     certificates?: boolean | UserCountOutputTypeCountCertificatesArgs
+    organizationMemberships?: boolean | UserCountOutputTypeCountOrganizationMembershipsArgs
+    aiInteractions?: boolean | UserCountOutputTypeCountAiInteractionsArgs
+    aiRecommendations?: boolean | UserCountOutputTypeCountAiRecommendationsArgs
+    aiInsights?: boolean | UserCountOutputTypeCountAiInsightsArgs
+    ownedOrganizations?: boolean | UserCountOutputTypeCountOwnedOrganizationsArgs
+    createdCampaigns?: boolean | UserCountOutputTypeCountCreatedCampaignsArgs
   }
 
   // Custom InputTypes
@@ -2002,6 +2640,146 @@ export namespace Prisma {
     where?: CertificateWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOrganizationMembershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationMemberWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAiInteractionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInteractionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAiRecommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIRecommendationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInsightWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOwnedOrganizationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCreatedCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CampaignWhereInput
+  }
+
+
+  /**
+   * Count Type OrganizationCountOutputType
+   */
+
+  export type OrganizationCountOutputType = {
+    members: number
+    campaigns: number
+    trees: number
+    aiInsights: number
+  }
+
+  export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | OrganizationCountOutputTypeCountMembersArgs
+    campaigns?: boolean | OrganizationCountOutputTypeCountCampaignsArgs
+    trees?: boolean | OrganizationCountOutputTypeCountTreesArgs
+    aiInsights?: boolean | OrganizationCountOutputTypeCountAiInsightsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationCountOutputType
+     */
+    select?: OrganizationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationMemberWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CampaignWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountTreesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TreeWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountAiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInsightWhereInput
+  }
+
+
+  /**
+   * Count Type CampaignCountOutputType
+   */
+
+  export type CampaignCountOutputType = {
+    trees: number
+    aiInsights: number
+  }
+
+  export type CampaignCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trees?: boolean | CampaignCountOutputTypeCountTreesArgs
+    aiInsights?: boolean | CampaignCountOutputTypeCountAiInsightsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CampaignCountOutputType without action
+   */
+  export type CampaignCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CampaignCountOutputType
+     */
+    select?: CampaignCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CampaignCountOutputType without action
+   */
+  export type CampaignCountOutputTypeCountTreesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TreeWhereInput
+  }
+
+  /**
+   * CampaignCountOutputType without action
+   */
+  export type CampaignCountOutputTypeCountAiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInsightWhereInput
+  }
+
 
   /**
    * Count Type TreeCountOutputType
@@ -2011,12 +2789,18 @@ export namespace Prisma {
     updates: number
     adoptions: number
     certificates: number
+    aiInsights: number
+    aiInteractions: number
+    aiRecommendations: number
   }
 
   export type TreeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     updates?: boolean | TreeCountOutputTypeCountUpdatesArgs
     adoptions?: boolean | TreeCountOutputTypeCountAdoptionsArgs
     certificates?: boolean | TreeCountOutputTypeCountCertificatesArgs
+    aiInsights?: boolean | TreeCountOutputTypeCountAiInsightsArgs
+    aiInteractions?: boolean | TreeCountOutputTypeCountAiInteractionsArgs
+    aiRecommendations?: boolean | TreeCountOutputTypeCountAiRecommendationsArgs
   }
 
   // Custom InputTypes
@@ -2049,6 +2833,27 @@ export namespace Prisma {
    */
   export type TreeCountOutputTypeCountCertificatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CertificateWhereInput
+  }
+
+  /**
+   * TreeCountOutputType without action
+   */
+  export type TreeCountOutputTypeCountAiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInsightWhereInput
+  }
+
+  /**
+   * TreeCountOutputType without action
+   */
+  export type TreeCountOutputTypeCountAiInteractionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInteractionWhereInput
+  }
+
+  /**
+   * TreeCountOutputType without action
+   */
+  export type TreeCountOutputTypeCountAiRecommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIRecommendationWhereInput
   }
 
 
@@ -2150,6 +2955,7 @@ export namespace Prisma {
     emailNotifications: boolean | null
     city: string | null
     country: string | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
     lastLoginAt: Date | null
@@ -2167,6 +2973,7 @@ export namespace Prisma {
     emailNotifications: boolean | null
     city: string | null
     country: string | null
+    role: $Enums.UserRole | null
     createdAt: Date | null
     updatedAt: Date | null
     lastLoginAt: Date | null
@@ -2184,6 +2991,8 @@ export namespace Prisma {
     emailNotifications: number
     city: number
     country: number
+    role: number
+    aiPreferences: number
     createdAt: number
     updatedAt: number
     lastLoginAt: number
@@ -2211,6 +3020,7 @@ export namespace Prisma {
     emailNotifications?: true
     city?: true
     country?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
     lastLoginAt?: true
@@ -2228,6 +3038,7 @@ export namespace Prisma {
     emailNotifications?: true
     city?: true
     country?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
     lastLoginAt?: true
@@ -2245,6 +3056,8 @@ export namespace Prisma {
     emailNotifications?: true
     city?: true
     country?: true
+    role?: true
+    aiPreferences?: true
     createdAt?: true
     updatedAt?: true
     lastLoginAt?: true
@@ -2349,6 +3162,8 @@ export namespace Prisma {
     emailNotifications: boolean
     city: string | null
     country: string | null
+    role: $Enums.UserRole
+    aiPreferences: JsonValue | null
     createdAt: Date
     updatedAt: Date
     lastLoginAt: Date | null
@@ -2385,6 +3200,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: boolean
     country?: boolean
+    role?: boolean
+    aiPreferences?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     lastLoginAt?: boolean
@@ -2396,6 +3213,12 @@ export namespace Prisma {
     rewards?: boolean | User$rewardsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     certificates?: boolean | User$certificatesArgs<ExtArgs>
+    organizationMemberships?: boolean | User$organizationMembershipsArgs<ExtArgs>
+    aiInteractions?: boolean | User$aiInteractionsArgs<ExtArgs>
+    aiRecommendations?: boolean | User$aiRecommendationsArgs<ExtArgs>
+    aiInsights?: boolean | User$aiInsightsArgs<ExtArgs>
+    ownedOrganizations?: boolean | User$ownedOrganizationsArgs<ExtArgs>
+    createdCampaigns?: boolean | User$createdCampaignsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2411,6 +3234,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: boolean
     country?: boolean
+    role?: boolean
+    aiPreferences?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     lastLoginAt?: boolean
@@ -2428,6 +3253,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: boolean
     country?: boolean
+    role?: boolean
+    aiPreferences?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     lastLoginAt?: boolean
@@ -2442,6 +3269,12 @@ export namespace Prisma {
     rewards?: boolean | User$rewardsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     certificates?: boolean | User$certificatesArgs<ExtArgs>
+    organizationMemberships?: boolean | User$organizationMembershipsArgs<ExtArgs>
+    aiInteractions?: boolean | User$aiInteractionsArgs<ExtArgs>
+    aiRecommendations?: boolean | User$aiRecommendationsArgs<ExtArgs>
+    aiInsights?: boolean | User$aiInsightsArgs<ExtArgs>
+    ownedOrganizations?: boolean | User$ownedOrganizationsArgs<ExtArgs>
+    createdCampaigns?: boolean | User$createdCampaignsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2457,6 +3290,12 @@ export namespace Prisma {
       rewards: Prisma.$RewardRedemptionPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       certificates: Prisma.$CertificatePayload<ExtArgs>[]
+      organizationMemberships: Prisma.$OrganizationMemberPayload<ExtArgs>[]
+      aiInteractions: Prisma.$AIInteractionPayload<ExtArgs>[]
+      aiRecommendations: Prisma.$AIRecommendationPayload<ExtArgs>[]
+      aiInsights: Prisma.$AIInsightPayload<ExtArgs>[]
+      ownedOrganizations: Prisma.$OrganizationPayload<ExtArgs>[]
+      createdCampaigns: Prisma.$CampaignPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2470,6 +3309,8 @@ export namespace Prisma {
       emailNotifications: boolean
       city: string | null
       country: string | null
+      role: $Enums.UserRole
+      aiPreferences: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
       lastLoginAt: Date | null
@@ -2845,6 +3686,12 @@ export namespace Prisma {
     rewards<T extends User$rewardsArgs<ExtArgs> = {}>(args?: Subset<T, User$rewardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RewardRedemptionPayload<ExtArgs>, T, "findMany"> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
     certificates<T extends User$certificatesArgs<ExtArgs> = {}>(args?: Subset<T, User$certificatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findMany"> | Null>
+    organizationMemberships<T extends User$organizationMembershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$organizationMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "findMany"> | Null>
+    aiInteractions<T extends User$aiInteractionsArgs<ExtArgs> = {}>(args?: Subset<T, User$aiInteractionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "findMany"> | Null>
+    aiRecommendations<T extends User$aiRecommendationsArgs<ExtArgs> = {}>(args?: Subset<T, User$aiRecommendationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "findMany"> | Null>
+    aiInsights<T extends User$aiInsightsArgs<ExtArgs> = {}>(args?: Subset<T, User$aiInsightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findMany"> | Null>
+    ownedOrganizations<T extends User$ownedOrganizationsArgs<ExtArgs> = {}>(args?: Subset<T, User$ownedOrganizationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findMany"> | Null>
+    createdCampaigns<T extends User$createdCampaignsArgs<ExtArgs> = {}>(args?: Subset<T, User$createdCampaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2885,6 +3732,8 @@ export namespace Prisma {
     readonly emailNotifications: FieldRef<"User", 'Boolean'>
     readonly city: FieldRef<"User", 'String'>
     readonly country: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'UserRole'>
+    readonly aiPreferences: FieldRef<"User", 'Json'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly lastLoginAt: FieldRef<"User", 'DateTime'>
@@ -3362,6 +4211,126 @@ export namespace Prisma {
   }
 
   /**
+   * User.organizationMemberships
+   */
+  export type User$organizationMembershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    where?: OrganizationMemberWhereInput
+    orderBy?: OrganizationMemberOrderByWithRelationInput | OrganizationMemberOrderByWithRelationInput[]
+    cursor?: OrganizationMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrganizationMemberScalarFieldEnum | OrganizationMemberScalarFieldEnum[]
+  }
+
+  /**
+   * User.aiInteractions
+   */
+  export type User$aiInteractionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    where?: AIInteractionWhereInput
+    orderBy?: AIInteractionOrderByWithRelationInput | AIInteractionOrderByWithRelationInput[]
+    cursor?: AIInteractionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIInteractionScalarFieldEnum | AIInteractionScalarFieldEnum[]
+  }
+
+  /**
+   * User.aiRecommendations
+   */
+  export type User$aiRecommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    where?: AIRecommendationWhereInput
+    orderBy?: AIRecommendationOrderByWithRelationInput | AIRecommendationOrderByWithRelationInput[]
+    cursor?: AIRecommendationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIRecommendationScalarFieldEnum | AIRecommendationScalarFieldEnum[]
+  }
+
+  /**
+   * User.aiInsights
+   */
+  export type User$aiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    where?: AIInsightWhereInput
+    orderBy?: AIInsightOrderByWithRelationInput | AIInsightOrderByWithRelationInput[]
+    cursor?: AIInsightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIInsightScalarFieldEnum | AIInsightScalarFieldEnum[]
+  }
+
+  /**
+   * User.ownedOrganizations
+   */
+  export type User$ownedOrganizationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    cursor?: OrganizationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * User.createdCampaigns
+   */
+  export type User$createdCampaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    where?: CampaignWhereInput
+    orderBy?: CampaignOrderByWithRelationInput | CampaignOrderByWithRelationInput[]
+    cursor?: CampaignWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CampaignScalarFieldEnum | CampaignScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3373,6 +4342,3277 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Organization
+   */
+
+  export type AggregateOrganization = {
+    _count: OrganizationCountAggregateOutputType | null
+    _min: OrganizationMinAggregateOutputType | null
+    _max: OrganizationMaxAggregateOutputType | null
+  }
+
+  export type OrganizationMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    logoUrl: string | null
+    website: string | null
+    contactEmail: string | null
+    contactPhone: string | null
+    address: string | null
+    isVerified: boolean | null
+    aiEnabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    ownerId: string | null
+  }
+
+  export type OrganizationMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    logoUrl: string | null
+    website: string | null
+    contactEmail: string | null
+    contactPhone: string | null
+    address: string | null
+    isVerified: boolean | null
+    aiEnabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    ownerId: string | null
+  }
+
+  export type OrganizationCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    logoUrl: number
+    website: number
+    contactEmail: number
+    contactPhone: number
+    address: number
+    isVerified: number
+    aiEnabled: number
+    createdAt: number
+    updatedAt: number
+    ownerId: number
+    _all: number
+  }
+
+
+  export type OrganizationMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    logoUrl?: true
+    website?: true
+    contactEmail?: true
+    contactPhone?: true
+    address?: true
+    isVerified?: true
+    aiEnabled?: true
+    createdAt?: true
+    updatedAt?: true
+    ownerId?: true
+  }
+
+  export type OrganizationMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    logoUrl?: true
+    website?: true
+    contactEmail?: true
+    contactPhone?: true
+    address?: true
+    isVerified?: true
+    aiEnabled?: true
+    createdAt?: true
+    updatedAt?: true
+    ownerId?: true
+  }
+
+  export type OrganizationCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    logoUrl?: true
+    website?: true
+    contactEmail?: true
+    contactPhone?: true
+    address?: true
+    isVerified?: true
+    aiEnabled?: true
+    createdAt?: true
+    updatedAt?: true
+    ownerId?: true
+    _all?: true
+  }
+
+  export type OrganizationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Organization to aggregate.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Organizations
+    **/
+    _count?: true | OrganizationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OrganizationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OrganizationMaxAggregateInputType
+  }
+
+  export type GetOrganizationAggregateType<T extends OrganizationAggregateArgs> = {
+        [P in keyof T & keyof AggregateOrganization]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOrganization[P]>
+      : GetScalarType<T[P], AggregateOrganization[P]>
+  }
+
+
+
+
+  export type OrganizationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationWhereInput
+    orderBy?: OrganizationOrderByWithAggregationInput | OrganizationOrderByWithAggregationInput[]
+    by: OrganizationScalarFieldEnum[] | OrganizationScalarFieldEnum
+    having?: OrganizationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OrganizationCountAggregateInputType | true
+    _min?: OrganizationMinAggregateInputType
+    _max?: OrganizationMaxAggregateInputType
+  }
+
+  export type OrganizationGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    logoUrl: string | null
+    website: string | null
+    contactEmail: string
+    contactPhone: string | null
+    address: string | null
+    isVerified: boolean
+    aiEnabled: boolean
+    createdAt: Date
+    updatedAt: Date
+    ownerId: string
+    _count: OrganizationCountAggregateOutputType | null
+    _min: OrganizationMinAggregateOutputType | null
+    _max: OrganizationMaxAggregateOutputType | null
+  }
+
+  type GetOrganizationGroupByPayload<T extends OrganizationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OrganizationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OrganizationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OrganizationGroupByOutputType[P]>
+            : GetScalarType<T[P], OrganizationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OrganizationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    logoUrl?: boolean
+    website?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    address?: boolean
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ownerId?: boolean
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    members?: boolean | Organization$membersArgs<ExtArgs>
+    campaigns?: boolean | Organization$campaignsArgs<ExtArgs>
+    trees?: boolean | Organization$treesArgs<ExtArgs>
+    aiInsights?: boolean | Organization$aiInsightsArgs<ExtArgs>
+    _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organization"]>
+
+  export type OrganizationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    logoUrl?: boolean
+    website?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    address?: boolean
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ownerId?: boolean
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organization"]>
+
+  export type OrganizationSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    logoUrl?: boolean
+    website?: boolean
+    contactEmail?: boolean
+    contactPhone?: boolean
+    address?: boolean
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    ownerId?: boolean
+  }
+
+  export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    members?: boolean | Organization$membersArgs<ExtArgs>
+    campaigns?: boolean | Organization$campaignsArgs<ExtArgs>
+    trees?: boolean | Organization$treesArgs<ExtArgs>
+    aiInsights?: boolean | Organization$aiInsightsArgs<ExtArgs>
+    _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $OrganizationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Organization"
+    objects: {
+      owner: Prisma.$UserPayload<ExtArgs>
+      members: Prisma.$OrganizationMemberPayload<ExtArgs>[]
+      campaigns: Prisma.$CampaignPayload<ExtArgs>[]
+      trees: Prisma.$TreePayload<ExtArgs>[]
+      aiInsights: Prisma.$AIInsightPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      logoUrl: string | null
+      website: string | null
+      contactEmail: string
+      contactPhone: string | null
+      address: string | null
+      isVerified: boolean
+      aiEnabled: boolean
+      createdAt: Date
+      updatedAt: Date
+      ownerId: string
+    }, ExtArgs["result"]["organization"]>
+    composites: {}
+  }
+
+  type OrganizationGetPayload<S extends boolean | null | undefined | OrganizationDefaultArgs> = $Result.GetResult<Prisma.$OrganizationPayload, S>
+
+  type OrganizationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OrganizationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OrganizationCountAggregateInputType | true
+    }
+
+  export interface OrganizationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Organization'], meta: { name: 'Organization' } }
+    /**
+     * Find zero or one Organization that matches the filter.
+     * @param {OrganizationFindUniqueArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OrganizationFindUniqueArgs>(args: SelectSubset<T, OrganizationFindUniqueArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Organization that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OrganizationFindUniqueOrThrowArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OrganizationFindUniqueOrThrowArgs>(args: SelectSubset<T, OrganizationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Organization that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationFindFirstArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OrganizationFindFirstArgs>(args?: SelectSubset<T, OrganizationFindFirstArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Organization that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationFindFirstOrThrowArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OrganizationFindFirstOrThrowArgs>(args?: SelectSubset<T, OrganizationFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Organizations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Organizations
+     * const organizations = await prisma.organization.findMany()
+     * 
+     * // Get first 10 Organizations
+     * const organizations = await prisma.organization.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const organizationWithIdOnly = await prisma.organization.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OrganizationFindManyArgs>(args?: SelectSubset<T, OrganizationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Organization.
+     * @param {OrganizationCreateArgs} args - Arguments to create a Organization.
+     * @example
+     * // Create one Organization
+     * const Organization = await prisma.organization.create({
+     *   data: {
+     *     // ... data to create a Organization
+     *   }
+     * })
+     * 
+     */
+    create<T extends OrganizationCreateArgs>(args: SelectSubset<T, OrganizationCreateArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Organizations.
+     * @param {OrganizationCreateManyArgs} args - Arguments to create many Organizations.
+     * @example
+     * // Create many Organizations
+     * const organization = await prisma.organization.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OrganizationCreateManyArgs>(args?: SelectSubset<T, OrganizationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Organizations and returns the data saved in the database.
+     * @param {OrganizationCreateManyAndReturnArgs} args - Arguments to create many Organizations.
+     * @example
+     * // Create many Organizations
+     * const organization = await prisma.organization.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Organizations and only return the `id`
+     * const organizationWithIdOnly = await prisma.organization.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OrganizationCreateManyAndReturnArgs>(args?: SelectSubset<T, OrganizationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Organization.
+     * @param {OrganizationDeleteArgs} args - Arguments to delete one Organization.
+     * @example
+     * // Delete one Organization
+     * const Organization = await prisma.organization.delete({
+     *   where: {
+     *     // ... filter to delete one Organization
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OrganizationDeleteArgs>(args: SelectSubset<T, OrganizationDeleteArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Organization.
+     * @param {OrganizationUpdateArgs} args - Arguments to update one Organization.
+     * @example
+     * // Update one Organization
+     * const organization = await prisma.organization.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OrganizationUpdateArgs>(args: SelectSubset<T, OrganizationUpdateArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Organizations.
+     * @param {OrganizationDeleteManyArgs} args - Arguments to filter Organizations to delete.
+     * @example
+     * // Delete a few Organizations
+     * const { count } = await prisma.organization.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OrganizationDeleteManyArgs>(args?: SelectSubset<T, OrganizationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Organizations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Organizations
+     * const organization = await prisma.organization.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OrganizationUpdateManyArgs>(args: SelectSubset<T, OrganizationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Organization.
+     * @param {OrganizationUpsertArgs} args - Arguments to update or create a Organization.
+     * @example
+     * // Update or create a Organization
+     * const organization = await prisma.organization.upsert({
+     *   create: {
+     *     // ... data to create a Organization
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Organization we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OrganizationUpsertArgs>(args: SelectSubset<T, OrganizationUpsertArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Organizations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationCountArgs} args - Arguments to filter Organizations to count.
+     * @example
+     * // Count the number of Organizations
+     * const count = await prisma.organization.count({
+     *   where: {
+     *     // ... the filter for the Organizations we want to count
+     *   }
+     * })
+    **/
+    count<T extends OrganizationCountArgs>(
+      args?: Subset<T, OrganizationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OrganizationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Organization.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OrganizationAggregateArgs>(args: Subset<T, OrganizationAggregateArgs>): Prisma.PrismaPromise<GetOrganizationAggregateType<T>>
+
+    /**
+     * Group by Organization.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OrganizationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OrganizationGroupByArgs['orderBy'] }
+        : { orderBy?: OrganizationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OrganizationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrganizationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Organization model
+   */
+  readonly fields: OrganizationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Organization.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    members<T extends Organization$membersArgs<ExtArgs> = {}>(args?: Subset<T, Organization$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "findMany"> | Null>
+    campaigns<T extends Organization$campaignsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findMany"> | Null>
+    trees<T extends Organization$treesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$treesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TreePayload<ExtArgs>, T, "findMany"> | Null>
+    aiInsights<T extends Organization$aiInsightsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$aiInsightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Organization model
+   */ 
+  interface OrganizationFieldRefs {
+    readonly id: FieldRef<"Organization", 'String'>
+    readonly name: FieldRef<"Organization", 'String'>
+    readonly description: FieldRef<"Organization", 'String'>
+    readonly logoUrl: FieldRef<"Organization", 'String'>
+    readonly website: FieldRef<"Organization", 'String'>
+    readonly contactEmail: FieldRef<"Organization", 'String'>
+    readonly contactPhone: FieldRef<"Organization", 'String'>
+    readonly address: FieldRef<"Organization", 'String'>
+    readonly isVerified: FieldRef<"Organization", 'Boolean'>
+    readonly aiEnabled: FieldRef<"Organization", 'Boolean'>
+    readonly createdAt: FieldRef<"Organization", 'DateTime'>
+    readonly updatedAt: FieldRef<"Organization", 'DateTime'>
+    readonly ownerId: FieldRef<"Organization", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Organization findUnique
+   */
+  export type OrganizationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization findUniqueOrThrow
+   */
+  export type OrganizationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization findFirst
+   */
+  export type OrganizationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Organizations.
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Organizations.
+     */
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization findFirstOrThrow
+   */
+  export type OrganizationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Organizations.
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Organizations.
+     */
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization findMany
+   */
+  export type OrganizationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organizations to fetch.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Organizations.
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization create
+   */
+  export type OrganizationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Organization.
+     */
+    data: XOR<OrganizationCreateInput, OrganizationUncheckedCreateInput>
+  }
+
+  /**
+   * Organization createMany
+   */
+  export type OrganizationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Organizations.
+     */
+    data: OrganizationCreateManyInput | OrganizationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Organization createManyAndReturn
+   */
+  export type OrganizationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Organizations.
+     */
+    data: OrganizationCreateManyInput | OrganizationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Organization update
+   */
+  export type OrganizationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Organization.
+     */
+    data: XOR<OrganizationUpdateInput, OrganizationUncheckedUpdateInput>
+    /**
+     * Choose, which Organization to update.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization updateMany
+   */
+  export type OrganizationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Organizations.
+     */
+    data: XOR<OrganizationUpdateManyMutationInput, OrganizationUncheckedUpdateManyInput>
+    /**
+     * Filter which Organizations to update
+     */
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * Organization upsert
+   */
+  export type OrganizationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Organization to update in case it exists.
+     */
+    where: OrganizationWhereUniqueInput
+    /**
+     * In case the Organization found by the `where` argument doesn't exist, create a new Organization with this data.
+     */
+    create: XOR<OrganizationCreateInput, OrganizationUncheckedCreateInput>
+    /**
+     * In case the Organization was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OrganizationUpdateInput, OrganizationUncheckedUpdateInput>
+  }
+
+  /**
+   * Organization delete
+   */
+  export type OrganizationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter which Organization to delete.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization deleteMany
+   */
+  export type OrganizationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Organizations to delete
+     */
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * Organization.members
+   */
+  export type Organization$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    where?: OrganizationMemberWhereInput
+    orderBy?: OrganizationMemberOrderByWithRelationInput | OrganizationMemberOrderByWithRelationInput[]
+    cursor?: OrganizationMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrganizationMemberScalarFieldEnum | OrganizationMemberScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.campaigns
+   */
+  export type Organization$campaignsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    where?: CampaignWhereInput
+    orderBy?: CampaignOrderByWithRelationInput | CampaignOrderByWithRelationInput[]
+    cursor?: CampaignWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CampaignScalarFieldEnum | CampaignScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.trees
+   */
+  export type Organization$treesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tree
+     */
+    select?: TreeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TreeInclude<ExtArgs> | null
+    where?: TreeWhereInput
+    orderBy?: TreeOrderByWithRelationInput | TreeOrderByWithRelationInput[]
+    cursor?: TreeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TreeScalarFieldEnum | TreeScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.aiInsights
+   */
+  export type Organization$aiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    where?: AIInsightWhereInput
+    orderBy?: AIInsightOrderByWithRelationInput | AIInsightOrderByWithRelationInput[]
+    cursor?: AIInsightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIInsightScalarFieldEnum | AIInsightScalarFieldEnum[]
+  }
+
+  /**
+   * Organization without action
+   */
+  export type OrganizationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OrganizationMember
+   */
+
+  export type AggregateOrganizationMember = {
+    _count: OrganizationMemberCountAggregateOutputType | null
+    _avg: OrganizationMemberAvgAggregateOutputType | null
+    _sum: OrganizationMemberSumAggregateOutputType | null
+    _min: OrganizationMemberMinAggregateOutputType | null
+    _max: OrganizationMemberMaxAggregateOutputType | null
+  }
+
+  export type OrganizationMemberAvgAggregateOutputType = {
+    treesContributed: number | null
+  }
+
+  export type OrganizationMemberSumAggregateOutputType = {
+    treesContributed: number | null
+  }
+
+  export type OrganizationMemberMinAggregateOutputType = {
+    id: string | null
+    role: $Enums.OrganizationRole | null
+    joinedAt: Date | null
+    treesContributed: number | null
+    isActive: boolean | null
+    organizationId: string | null
+    userId: string | null
+  }
+
+  export type OrganizationMemberMaxAggregateOutputType = {
+    id: string | null
+    role: $Enums.OrganizationRole | null
+    joinedAt: Date | null
+    treesContributed: number | null
+    isActive: boolean | null
+    organizationId: string | null
+    userId: string | null
+  }
+
+  export type OrganizationMemberCountAggregateOutputType = {
+    id: number
+    role: number
+    joinedAt: number
+    treesContributed: number
+    isActive: number
+    organizationId: number
+    userId: number
+    _all: number
+  }
+
+
+  export type OrganizationMemberAvgAggregateInputType = {
+    treesContributed?: true
+  }
+
+  export type OrganizationMemberSumAggregateInputType = {
+    treesContributed?: true
+  }
+
+  export type OrganizationMemberMinAggregateInputType = {
+    id?: true
+    role?: true
+    joinedAt?: true
+    treesContributed?: true
+    isActive?: true
+    organizationId?: true
+    userId?: true
+  }
+
+  export type OrganizationMemberMaxAggregateInputType = {
+    id?: true
+    role?: true
+    joinedAt?: true
+    treesContributed?: true
+    isActive?: true
+    organizationId?: true
+    userId?: true
+  }
+
+  export type OrganizationMemberCountAggregateInputType = {
+    id?: true
+    role?: true
+    joinedAt?: true
+    treesContributed?: true
+    isActive?: true
+    organizationId?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type OrganizationMemberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrganizationMember to aggregate.
+     */
+    where?: OrganizationMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationMembers to fetch.
+     */
+    orderBy?: OrganizationMemberOrderByWithRelationInput | OrganizationMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OrganizationMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OrganizationMembers
+    **/
+    _count?: true | OrganizationMemberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OrganizationMemberAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OrganizationMemberSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OrganizationMemberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OrganizationMemberMaxAggregateInputType
+  }
+
+  export type GetOrganizationMemberAggregateType<T extends OrganizationMemberAggregateArgs> = {
+        [P in keyof T & keyof AggregateOrganizationMember]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOrganizationMember[P]>
+      : GetScalarType<T[P], AggregateOrganizationMember[P]>
+  }
+
+
+
+
+  export type OrganizationMemberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationMemberWhereInput
+    orderBy?: OrganizationMemberOrderByWithAggregationInput | OrganizationMemberOrderByWithAggregationInput[]
+    by: OrganizationMemberScalarFieldEnum[] | OrganizationMemberScalarFieldEnum
+    having?: OrganizationMemberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OrganizationMemberCountAggregateInputType | true
+    _avg?: OrganizationMemberAvgAggregateInputType
+    _sum?: OrganizationMemberSumAggregateInputType
+    _min?: OrganizationMemberMinAggregateInputType
+    _max?: OrganizationMemberMaxAggregateInputType
+  }
+
+  export type OrganizationMemberGroupByOutputType = {
+    id: string
+    role: $Enums.OrganizationRole
+    joinedAt: Date
+    treesContributed: number
+    isActive: boolean
+    organizationId: string
+    userId: string
+    _count: OrganizationMemberCountAggregateOutputType | null
+    _avg: OrganizationMemberAvgAggregateOutputType | null
+    _sum: OrganizationMemberSumAggregateOutputType | null
+    _min: OrganizationMemberMinAggregateOutputType | null
+    _max: OrganizationMemberMaxAggregateOutputType | null
+  }
+
+  type GetOrganizationMemberGroupByPayload<T extends OrganizationMemberGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OrganizationMemberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OrganizationMemberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OrganizationMemberGroupByOutputType[P]>
+            : GetScalarType<T[P], OrganizationMemberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OrganizationMemberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    role?: boolean
+    joinedAt?: boolean
+    treesContributed?: boolean
+    isActive?: boolean
+    organizationId?: boolean
+    userId?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organizationMember"]>
+
+  export type OrganizationMemberSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    role?: boolean
+    joinedAt?: boolean
+    treesContributed?: boolean
+    isActive?: boolean
+    organizationId?: boolean
+    userId?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organizationMember"]>
+
+  export type OrganizationMemberSelectScalar = {
+    id?: boolean
+    role?: boolean
+    joinedAt?: boolean
+    treesContributed?: boolean
+    isActive?: boolean
+    organizationId?: boolean
+    userId?: boolean
+  }
+
+  export type OrganizationMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type OrganizationMemberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $OrganizationMemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OrganizationMember"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      role: $Enums.OrganizationRole
+      joinedAt: Date
+      treesContributed: number
+      isActive: boolean
+      organizationId: string
+      userId: string
+    }, ExtArgs["result"]["organizationMember"]>
+    composites: {}
+  }
+
+  type OrganizationMemberGetPayload<S extends boolean | null | undefined | OrganizationMemberDefaultArgs> = $Result.GetResult<Prisma.$OrganizationMemberPayload, S>
+
+  type OrganizationMemberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OrganizationMemberFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OrganizationMemberCountAggregateInputType | true
+    }
+
+  export interface OrganizationMemberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OrganizationMember'], meta: { name: 'OrganizationMember' } }
+    /**
+     * Find zero or one OrganizationMember that matches the filter.
+     * @param {OrganizationMemberFindUniqueArgs} args - Arguments to find a OrganizationMember
+     * @example
+     * // Get one OrganizationMember
+     * const organizationMember = await prisma.organizationMember.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OrganizationMemberFindUniqueArgs>(args: SelectSubset<T, OrganizationMemberFindUniqueArgs<ExtArgs>>): Prisma__OrganizationMemberClient<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OrganizationMember that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OrganizationMemberFindUniqueOrThrowArgs} args - Arguments to find a OrganizationMember
+     * @example
+     * // Get one OrganizationMember
+     * const organizationMember = await prisma.organizationMember.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OrganizationMemberFindUniqueOrThrowArgs>(args: SelectSubset<T, OrganizationMemberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrganizationMemberClient<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OrganizationMember that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationMemberFindFirstArgs} args - Arguments to find a OrganizationMember
+     * @example
+     * // Get one OrganizationMember
+     * const organizationMember = await prisma.organizationMember.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OrganizationMemberFindFirstArgs>(args?: SelectSubset<T, OrganizationMemberFindFirstArgs<ExtArgs>>): Prisma__OrganizationMemberClient<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OrganizationMember that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationMemberFindFirstOrThrowArgs} args - Arguments to find a OrganizationMember
+     * @example
+     * // Get one OrganizationMember
+     * const organizationMember = await prisma.organizationMember.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OrganizationMemberFindFirstOrThrowArgs>(args?: SelectSubset<T, OrganizationMemberFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrganizationMemberClient<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OrganizationMembers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationMemberFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OrganizationMembers
+     * const organizationMembers = await prisma.organizationMember.findMany()
+     * 
+     * // Get first 10 OrganizationMembers
+     * const organizationMembers = await prisma.organizationMember.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const organizationMemberWithIdOnly = await prisma.organizationMember.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OrganizationMemberFindManyArgs>(args?: SelectSubset<T, OrganizationMemberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OrganizationMember.
+     * @param {OrganizationMemberCreateArgs} args - Arguments to create a OrganizationMember.
+     * @example
+     * // Create one OrganizationMember
+     * const OrganizationMember = await prisma.organizationMember.create({
+     *   data: {
+     *     // ... data to create a OrganizationMember
+     *   }
+     * })
+     * 
+     */
+    create<T extends OrganizationMemberCreateArgs>(args: SelectSubset<T, OrganizationMemberCreateArgs<ExtArgs>>): Prisma__OrganizationMemberClient<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OrganizationMembers.
+     * @param {OrganizationMemberCreateManyArgs} args - Arguments to create many OrganizationMembers.
+     * @example
+     * // Create many OrganizationMembers
+     * const organizationMember = await prisma.organizationMember.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OrganizationMemberCreateManyArgs>(args?: SelectSubset<T, OrganizationMemberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OrganizationMembers and returns the data saved in the database.
+     * @param {OrganizationMemberCreateManyAndReturnArgs} args - Arguments to create many OrganizationMembers.
+     * @example
+     * // Create many OrganizationMembers
+     * const organizationMember = await prisma.organizationMember.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OrganizationMembers and only return the `id`
+     * const organizationMemberWithIdOnly = await prisma.organizationMember.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OrganizationMemberCreateManyAndReturnArgs>(args?: SelectSubset<T, OrganizationMemberCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OrganizationMember.
+     * @param {OrganizationMemberDeleteArgs} args - Arguments to delete one OrganizationMember.
+     * @example
+     * // Delete one OrganizationMember
+     * const OrganizationMember = await prisma.organizationMember.delete({
+     *   where: {
+     *     // ... filter to delete one OrganizationMember
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OrganizationMemberDeleteArgs>(args: SelectSubset<T, OrganizationMemberDeleteArgs<ExtArgs>>): Prisma__OrganizationMemberClient<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OrganizationMember.
+     * @param {OrganizationMemberUpdateArgs} args - Arguments to update one OrganizationMember.
+     * @example
+     * // Update one OrganizationMember
+     * const organizationMember = await prisma.organizationMember.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OrganizationMemberUpdateArgs>(args: SelectSubset<T, OrganizationMemberUpdateArgs<ExtArgs>>): Prisma__OrganizationMemberClient<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OrganizationMembers.
+     * @param {OrganizationMemberDeleteManyArgs} args - Arguments to filter OrganizationMembers to delete.
+     * @example
+     * // Delete a few OrganizationMembers
+     * const { count } = await prisma.organizationMember.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OrganizationMemberDeleteManyArgs>(args?: SelectSubset<T, OrganizationMemberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OrganizationMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationMemberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OrganizationMembers
+     * const organizationMember = await prisma.organizationMember.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OrganizationMemberUpdateManyArgs>(args: SelectSubset<T, OrganizationMemberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OrganizationMember.
+     * @param {OrganizationMemberUpsertArgs} args - Arguments to update or create a OrganizationMember.
+     * @example
+     * // Update or create a OrganizationMember
+     * const organizationMember = await prisma.organizationMember.upsert({
+     *   create: {
+     *     // ... data to create a OrganizationMember
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OrganizationMember we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OrganizationMemberUpsertArgs>(args: SelectSubset<T, OrganizationMemberUpsertArgs<ExtArgs>>): Prisma__OrganizationMemberClient<$Result.GetResult<Prisma.$OrganizationMemberPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OrganizationMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationMemberCountArgs} args - Arguments to filter OrganizationMembers to count.
+     * @example
+     * // Count the number of OrganizationMembers
+     * const count = await prisma.organizationMember.count({
+     *   where: {
+     *     // ... the filter for the OrganizationMembers we want to count
+     *   }
+     * })
+    **/
+    count<T extends OrganizationMemberCountArgs>(
+      args?: Subset<T, OrganizationMemberCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OrganizationMemberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OrganizationMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationMemberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OrganizationMemberAggregateArgs>(args: Subset<T, OrganizationMemberAggregateArgs>): Prisma.PrismaPromise<GetOrganizationMemberAggregateType<T>>
+
+    /**
+     * Group by OrganizationMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationMemberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OrganizationMemberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OrganizationMemberGroupByArgs['orderBy'] }
+        : { orderBy?: OrganizationMemberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OrganizationMemberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrganizationMemberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OrganizationMember model
+   */
+  readonly fields: OrganizationMemberFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OrganizationMember.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OrganizationMemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OrganizationMember model
+   */ 
+  interface OrganizationMemberFieldRefs {
+    readonly id: FieldRef<"OrganizationMember", 'String'>
+    readonly role: FieldRef<"OrganizationMember", 'OrganizationRole'>
+    readonly joinedAt: FieldRef<"OrganizationMember", 'DateTime'>
+    readonly treesContributed: FieldRef<"OrganizationMember", 'Int'>
+    readonly isActive: FieldRef<"OrganizationMember", 'Boolean'>
+    readonly organizationId: FieldRef<"OrganizationMember", 'String'>
+    readonly userId: FieldRef<"OrganizationMember", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OrganizationMember findUnique
+   */
+  export type OrganizationMemberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationMember to fetch.
+     */
+    where: OrganizationMemberWhereUniqueInput
+  }
+
+  /**
+   * OrganizationMember findUniqueOrThrow
+   */
+  export type OrganizationMemberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationMember to fetch.
+     */
+    where: OrganizationMemberWhereUniqueInput
+  }
+
+  /**
+   * OrganizationMember findFirst
+   */
+  export type OrganizationMemberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationMember to fetch.
+     */
+    where?: OrganizationMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationMembers to fetch.
+     */
+    orderBy?: OrganizationMemberOrderByWithRelationInput | OrganizationMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrganizationMembers.
+     */
+    cursor?: OrganizationMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrganizationMembers.
+     */
+    distinct?: OrganizationMemberScalarFieldEnum | OrganizationMemberScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationMember findFirstOrThrow
+   */
+  export type OrganizationMemberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationMember to fetch.
+     */
+    where?: OrganizationMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationMembers to fetch.
+     */
+    orderBy?: OrganizationMemberOrderByWithRelationInput | OrganizationMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OrganizationMembers.
+     */
+    cursor?: OrganizationMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OrganizationMembers.
+     */
+    distinct?: OrganizationMemberScalarFieldEnum | OrganizationMemberScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationMember findMany
+   */
+  export type OrganizationMemberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which OrganizationMembers to fetch.
+     */
+    where?: OrganizationMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OrganizationMembers to fetch.
+     */
+    orderBy?: OrganizationMemberOrderByWithRelationInput | OrganizationMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OrganizationMembers.
+     */
+    cursor?: OrganizationMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OrganizationMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OrganizationMembers.
+     */
+    skip?: number
+    distinct?: OrganizationMemberScalarFieldEnum | OrganizationMemberScalarFieldEnum[]
+  }
+
+  /**
+   * OrganizationMember create
+   */
+  export type OrganizationMemberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OrganizationMember.
+     */
+    data: XOR<OrganizationMemberCreateInput, OrganizationMemberUncheckedCreateInput>
+  }
+
+  /**
+   * OrganizationMember createMany
+   */
+  export type OrganizationMemberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OrganizationMembers.
+     */
+    data: OrganizationMemberCreateManyInput | OrganizationMemberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OrganizationMember createManyAndReturn
+   */
+  export type OrganizationMemberCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OrganizationMembers.
+     */
+    data: OrganizationMemberCreateManyInput | OrganizationMemberCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OrganizationMember update
+   */
+  export type OrganizationMemberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OrganizationMember.
+     */
+    data: XOR<OrganizationMemberUpdateInput, OrganizationMemberUncheckedUpdateInput>
+    /**
+     * Choose, which OrganizationMember to update.
+     */
+    where: OrganizationMemberWhereUniqueInput
+  }
+
+  /**
+   * OrganizationMember updateMany
+   */
+  export type OrganizationMemberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OrganizationMembers.
+     */
+    data: XOR<OrganizationMemberUpdateManyMutationInput, OrganizationMemberUncheckedUpdateManyInput>
+    /**
+     * Filter which OrganizationMembers to update
+     */
+    where?: OrganizationMemberWhereInput
+  }
+
+  /**
+   * OrganizationMember upsert
+   */
+  export type OrganizationMemberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OrganizationMember to update in case it exists.
+     */
+    where: OrganizationMemberWhereUniqueInput
+    /**
+     * In case the OrganizationMember found by the `where` argument doesn't exist, create a new OrganizationMember with this data.
+     */
+    create: XOR<OrganizationMemberCreateInput, OrganizationMemberUncheckedCreateInput>
+    /**
+     * In case the OrganizationMember was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OrganizationMemberUpdateInput, OrganizationMemberUncheckedUpdateInput>
+  }
+
+  /**
+   * OrganizationMember delete
+   */
+  export type OrganizationMemberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+    /**
+     * Filter which OrganizationMember to delete.
+     */
+    where: OrganizationMemberWhereUniqueInput
+  }
+
+  /**
+   * OrganizationMember deleteMany
+   */
+  export type OrganizationMemberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OrganizationMembers to delete
+     */
+    where?: OrganizationMemberWhereInput
+  }
+
+  /**
+   * OrganizationMember without action
+   */
+  export type OrganizationMemberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationMember
+     */
+    select?: OrganizationMemberSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationMemberInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Campaign
+   */
+
+  export type AggregateCampaign = {
+    _count: CampaignCountAggregateOutputType | null
+    _avg: CampaignAvgAggregateOutputType | null
+    _sum: CampaignSumAggregateOutputType | null
+    _min: CampaignMinAggregateOutputType | null
+    _max: CampaignMaxAggregateOutputType | null
+  }
+
+  export type CampaignAvgAggregateOutputType = {
+    targetTrees: number | null
+    plantedTrees: number | null
+    budget: Decimal | null
+  }
+
+  export type CampaignSumAggregateOutputType = {
+    targetTrees: number | null
+    plantedTrees: number | null
+    budget: Decimal | null
+  }
+
+  export type CampaignMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    targetTrees: number | null
+    plantedTrees: number | null
+    status: $Enums.CampaignStatus | null
+    startDate: Date | null
+    endDate: Date | null
+    budget: Decimal | null
+    aiOptimized: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    organizationId: string | null
+    createdBy: string | null
+  }
+
+  export type CampaignMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    targetTrees: number | null
+    plantedTrees: number | null
+    status: $Enums.CampaignStatus | null
+    startDate: Date | null
+    endDate: Date | null
+    budget: Decimal | null
+    aiOptimized: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    organizationId: string | null
+    createdBy: string | null
+  }
+
+  export type CampaignCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    targetTrees: number
+    plantedTrees: number
+    status: number
+    startDate: number
+    endDate: number
+    location: number
+    budget: number
+    aiOptimized: number
+    createdAt: number
+    updatedAt: number
+    organizationId: number
+    createdBy: number
+    _all: number
+  }
+
+
+  export type CampaignAvgAggregateInputType = {
+    targetTrees?: true
+    plantedTrees?: true
+    budget?: true
+  }
+
+  export type CampaignSumAggregateInputType = {
+    targetTrees?: true
+    plantedTrees?: true
+    budget?: true
+  }
+
+  export type CampaignMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    targetTrees?: true
+    plantedTrees?: true
+    status?: true
+    startDate?: true
+    endDate?: true
+    budget?: true
+    aiOptimized?: true
+    createdAt?: true
+    updatedAt?: true
+    organizationId?: true
+    createdBy?: true
+  }
+
+  export type CampaignMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    targetTrees?: true
+    plantedTrees?: true
+    status?: true
+    startDate?: true
+    endDate?: true
+    budget?: true
+    aiOptimized?: true
+    createdAt?: true
+    updatedAt?: true
+    organizationId?: true
+    createdBy?: true
+  }
+
+  export type CampaignCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    targetTrees?: true
+    plantedTrees?: true
+    status?: true
+    startDate?: true
+    endDate?: true
+    location?: true
+    budget?: true
+    aiOptimized?: true
+    createdAt?: true
+    updatedAt?: true
+    organizationId?: true
+    createdBy?: true
+    _all?: true
+  }
+
+  export type CampaignAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Campaign to aggregate.
+     */
+    where?: CampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Campaigns to fetch.
+     */
+    orderBy?: CampaignOrderByWithRelationInput | CampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Campaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Campaigns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Campaigns
+    **/
+    _count?: true | CampaignCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CampaignAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CampaignSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CampaignMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CampaignMaxAggregateInputType
+  }
+
+  export type GetCampaignAggregateType<T extends CampaignAggregateArgs> = {
+        [P in keyof T & keyof AggregateCampaign]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCampaign[P]>
+      : GetScalarType<T[P], AggregateCampaign[P]>
+  }
+
+
+
+
+  export type CampaignGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CampaignWhereInput
+    orderBy?: CampaignOrderByWithAggregationInput | CampaignOrderByWithAggregationInput[]
+    by: CampaignScalarFieldEnum[] | CampaignScalarFieldEnum
+    having?: CampaignScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CampaignCountAggregateInputType | true
+    _avg?: CampaignAvgAggregateInputType
+    _sum?: CampaignSumAggregateInputType
+    _min?: CampaignMinAggregateInputType
+    _max?: CampaignMaxAggregateInputType
+  }
+
+  export type CampaignGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    targetTrees: number
+    plantedTrees: number
+    status: $Enums.CampaignStatus
+    startDate: Date
+    endDate: Date
+    location: JsonValue | null
+    budget: Decimal | null
+    aiOptimized: boolean
+    createdAt: Date
+    updatedAt: Date
+    organizationId: string
+    createdBy: string
+    _count: CampaignCountAggregateOutputType | null
+    _avg: CampaignAvgAggregateOutputType | null
+    _sum: CampaignSumAggregateOutputType | null
+    _min: CampaignMinAggregateOutputType | null
+    _max: CampaignMaxAggregateOutputType | null
+  }
+
+  type GetCampaignGroupByPayload<T extends CampaignGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CampaignGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CampaignGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CampaignGroupByOutputType[P]>
+            : GetScalarType<T[P], CampaignGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CampaignSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    targetTrees?: boolean
+    plantedTrees?: boolean
+    status?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    location?: boolean
+    budget?: boolean
+    aiOptimized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organizationId?: boolean
+    createdBy?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    trees?: boolean | Campaign$treesArgs<ExtArgs>
+    aiInsights?: boolean | Campaign$aiInsightsArgs<ExtArgs>
+    _count?: boolean | CampaignCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["campaign"]>
+
+  export type CampaignSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    targetTrees?: boolean
+    plantedTrees?: boolean
+    status?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    location?: boolean
+    budget?: boolean
+    aiOptimized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organizationId?: boolean
+    createdBy?: boolean
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["campaign"]>
+
+  export type CampaignSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    targetTrees?: boolean
+    plantedTrees?: boolean
+    status?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    location?: boolean
+    budget?: boolean
+    aiOptimized?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    organizationId?: boolean
+    createdBy?: boolean
+  }
+
+  export type CampaignInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+    trees?: boolean | Campaign$treesArgs<ExtArgs>
+    aiInsights?: boolean | Campaign$aiInsightsArgs<ExtArgs>
+    _count?: boolean | CampaignCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CampaignIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    organization?: boolean | OrganizationDefaultArgs<ExtArgs>
+    creator?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CampaignPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Campaign"
+    objects: {
+      organization: Prisma.$OrganizationPayload<ExtArgs>
+      creator: Prisma.$UserPayload<ExtArgs>
+      trees: Prisma.$TreePayload<ExtArgs>[]
+      aiInsights: Prisma.$AIInsightPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      targetTrees: number
+      plantedTrees: number
+      status: $Enums.CampaignStatus
+      startDate: Date
+      endDate: Date
+      location: Prisma.JsonValue | null
+      budget: Prisma.Decimal | null
+      aiOptimized: boolean
+      createdAt: Date
+      updatedAt: Date
+      organizationId: string
+      createdBy: string
+    }, ExtArgs["result"]["campaign"]>
+    composites: {}
+  }
+
+  type CampaignGetPayload<S extends boolean | null | undefined | CampaignDefaultArgs> = $Result.GetResult<Prisma.$CampaignPayload, S>
+
+  type CampaignCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CampaignFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CampaignCountAggregateInputType | true
+    }
+
+  export interface CampaignDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Campaign'], meta: { name: 'Campaign' } }
+    /**
+     * Find zero or one Campaign that matches the filter.
+     * @param {CampaignFindUniqueArgs} args - Arguments to find a Campaign
+     * @example
+     * // Get one Campaign
+     * const campaign = await prisma.campaign.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CampaignFindUniqueArgs>(args: SelectSubset<T, CampaignFindUniqueArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Campaign that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CampaignFindUniqueOrThrowArgs} args - Arguments to find a Campaign
+     * @example
+     * // Get one Campaign
+     * const campaign = await prisma.campaign.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CampaignFindUniqueOrThrowArgs>(args: SelectSubset<T, CampaignFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Campaign that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CampaignFindFirstArgs} args - Arguments to find a Campaign
+     * @example
+     * // Get one Campaign
+     * const campaign = await prisma.campaign.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CampaignFindFirstArgs>(args?: SelectSubset<T, CampaignFindFirstArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Campaign that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CampaignFindFirstOrThrowArgs} args - Arguments to find a Campaign
+     * @example
+     * // Get one Campaign
+     * const campaign = await prisma.campaign.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CampaignFindFirstOrThrowArgs>(args?: SelectSubset<T, CampaignFindFirstOrThrowArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Campaigns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CampaignFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Campaigns
+     * const campaigns = await prisma.campaign.findMany()
+     * 
+     * // Get first 10 Campaigns
+     * const campaigns = await prisma.campaign.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const campaignWithIdOnly = await prisma.campaign.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CampaignFindManyArgs>(args?: SelectSubset<T, CampaignFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Campaign.
+     * @param {CampaignCreateArgs} args - Arguments to create a Campaign.
+     * @example
+     * // Create one Campaign
+     * const Campaign = await prisma.campaign.create({
+     *   data: {
+     *     // ... data to create a Campaign
+     *   }
+     * })
+     * 
+     */
+    create<T extends CampaignCreateArgs>(args: SelectSubset<T, CampaignCreateArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Campaigns.
+     * @param {CampaignCreateManyArgs} args - Arguments to create many Campaigns.
+     * @example
+     * // Create many Campaigns
+     * const campaign = await prisma.campaign.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CampaignCreateManyArgs>(args?: SelectSubset<T, CampaignCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Campaigns and returns the data saved in the database.
+     * @param {CampaignCreateManyAndReturnArgs} args - Arguments to create many Campaigns.
+     * @example
+     * // Create many Campaigns
+     * const campaign = await prisma.campaign.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Campaigns and only return the `id`
+     * const campaignWithIdOnly = await prisma.campaign.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CampaignCreateManyAndReturnArgs>(args?: SelectSubset<T, CampaignCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Campaign.
+     * @param {CampaignDeleteArgs} args - Arguments to delete one Campaign.
+     * @example
+     * // Delete one Campaign
+     * const Campaign = await prisma.campaign.delete({
+     *   where: {
+     *     // ... filter to delete one Campaign
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CampaignDeleteArgs>(args: SelectSubset<T, CampaignDeleteArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Campaign.
+     * @param {CampaignUpdateArgs} args - Arguments to update one Campaign.
+     * @example
+     * // Update one Campaign
+     * const campaign = await prisma.campaign.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CampaignUpdateArgs>(args: SelectSubset<T, CampaignUpdateArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Campaigns.
+     * @param {CampaignDeleteManyArgs} args - Arguments to filter Campaigns to delete.
+     * @example
+     * // Delete a few Campaigns
+     * const { count } = await prisma.campaign.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CampaignDeleteManyArgs>(args?: SelectSubset<T, CampaignDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Campaigns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CampaignUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Campaigns
+     * const campaign = await prisma.campaign.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CampaignUpdateManyArgs>(args: SelectSubset<T, CampaignUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Campaign.
+     * @param {CampaignUpsertArgs} args - Arguments to update or create a Campaign.
+     * @example
+     * // Update or create a Campaign
+     * const campaign = await prisma.campaign.upsert({
+     *   create: {
+     *     // ... data to create a Campaign
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Campaign we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CampaignUpsertArgs>(args: SelectSubset<T, CampaignUpsertArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Campaigns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CampaignCountArgs} args - Arguments to filter Campaigns to count.
+     * @example
+     * // Count the number of Campaigns
+     * const count = await prisma.campaign.count({
+     *   where: {
+     *     // ... the filter for the Campaigns we want to count
+     *   }
+     * })
+    **/
+    count<T extends CampaignCountArgs>(
+      args?: Subset<T, CampaignCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CampaignCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Campaign.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CampaignAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CampaignAggregateArgs>(args: Subset<T, CampaignAggregateArgs>): Prisma.PrismaPromise<GetCampaignAggregateType<T>>
+
+    /**
+     * Group by Campaign.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CampaignGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CampaignGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CampaignGroupByArgs['orderBy'] }
+        : { orderBy?: CampaignGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CampaignGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCampaignGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Campaign model
+   */
+  readonly fields: CampaignFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Campaign.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CampaignClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    organization<T extends OrganizationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrganizationDefaultArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    creator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    trees<T extends Campaign$treesArgs<ExtArgs> = {}>(args?: Subset<T, Campaign$treesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TreePayload<ExtArgs>, T, "findMany"> | Null>
+    aiInsights<T extends Campaign$aiInsightsArgs<ExtArgs> = {}>(args?: Subset<T, Campaign$aiInsightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Campaign model
+   */ 
+  interface CampaignFieldRefs {
+    readonly id: FieldRef<"Campaign", 'String'>
+    readonly name: FieldRef<"Campaign", 'String'>
+    readonly description: FieldRef<"Campaign", 'String'>
+    readonly targetTrees: FieldRef<"Campaign", 'Int'>
+    readonly plantedTrees: FieldRef<"Campaign", 'Int'>
+    readonly status: FieldRef<"Campaign", 'CampaignStatus'>
+    readonly startDate: FieldRef<"Campaign", 'DateTime'>
+    readonly endDate: FieldRef<"Campaign", 'DateTime'>
+    readonly location: FieldRef<"Campaign", 'Json'>
+    readonly budget: FieldRef<"Campaign", 'Decimal'>
+    readonly aiOptimized: FieldRef<"Campaign", 'Boolean'>
+    readonly createdAt: FieldRef<"Campaign", 'DateTime'>
+    readonly updatedAt: FieldRef<"Campaign", 'DateTime'>
+    readonly organizationId: FieldRef<"Campaign", 'String'>
+    readonly createdBy: FieldRef<"Campaign", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Campaign findUnique
+   */
+  export type CampaignFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which Campaign to fetch.
+     */
+    where: CampaignWhereUniqueInput
+  }
+
+  /**
+   * Campaign findUniqueOrThrow
+   */
+  export type CampaignFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which Campaign to fetch.
+     */
+    where: CampaignWhereUniqueInput
+  }
+
+  /**
+   * Campaign findFirst
+   */
+  export type CampaignFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which Campaign to fetch.
+     */
+    where?: CampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Campaigns to fetch.
+     */
+    orderBy?: CampaignOrderByWithRelationInput | CampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Campaigns.
+     */
+    cursor?: CampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Campaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Campaigns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Campaigns.
+     */
+    distinct?: CampaignScalarFieldEnum | CampaignScalarFieldEnum[]
+  }
+
+  /**
+   * Campaign findFirstOrThrow
+   */
+  export type CampaignFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which Campaign to fetch.
+     */
+    where?: CampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Campaigns to fetch.
+     */
+    orderBy?: CampaignOrderByWithRelationInput | CampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Campaigns.
+     */
+    cursor?: CampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Campaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Campaigns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Campaigns.
+     */
+    distinct?: CampaignScalarFieldEnum | CampaignScalarFieldEnum[]
+  }
+
+  /**
+   * Campaign findMany
+   */
+  export type CampaignFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    /**
+     * Filter, which Campaigns to fetch.
+     */
+    where?: CampaignWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Campaigns to fetch.
+     */
+    orderBy?: CampaignOrderByWithRelationInput | CampaignOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Campaigns.
+     */
+    cursor?: CampaignWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Campaigns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Campaigns.
+     */
+    skip?: number
+    distinct?: CampaignScalarFieldEnum | CampaignScalarFieldEnum[]
+  }
+
+  /**
+   * Campaign create
+   */
+  export type CampaignCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Campaign.
+     */
+    data: XOR<CampaignCreateInput, CampaignUncheckedCreateInput>
+  }
+
+  /**
+   * Campaign createMany
+   */
+  export type CampaignCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Campaigns.
+     */
+    data: CampaignCreateManyInput | CampaignCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Campaign createManyAndReturn
+   */
+  export type CampaignCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Campaigns.
+     */
+    data: CampaignCreateManyInput | CampaignCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Campaign update
+   */
+  export type CampaignUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Campaign.
+     */
+    data: XOR<CampaignUpdateInput, CampaignUncheckedUpdateInput>
+    /**
+     * Choose, which Campaign to update.
+     */
+    where: CampaignWhereUniqueInput
+  }
+
+  /**
+   * Campaign updateMany
+   */
+  export type CampaignUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Campaigns.
+     */
+    data: XOR<CampaignUpdateManyMutationInput, CampaignUncheckedUpdateManyInput>
+    /**
+     * Filter which Campaigns to update
+     */
+    where?: CampaignWhereInput
+  }
+
+  /**
+   * Campaign upsert
+   */
+  export type CampaignUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Campaign to update in case it exists.
+     */
+    where: CampaignWhereUniqueInput
+    /**
+     * In case the Campaign found by the `where` argument doesn't exist, create a new Campaign with this data.
+     */
+    create: XOR<CampaignCreateInput, CampaignUncheckedCreateInput>
+    /**
+     * In case the Campaign was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CampaignUpdateInput, CampaignUncheckedUpdateInput>
+  }
+
+  /**
+   * Campaign delete
+   */
+  export type CampaignDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    /**
+     * Filter which Campaign to delete.
+     */
+    where: CampaignWhereUniqueInput
+  }
+
+  /**
+   * Campaign deleteMany
+   */
+  export type CampaignDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Campaigns to delete
+     */
+    where?: CampaignWhereInput
+  }
+
+  /**
+   * Campaign.trees
+   */
+  export type Campaign$treesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tree
+     */
+    select?: TreeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TreeInclude<ExtArgs> | null
+    where?: TreeWhereInput
+    orderBy?: TreeOrderByWithRelationInput | TreeOrderByWithRelationInput[]
+    cursor?: TreeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TreeScalarFieldEnum | TreeScalarFieldEnum[]
+  }
+
+  /**
+   * Campaign.aiInsights
+   */
+  export type Campaign$aiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    where?: AIInsightWhereInput
+    orderBy?: AIInsightOrderByWithRelationInput | AIInsightOrderByWithRelationInput[]
+    cursor?: AIInsightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIInsightScalarFieldEnum | AIInsightScalarFieldEnum[]
+  }
+
+  /**
+   * Campaign without action
+   */
+  export type CampaignDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
   }
 
 
@@ -3390,10 +7630,12 @@ export namespace Prisma {
 
   export type TreeAvgAggregateOutputType = {
     commitmentDuration: number | null
+    aiHealthScore: number | null
   }
 
   export type TreeSumAggregateOutputType = {
     commitmentDuration: number | null
+    aiHealthScore: number | null
   }
 
   export type TreeMinAggregateOutputType = {
@@ -3410,7 +7652,10 @@ export namespace Prisma {
     isAdoptable: boolean | null
     transferReason: string | null
     lastUpdateAt: Date | null
+    aiHealthScore: number | null
     ownerId: string | null
+    organizationId: string | null
+    campaignId: string | null
   }
 
   export type TreeMaxAggregateOutputType = {
@@ -3427,7 +7672,10 @@ export namespace Prisma {
     isAdoptable: boolean | null
     transferReason: string | null
     lastUpdateAt: Date | null
+    aiHealthScore: number | null
     ownerId: string | null
+    organizationId: string | null
+    campaignId: string | null
   }
 
   export type TreeCountAggregateOutputType = {
@@ -3445,17 +7693,24 @@ export namespace Prisma {
     isAdoptable: number
     transferReason: number
     lastUpdateAt: number
+    aiHealthScore: number
+    aiCareRecommendations: number
+    aiGrowthPrediction: number
     ownerId: number
+    organizationId: number
+    campaignId: number
     _all: number
   }
 
 
   export type TreeAvgAggregateInputType = {
     commitmentDuration?: true
+    aiHealthScore?: true
   }
 
   export type TreeSumAggregateInputType = {
     commitmentDuration?: true
+    aiHealthScore?: true
   }
 
   export type TreeMinAggregateInputType = {
@@ -3472,7 +7727,10 @@ export namespace Prisma {
     isAdoptable?: true
     transferReason?: true
     lastUpdateAt?: true
+    aiHealthScore?: true
     ownerId?: true
+    organizationId?: true
+    campaignId?: true
   }
 
   export type TreeMaxAggregateInputType = {
@@ -3489,7 +7747,10 @@ export namespace Prisma {
     isAdoptable?: true
     transferReason?: true
     lastUpdateAt?: true
+    aiHealthScore?: true
     ownerId?: true
+    organizationId?: true
+    campaignId?: true
   }
 
   export type TreeCountAggregateInputType = {
@@ -3507,7 +7768,12 @@ export namespace Prisma {
     isAdoptable?: true
     transferReason?: true
     lastUpdateAt?: true
+    aiHealthScore?: true
+    aiCareRecommendations?: true
+    aiGrowthPrediction?: true
     ownerId?: true
+    organizationId?: true
+    campaignId?: true
     _all?: true
   }
 
@@ -3612,7 +7878,12 @@ export namespace Prisma {
     isAdoptable: boolean
     transferReason: string | null
     lastUpdateAt: Date | null
+    aiHealthScore: number | null
+    aiCareRecommendations: JsonValue | null
+    aiGrowthPrediction: JsonValue | null
     ownerId: string
+    organizationId: string | null
+    campaignId: string | null
     _count: TreeCountAggregateOutputType | null
     _avg: TreeAvgAggregateOutputType | null
     _sum: TreeSumAggregateOutputType | null
@@ -3649,11 +7920,21 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: boolean
     lastUpdateAt?: boolean
+    aiHealthScore?: boolean
+    aiCareRecommendations?: boolean
+    aiGrowthPrediction?: boolean
     ownerId?: boolean
+    organizationId?: boolean
+    campaignId?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | Tree$organizationArgs<ExtArgs>
+    campaign?: boolean | Tree$campaignArgs<ExtArgs>
     updates?: boolean | Tree$updatesArgs<ExtArgs>
     adoptions?: boolean | Tree$adoptionsArgs<ExtArgs>
     certificates?: boolean | Tree$certificatesArgs<ExtArgs>
+    aiInsights?: boolean | Tree$aiInsightsArgs<ExtArgs>
+    aiInteractions?: boolean | Tree$aiInteractionsArgs<ExtArgs>
+    aiRecommendations?: boolean | Tree$aiRecommendationsArgs<ExtArgs>
     _count?: boolean | TreeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tree"]>
 
@@ -3672,8 +7953,15 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: boolean
     lastUpdateAt?: boolean
+    aiHealthScore?: boolean
+    aiCareRecommendations?: boolean
+    aiGrowthPrediction?: boolean
     ownerId?: boolean
+    organizationId?: boolean
+    campaignId?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | Tree$organizationArgs<ExtArgs>
+    campaign?: boolean | Tree$campaignArgs<ExtArgs>
   }, ExtArgs["result"]["tree"]>
 
   export type TreeSelectScalar = {
@@ -3691,27 +7979,44 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: boolean
     lastUpdateAt?: boolean
+    aiHealthScore?: boolean
+    aiCareRecommendations?: boolean
+    aiGrowthPrediction?: boolean
     ownerId?: boolean
+    organizationId?: boolean
+    campaignId?: boolean
   }
 
   export type TreeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | Tree$organizationArgs<ExtArgs>
+    campaign?: boolean | Tree$campaignArgs<ExtArgs>
     updates?: boolean | Tree$updatesArgs<ExtArgs>
     adoptions?: boolean | Tree$adoptionsArgs<ExtArgs>
     certificates?: boolean | Tree$certificatesArgs<ExtArgs>
+    aiInsights?: boolean | Tree$aiInsightsArgs<ExtArgs>
+    aiInteractions?: boolean | Tree$aiInteractionsArgs<ExtArgs>
+    aiRecommendations?: boolean | Tree$aiRecommendationsArgs<ExtArgs>
     _count?: boolean | TreeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TreeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | UserDefaultArgs<ExtArgs>
+    organization?: boolean | Tree$organizationArgs<ExtArgs>
+    campaign?: boolean | Tree$campaignArgs<ExtArgs>
   }
 
   export type $TreePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tree"
     objects: {
       owner: Prisma.$UserPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs> | null
+      campaign: Prisma.$CampaignPayload<ExtArgs> | null
       updates: Prisma.$TreeUpdatePayload<ExtArgs>[]
       adoptions: Prisma.$TreeAdoptionPayload<ExtArgs>[]
       certificates: Prisma.$CertificatePayload<ExtArgs>[]
+      aiInsights: Prisma.$AIInsightPayload<ExtArgs>[]
+      aiInteractions: Prisma.$AIInteractionPayload<ExtArgs>[]
+      aiRecommendations: Prisma.$AIRecommendationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3728,7 +8033,12 @@ export namespace Prisma {
       isAdoptable: boolean
       transferReason: string | null
       lastUpdateAt: Date | null
+      aiHealthScore: number | null
+      aiCareRecommendations: Prisma.JsonValue | null
+      aiGrowthPrediction: Prisma.JsonValue | null
       ownerId: string
+      organizationId: string | null
+      campaignId: string | null
     }, ExtArgs["result"]["tree"]>
     composites: {}
   }
@@ -4094,9 +8404,14 @@ export namespace Prisma {
   export interface Prisma__TreeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    organization<T extends Tree$organizationArgs<ExtArgs> = {}>(args?: Subset<T, Tree$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    campaign<T extends Tree$campaignArgs<ExtArgs> = {}>(args?: Subset<T, Tree$campaignArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     updates<T extends Tree$updatesArgs<ExtArgs> = {}>(args?: Subset<T, Tree$updatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TreeUpdatePayload<ExtArgs>, T, "findMany"> | Null>
     adoptions<T extends Tree$adoptionsArgs<ExtArgs> = {}>(args?: Subset<T, Tree$adoptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TreeAdoptionPayload<ExtArgs>, T, "findMany"> | Null>
     certificates<T extends Tree$certificatesArgs<ExtArgs> = {}>(args?: Subset<T, Tree$certificatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CertificatePayload<ExtArgs>, T, "findMany"> | Null>
+    aiInsights<T extends Tree$aiInsightsArgs<ExtArgs> = {}>(args?: Subset<T, Tree$aiInsightsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findMany"> | Null>
+    aiInteractions<T extends Tree$aiInteractionsArgs<ExtArgs> = {}>(args?: Subset<T, Tree$aiInteractionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "findMany"> | Null>
+    aiRecommendations<T extends Tree$aiRecommendationsArgs<ExtArgs> = {}>(args?: Subset<T, Tree$aiRecommendationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4140,7 +8455,12 @@ export namespace Prisma {
     readonly isAdoptable: FieldRef<"Tree", 'Boolean'>
     readonly transferReason: FieldRef<"Tree", 'String'>
     readonly lastUpdateAt: FieldRef<"Tree", 'DateTime'>
+    readonly aiHealthScore: FieldRef<"Tree", 'Float'>
+    readonly aiCareRecommendations: FieldRef<"Tree", 'Json'>
+    readonly aiGrowthPrediction: FieldRef<"Tree", 'Json'>
     readonly ownerId: FieldRef<"Tree", 'String'>
+    readonly organizationId: FieldRef<"Tree", 'String'>
+    readonly campaignId: FieldRef<"Tree", 'String'>
   }
     
 
@@ -4459,6 +8779,36 @@ export namespace Prisma {
   }
 
   /**
+   * Tree.organization
+   */
+  export type Tree$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * Tree.campaign
+   */
+  export type Tree$campaignArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    where?: CampaignWhereInput
+  }
+
+  /**
    * Tree.updates
    */
   export type Tree$updatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4519,6 +8869,66 @@ export namespace Prisma {
   }
 
   /**
+   * Tree.aiInsights
+   */
+  export type Tree$aiInsightsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    where?: AIInsightWhereInput
+    orderBy?: AIInsightOrderByWithRelationInput | AIInsightOrderByWithRelationInput[]
+    cursor?: AIInsightWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIInsightScalarFieldEnum | AIInsightScalarFieldEnum[]
+  }
+
+  /**
+   * Tree.aiInteractions
+   */
+  export type Tree$aiInteractionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    where?: AIInteractionWhereInput
+    orderBy?: AIInteractionOrderByWithRelationInput | AIInteractionOrderByWithRelationInput[]
+    cursor?: AIInteractionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIInteractionScalarFieldEnum | AIInteractionScalarFieldEnum[]
+  }
+
+  /**
+   * Tree.aiRecommendations
+   */
+  export type Tree$aiRecommendationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    where?: AIRecommendationWhereInput
+    orderBy?: AIRecommendationOrderByWithRelationInput | AIRecommendationOrderByWithRelationInput[]
+    cursor?: AIRecommendationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AIRecommendationScalarFieldEnum | AIRecommendationScalarFieldEnum[]
+  }
+
+  /**
    * Tree without action
    */
   export type TreeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4570,6 +8980,7 @@ export namespace Prisma {
     photoUrl: number
     growthMeasurements: number
     gpsLocation: number
+    aiAnalysis: number
     createdAt: number
     treeId: number
     userId: number
@@ -4604,6 +9015,7 @@ export namespace Prisma {
     photoUrl?: true
     growthMeasurements?: true
     gpsLocation?: true
+    aiAnalysis?: true
     createdAt?: true
     treeId?: true
     userId?: true
@@ -4689,6 +9101,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements: JsonValue | null
     gpsLocation: JsonValue | null
+    aiAnalysis: JsonValue | null
     createdAt: Date
     treeId: string
     userId: string
@@ -4718,6 +9131,7 @@ export namespace Prisma {
     photoUrl?: boolean
     growthMeasurements?: boolean
     gpsLocation?: boolean
+    aiAnalysis?: boolean
     createdAt?: boolean
     treeId?: boolean
     userId?: boolean
@@ -4732,6 +9146,7 @@ export namespace Prisma {
     photoUrl?: boolean
     growthMeasurements?: boolean
     gpsLocation?: boolean
+    aiAnalysis?: boolean
     createdAt?: boolean
     treeId?: boolean
     userId?: boolean
@@ -4746,6 +9161,7 @@ export namespace Prisma {
     photoUrl?: boolean
     growthMeasurements?: boolean
     gpsLocation?: boolean
+    aiAnalysis?: boolean
     createdAt?: boolean
     treeId?: boolean
     userId?: boolean
@@ -4773,6 +9189,7 @@ export namespace Prisma {
       photoUrl: string
       growthMeasurements: Prisma.JsonValue | null
       gpsLocation: Prisma.JsonValue | null
+      aiAnalysis: Prisma.JsonValue | null
       createdAt: Date
       treeId: string
       userId: string
@@ -5177,6 +9594,7 @@ export namespace Prisma {
     readonly photoUrl: FieldRef<"TreeUpdate", 'String'>
     readonly growthMeasurements: FieldRef<"TreeUpdate", 'Json'>
     readonly gpsLocation: FieldRef<"TreeUpdate", 'Json'>
+    readonly aiAnalysis: FieldRef<"TreeUpdate", 'Json'>
     readonly createdAt: FieldRef<"TreeUpdate", 'DateTime'>
     readonly treeId: FieldRef<"TreeUpdate", 'String'>
     readonly userId: FieldRef<"TreeUpdate", 'String'>
@@ -5526,10 +9944,12 @@ export namespace Prisma {
 
   export type TreeAdoptionAvgAggregateOutputType = {
     commitmentDuration: number | null
+    aiMatchScore: number | null
   }
 
   export type TreeAdoptionSumAggregateOutputType = {
     commitmentDuration: number | null
+    aiMatchScore: number | null
   }
 
   export type TreeAdoptionMinAggregateOutputType = {
@@ -5538,6 +9958,7 @@ export namespace Prisma {
     commitmentMessage: string | null
     commitmentDuration: number | null
     adoptedAt: Date | null
+    aiMatchScore: number | null
     treeId: string | null
     previousOwnerId: string | null
     newOwnerId: string | null
@@ -5549,6 +9970,7 @@ export namespace Prisma {
     commitmentMessage: string | null
     commitmentDuration: number | null
     adoptedAt: Date | null
+    aiMatchScore: number | null
     treeId: string | null
     previousOwnerId: string | null
     newOwnerId: string | null
@@ -5560,6 +9982,7 @@ export namespace Prisma {
     commitmentMessage: number
     commitmentDuration: number
     adoptedAt: number
+    aiMatchScore: number
     treeId: number
     previousOwnerId: number
     newOwnerId: number
@@ -5569,10 +9992,12 @@ export namespace Prisma {
 
   export type TreeAdoptionAvgAggregateInputType = {
     commitmentDuration?: true
+    aiMatchScore?: true
   }
 
   export type TreeAdoptionSumAggregateInputType = {
     commitmentDuration?: true
+    aiMatchScore?: true
   }
 
   export type TreeAdoptionMinAggregateInputType = {
@@ -5581,6 +10006,7 @@ export namespace Prisma {
     commitmentMessage?: true
     commitmentDuration?: true
     adoptedAt?: true
+    aiMatchScore?: true
     treeId?: true
     previousOwnerId?: true
     newOwnerId?: true
@@ -5592,6 +10018,7 @@ export namespace Prisma {
     commitmentMessage?: true
     commitmentDuration?: true
     adoptedAt?: true
+    aiMatchScore?: true
     treeId?: true
     previousOwnerId?: true
     newOwnerId?: true
@@ -5603,6 +10030,7 @@ export namespace Prisma {
     commitmentMessage?: true
     commitmentDuration?: true
     adoptedAt?: true
+    aiMatchScore?: true
     treeId?: true
     previousOwnerId?: true
     newOwnerId?: true
@@ -5701,6 +10129,7 @@ export namespace Prisma {
     commitmentMessage: string | null
     commitmentDuration: number | null
     adoptedAt: Date
+    aiMatchScore: number | null
     treeId: string
     previousOwnerId: string
     newOwnerId: string
@@ -5731,6 +10160,7 @@ export namespace Prisma {
     commitmentMessage?: boolean
     commitmentDuration?: boolean
     adoptedAt?: boolean
+    aiMatchScore?: boolean
     treeId?: boolean
     previousOwnerId?: boolean
     newOwnerId?: boolean
@@ -5745,6 +10175,7 @@ export namespace Prisma {
     commitmentMessage?: boolean
     commitmentDuration?: boolean
     adoptedAt?: boolean
+    aiMatchScore?: boolean
     treeId?: boolean
     previousOwnerId?: boolean
     newOwnerId?: boolean
@@ -5759,6 +10190,7 @@ export namespace Prisma {
     commitmentMessage?: boolean
     commitmentDuration?: boolean
     adoptedAt?: boolean
+    aiMatchScore?: boolean
     treeId?: boolean
     previousOwnerId?: boolean
     newOwnerId?: boolean
@@ -5788,6 +10220,7 @@ export namespace Prisma {
       commitmentMessage: string | null
       commitmentDuration: number | null
       adoptedAt: Date
+      aiMatchScore: number | null
       treeId: string
       previousOwnerId: string
       newOwnerId: string
@@ -6192,6 +10625,7 @@ export namespace Prisma {
     readonly commitmentMessage: FieldRef<"TreeAdoption", 'String'>
     readonly commitmentDuration: FieldRef<"TreeAdoption", 'Int'>
     readonly adoptedAt: FieldRef<"TreeAdoption", 'DateTime'>
+    readonly aiMatchScore: FieldRef<"TreeAdoption", 'Float'>
     readonly treeId: FieldRef<"TreeAdoption", 'String'>
     readonly previousOwnerId: FieldRef<"TreeAdoption", 'String'>
     readonly newOwnerId: FieldRef<"TreeAdoption", 'String'>
@@ -6524,6 +10958,3249 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TreeAdoptionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AIInteraction
+   */
+
+  export type AggregateAIInteraction = {
+    _count: AIInteractionCountAggregateOutputType | null
+    _avg: AIInteractionAvgAggregateOutputType | null
+    _sum: AIInteractionSumAggregateOutputType | null
+    _min: AIInteractionMinAggregateOutputType | null
+    _max: AIInteractionMaxAggregateOutputType | null
+  }
+
+  export type AIInteractionAvgAggregateOutputType = {
+    tokensUsed: number | null
+    cost: Decimal | null
+    responseTime: number | null
+  }
+
+  export type AIInteractionSumAggregateOutputType = {
+    tokensUsed: number | null
+    cost: Decimal | null
+    responseTime: number | null
+  }
+
+  export type AIInteractionMinAggregateOutputType = {
+    id: string | null
+    type: $Enums.AIInteractionType | null
+    model: string | null
+    tokensUsed: number | null
+    cost: Decimal | null
+    responseTime: number | null
+    success: boolean | null
+    error: string | null
+    createdAt: Date | null
+    userId: string | null
+    treeId: string | null
+  }
+
+  export type AIInteractionMaxAggregateOutputType = {
+    id: string | null
+    type: $Enums.AIInteractionType | null
+    model: string | null
+    tokensUsed: number | null
+    cost: Decimal | null
+    responseTime: number | null
+    success: boolean | null
+    error: string | null
+    createdAt: Date | null
+    userId: string | null
+    treeId: string | null
+  }
+
+  export type AIInteractionCountAggregateOutputType = {
+    id: number
+    type: number
+    input: number
+    output: number
+    model: number
+    tokensUsed: number
+    cost: number
+    responseTime: number
+    success: number
+    error: number
+    createdAt: number
+    userId: number
+    treeId: number
+    _all: number
+  }
+
+
+  export type AIInteractionAvgAggregateInputType = {
+    tokensUsed?: true
+    cost?: true
+    responseTime?: true
+  }
+
+  export type AIInteractionSumAggregateInputType = {
+    tokensUsed?: true
+    cost?: true
+    responseTime?: true
+  }
+
+  export type AIInteractionMinAggregateInputType = {
+    id?: true
+    type?: true
+    model?: true
+    tokensUsed?: true
+    cost?: true
+    responseTime?: true
+    success?: true
+    error?: true
+    createdAt?: true
+    userId?: true
+    treeId?: true
+  }
+
+  export type AIInteractionMaxAggregateInputType = {
+    id?: true
+    type?: true
+    model?: true
+    tokensUsed?: true
+    cost?: true
+    responseTime?: true
+    success?: true
+    error?: true
+    createdAt?: true
+    userId?: true
+    treeId?: true
+  }
+
+  export type AIInteractionCountAggregateInputType = {
+    id?: true
+    type?: true
+    input?: true
+    output?: true
+    model?: true
+    tokensUsed?: true
+    cost?: true
+    responseTime?: true
+    success?: true
+    error?: true
+    createdAt?: true
+    userId?: true
+    treeId?: true
+    _all?: true
+  }
+
+  export type AIInteractionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIInteraction to aggregate.
+     */
+    where?: AIInteractionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInteractions to fetch.
+     */
+    orderBy?: AIInteractionOrderByWithRelationInput | AIInteractionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AIInteractionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInteractions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInteractions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AIInteractions
+    **/
+    _count?: true | AIInteractionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AIInteractionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AIInteractionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AIInteractionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AIInteractionMaxAggregateInputType
+  }
+
+  export type GetAIInteractionAggregateType<T extends AIInteractionAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIInteraction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAIInteraction[P]>
+      : GetScalarType<T[P], AggregateAIInteraction[P]>
+  }
+
+
+
+
+  export type AIInteractionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInteractionWhereInput
+    orderBy?: AIInteractionOrderByWithAggregationInput | AIInteractionOrderByWithAggregationInput[]
+    by: AIInteractionScalarFieldEnum[] | AIInteractionScalarFieldEnum
+    having?: AIInteractionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AIInteractionCountAggregateInputType | true
+    _avg?: AIInteractionAvgAggregateInputType
+    _sum?: AIInteractionSumAggregateInputType
+    _min?: AIInteractionMinAggregateInputType
+    _max?: AIInteractionMaxAggregateInputType
+  }
+
+  export type AIInteractionGroupByOutputType = {
+    id: string
+    type: $Enums.AIInteractionType
+    input: JsonValue
+    output: JsonValue
+    model: string
+    tokensUsed: number
+    cost: Decimal | null
+    responseTime: number | null
+    success: boolean
+    error: string | null
+    createdAt: Date
+    userId: string
+    treeId: string | null
+    _count: AIInteractionCountAggregateOutputType | null
+    _avg: AIInteractionAvgAggregateOutputType | null
+    _sum: AIInteractionSumAggregateOutputType | null
+    _min: AIInteractionMinAggregateOutputType | null
+    _max: AIInteractionMaxAggregateOutputType | null
+  }
+
+  type GetAIInteractionGroupByPayload<T extends AIInteractionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AIInteractionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AIInteractionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AIInteractionGroupByOutputType[P]>
+            : GetScalarType<T[P], AIInteractionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AIInteractionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    input?: boolean
+    output?: boolean
+    model?: boolean
+    tokensUsed?: boolean
+    cost?: boolean
+    responseTime?: boolean
+    success?: boolean
+    error?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    treeId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tree?: boolean | AIInteraction$treeArgs<ExtArgs>
+  }, ExtArgs["result"]["aIInteraction"]>
+
+  export type AIInteractionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    input?: boolean
+    output?: boolean
+    model?: boolean
+    tokensUsed?: boolean
+    cost?: boolean
+    responseTime?: boolean
+    success?: boolean
+    error?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    treeId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tree?: boolean | AIInteraction$treeArgs<ExtArgs>
+  }, ExtArgs["result"]["aIInteraction"]>
+
+  export type AIInteractionSelectScalar = {
+    id?: boolean
+    type?: boolean
+    input?: boolean
+    output?: boolean
+    model?: boolean
+    tokensUsed?: boolean
+    cost?: boolean
+    responseTime?: boolean
+    success?: boolean
+    error?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    treeId?: boolean
+  }
+
+  export type AIInteractionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tree?: boolean | AIInteraction$treeArgs<ExtArgs>
+  }
+  export type AIInteractionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tree?: boolean | AIInteraction$treeArgs<ExtArgs>
+  }
+
+  export type $AIInteractionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIInteraction"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      tree: Prisma.$TreePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      type: $Enums.AIInteractionType
+      input: Prisma.JsonValue
+      output: Prisma.JsonValue
+      model: string
+      tokensUsed: number
+      cost: Prisma.Decimal | null
+      responseTime: number | null
+      success: boolean
+      error: string | null
+      createdAt: Date
+      userId: string
+      treeId: string | null
+    }, ExtArgs["result"]["aIInteraction"]>
+    composites: {}
+  }
+
+  type AIInteractionGetPayload<S extends boolean | null | undefined | AIInteractionDefaultArgs> = $Result.GetResult<Prisma.$AIInteractionPayload, S>
+
+  type AIInteractionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AIInteractionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AIInteractionCountAggregateInputType | true
+    }
+
+  export interface AIInteractionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIInteraction'], meta: { name: 'AIInteraction' } }
+    /**
+     * Find zero or one AIInteraction that matches the filter.
+     * @param {AIInteractionFindUniqueArgs} args - Arguments to find a AIInteraction
+     * @example
+     * // Get one AIInteraction
+     * const aIInteraction = await prisma.aIInteraction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AIInteractionFindUniqueArgs>(args: SelectSubset<T, AIInteractionFindUniqueArgs<ExtArgs>>): Prisma__AIInteractionClient<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AIInteraction that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AIInteractionFindUniqueOrThrowArgs} args - Arguments to find a AIInteraction
+     * @example
+     * // Get one AIInteraction
+     * const aIInteraction = await prisma.aIInteraction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AIInteractionFindUniqueOrThrowArgs>(args: SelectSubset<T, AIInteractionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIInteractionClient<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AIInteraction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInteractionFindFirstArgs} args - Arguments to find a AIInteraction
+     * @example
+     * // Get one AIInteraction
+     * const aIInteraction = await prisma.aIInteraction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AIInteractionFindFirstArgs>(args?: SelectSubset<T, AIInteractionFindFirstArgs<ExtArgs>>): Prisma__AIInteractionClient<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AIInteraction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInteractionFindFirstOrThrowArgs} args - Arguments to find a AIInteraction
+     * @example
+     * // Get one AIInteraction
+     * const aIInteraction = await prisma.aIInteraction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AIInteractionFindFirstOrThrowArgs>(args?: SelectSubset<T, AIInteractionFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIInteractionClient<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AIInteractions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInteractionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AIInteractions
+     * const aIInteractions = await prisma.aIInteraction.findMany()
+     * 
+     * // Get first 10 AIInteractions
+     * const aIInteractions = await prisma.aIInteraction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aIInteractionWithIdOnly = await prisma.aIInteraction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AIInteractionFindManyArgs>(args?: SelectSubset<T, AIInteractionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AIInteraction.
+     * @param {AIInteractionCreateArgs} args - Arguments to create a AIInteraction.
+     * @example
+     * // Create one AIInteraction
+     * const AIInteraction = await prisma.aIInteraction.create({
+     *   data: {
+     *     // ... data to create a AIInteraction
+     *   }
+     * })
+     * 
+     */
+    create<T extends AIInteractionCreateArgs>(args: SelectSubset<T, AIInteractionCreateArgs<ExtArgs>>): Prisma__AIInteractionClient<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AIInteractions.
+     * @param {AIInteractionCreateManyArgs} args - Arguments to create many AIInteractions.
+     * @example
+     * // Create many AIInteractions
+     * const aIInteraction = await prisma.aIInteraction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AIInteractionCreateManyArgs>(args?: SelectSubset<T, AIInteractionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AIInteractions and returns the data saved in the database.
+     * @param {AIInteractionCreateManyAndReturnArgs} args - Arguments to create many AIInteractions.
+     * @example
+     * // Create many AIInteractions
+     * const aIInteraction = await prisma.aIInteraction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AIInteractions and only return the `id`
+     * const aIInteractionWithIdOnly = await prisma.aIInteraction.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AIInteractionCreateManyAndReturnArgs>(args?: SelectSubset<T, AIInteractionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AIInteraction.
+     * @param {AIInteractionDeleteArgs} args - Arguments to delete one AIInteraction.
+     * @example
+     * // Delete one AIInteraction
+     * const AIInteraction = await prisma.aIInteraction.delete({
+     *   where: {
+     *     // ... filter to delete one AIInteraction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AIInteractionDeleteArgs>(args: SelectSubset<T, AIInteractionDeleteArgs<ExtArgs>>): Prisma__AIInteractionClient<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AIInteraction.
+     * @param {AIInteractionUpdateArgs} args - Arguments to update one AIInteraction.
+     * @example
+     * // Update one AIInteraction
+     * const aIInteraction = await prisma.aIInteraction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AIInteractionUpdateArgs>(args: SelectSubset<T, AIInteractionUpdateArgs<ExtArgs>>): Prisma__AIInteractionClient<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AIInteractions.
+     * @param {AIInteractionDeleteManyArgs} args - Arguments to filter AIInteractions to delete.
+     * @example
+     * // Delete a few AIInteractions
+     * const { count } = await prisma.aIInteraction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AIInteractionDeleteManyArgs>(args?: SelectSubset<T, AIInteractionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIInteractions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInteractionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AIInteractions
+     * const aIInteraction = await prisma.aIInteraction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AIInteractionUpdateManyArgs>(args: SelectSubset<T, AIInteractionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AIInteraction.
+     * @param {AIInteractionUpsertArgs} args - Arguments to update or create a AIInteraction.
+     * @example
+     * // Update or create a AIInteraction
+     * const aIInteraction = await prisma.aIInteraction.upsert({
+     *   create: {
+     *     // ... data to create a AIInteraction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AIInteraction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AIInteractionUpsertArgs>(args: SelectSubset<T, AIInteractionUpsertArgs<ExtArgs>>): Prisma__AIInteractionClient<$Result.GetResult<Prisma.$AIInteractionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AIInteractions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInteractionCountArgs} args - Arguments to filter AIInteractions to count.
+     * @example
+     * // Count the number of AIInteractions
+     * const count = await prisma.aIInteraction.count({
+     *   where: {
+     *     // ... the filter for the AIInteractions we want to count
+     *   }
+     * })
+    **/
+    count<T extends AIInteractionCountArgs>(
+      args?: Subset<T, AIInteractionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AIInteractionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AIInteraction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInteractionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AIInteractionAggregateArgs>(args: Subset<T, AIInteractionAggregateArgs>): Prisma.PrismaPromise<GetAIInteractionAggregateType<T>>
+
+    /**
+     * Group by AIInteraction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInteractionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AIInteractionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AIInteractionGroupByArgs['orderBy'] }
+        : { orderBy?: AIInteractionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AIInteractionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIInteractionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AIInteraction model
+   */
+  readonly fields: AIInteractionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AIInteraction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AIInteractionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tree<T extends AIInteraction$treeArgs<ExtArgs> = {}>(args?: Subset<T, AIInteraction$treeArgs<ExtArgs>>): Prisma__TreeClient<$Result.GetResult<Prisma.$TreePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AIInteraction model
+   */ 
+  interface AIInteractionFieldRefs {
+    readonly id: FieldRef<"AIInteraction", 'String'>
+    readonly type: FieldRef<"AIInteraction", 'AIInteractionType'>
+    readonly input: FieldRef<"AIInteraction", 'Json'>
+    readonly output: FieldRef<"AIInteraction", 'Json'>
+    readonly model: FieldRef<"AIInteraction", 'String'>
+    readonly tokensUsed: FieldRef<"AIInteraction", 'Int'>
+    readonly cost: FieldRef<"AIInteraction", 'Decimal'>
+    readonly responseTime: FieldRef<"AIInteraction", 'Int'>
+    readonly success: FieldRef<"AIInteraction", 'Boolean'>
+    readonly error: FieldRef<"AIInteraction", 'String'>
+    readonly createdAt: FieldRef<"AIInteraction", 'DateTime'>
+    readonly userId: FieldRef<"AIInteraction", 'String'>
+    readonly treeId: FieldRef<"AIInteraction", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AIInteraction findUnique
+   */
+  export type AIInteractionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInteraction to fetch.
+     */
+    where: AIInteractionWhereUniqueInput
+  }
+
+  /**
+   * AIInteraction findUniqueOrThrow
+   */
+  export type AIInteractionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInteraction to fetch.
+     */
+    where: AIInteractionWhereUniqueInput
+  }
+
+  /**
+   * AIInteraction findFirst
+   */
+  export type AIInteractionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInteraction to fetch.
+     */
+    where?: AIInteractionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInteractions to fetch.
+     */
+    orderBy?: AIInteractionOrderByWithRelationInput | AIInteractionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIInteractions.
+     */
+    cursor?: AIInteractionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInteractions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInteractions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIInteractions.
+     */
+    distinct?: AIInteractionScalarFieldEnum | AIInteractionScalarFieldEnum[]
+  }
+
+  /**
+   * AIInteraction findFirstOrThrow
+   */
+  export type AIInteractionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInteraction to fetch.
+     */
+    where?: AIInteractionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInteractions to fetch.
+     */
+    orderBy?: AIInteractionOrderByWithRelationInput | AIInteractionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIInteractions.
+     */
+    cursor?: AIInteractionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInteractions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInteractions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIInteractions.
+     */
+    distinct?: AIInteractionScalarFieldEnum | AIInteractionScalarFieldEnum[]
+  }
+
+  /**
+   * AIInteraction findMany
+   */
+  export type AIInteractionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInteractions to fetch.
+     */
+    where?: AIInteractionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInteractions to fetch.
+     */
+    orderBy?: AIInteractionOrderByWithRelationInput | AIInteractionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AIInteractions.
+     */
+    cursor?: AIInteractionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInteractions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInteractions.
+     */
+    skip?: number
+    distinct?: AIInteractionScalarFieldEnum | AIInteractionScalarFieldEnum[]
+  }
+
+  /**
+   * AIInteraction create
+   */
+  export type AIInteractionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AIInteraction.
+     */
+    data: XOR<AIInteractionCreateInput, AIInteractionUncheckedCreateInput>
+  }
+
+  /**
+   * AIInteraction createMany
+   */
+  export type AIInteractionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AIInteractions.
+     */
+    data: AIInteractionCreateManyInput | AIInteractionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AIInteraction createManyAndReturn
+   */
+  export type AIInteractionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AIInteractions.
+     */
+    data: AIInteractionCreateManyInput | AIInteractionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIInteraction update
+   */
+  export type AIInteractionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AIInteraction.
+     */
+    data: XOR<AIInteractionUpdateInput, AIInteractionUncheckedUpdateInput>
+    /**
+     * Choose, which AIInteraction to update.
+     */
+    where: AIInteractionWhereUniqueInput
+  }
+
+  /**
+   * AIInteraction updateMany
+   */
+  export type AIInteractionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AIInteractions.
+     */
+    data: XOR<AIInteractionUpdateManyMutationInput, AIInteractionUncheckedUpdateManyInput>
+    /**
+     * Filter which AIInteractions to update
+     */
+    where?: AIInteractionWhereInput
+  }
+
+  /**
+   * AIInteraction upsert
+   */
+  export type AIInteractionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AIInteraction to update in case it exists.
+     */
+    where: AIInteractionWhereUniqueInput
+    /**
+     * In case the AIInteraction found by the `where` argument doesn't exist, create a new AIInteraction with this data.
+     */
+    create: XOR<AIInteractionCreateInput, AIInteractionUncheckedCreateInput>
+    /**
+     * In case the AIInteraction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AIInteractionUpdateInput, AIInteractionUncheckedUpdateInput>
+  }
+
+  /**
+   * AIInteraction delete
+   */
+  export type AIInteractionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+    /**
+     * Filter which AIInteraction to delete.
+     */
+    where: AIInteractionWhereUniqueInput
+  }
+
+  /**
+   * AIInteraction deleteMany
+   */
+  export type AIInteractionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIInteractions to delete
+     */
+    where?: AIInteractionWhereInput
+  }
+
+  /**
+   * AIInteraction.tree
+   */
+  export type AIInteraction$treeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tree
+     */
+    select?: TreeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TreeInclude<ExtArgs> | null
+    where?: TreeWhereInput
+  }
+
+  /**
+   * AIInteraction without action
+   */
+  export type AIInteractionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInteraction
+     */
+    select?: AIInteractionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInteractionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AIRecommendation
+   */
+
+  export type AggregateAIRecommendation = {
+    _count: AIRecommendationCountAggregateOutputType | null
+    _min: AIRecommendationMinAggregateOutputType | null
+    _max: AIRecommendationMaxAggregateOutputType | null
+  }
+
+  export type AIRecommendationMinAggregateOutputType = {
+    id: string | null
+    type: $Enums.AIRecommendationType | null
+    title: string | null
+    description: string | null
+    priority: $Enums.Priority | null
+    isRead: boolean | null
+    isApplied: boolean | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    userId: string | null
+    treeId: string | null
+  }
+
+  export type AIRecommendationMaxAggregateOutputType = {
+    id: string | null
+    type: $Enums.AIRecommendationType | null
+    title: string | null
+    description: string | null
+    priority: $Enums.Priority | null
+    isRead: boolean | null
+    isApplied: boolean | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    userId: string | null
+    treeId: string | null
+  }
+
+  export type AIRecommendationCountAggregateOutputType = {
+    id: number
+    type: number
+    title: number
+    description: number
+    priority: number
+    data: number
+    isRead: number
+    isApplied: number
+    expiresAt: number
+    createdAt: number
+    userId: number
+    treeId: number
+    _all: number
+  }
+
+
+  export type AIRecommendationMinAggregateInputType = {
+    id?: true
+    type?: true
+    title?: true
+    description?: true
+    priority?: true
+    isRead?: true
+    isApplied?: true
+    expiresAt?: true
+    createdAt?: true
+    userId?: true
+    treeId?: true
+  }
+
+  export type AIRecommendationMaxAggregateInputType = {
+    id?: true
+    type?: true
+    title?: true
+    description?: true
+    priority?: true
+    isRead?: true
+    isApplied?: true
+    expiresAt?: true
+    createdAt?: true
+    userId?: true
+    treeId?: true
+  }
+
+  export type AIRecommendationCountAggregateInputType = {
+    id?: true
+    type?: true
+    title?: true
+    description?: true
+    priority?: true
+    data?: true
+    isRead?: true
+    isApplied?: true
+    expiresAt?: true
+    createdAt?: true
+    userId?: true
+    treeId?: true
+    _all?: true
+  }
+
+  export type AIRecommendationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIRecommendation to aggregate.
+     */
+    where?: AIRecommendationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIRecommendations to fetch.
+     */
+    orderBy?: AIRecommendationOrderByWithRelationInput | AIRecommendationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AIRecommendationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIRecommendations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIRecommendations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AIRecommendations
+    **/
+    _count?: true | AIRecommendationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AIRecommendationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AIRecommendationMaxAggregateInputType
+  }
+
+  export type GetAIRecommendationAggregateType<T extends AIRecommendationAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIRecommendation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAIRecommendation[P]>
+      : GetScalarType<T[P], AggregateAIRecommendation[P]>
+  }
+
+
+
+
+  export type AIRecommendationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIRecommendationWhereInput
+    orderBy?: AIRecommendationOrderByWithAggregationInput | AIRecommendationOrderByWithAggregationInput[]
+    by: AIRecommendationScalarFieldEnum[] | AIRecommendationScalarFieldEnum
+    having?: AIRecommendationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AIRecommendationCountAggregateInputType | true
+    _min?: AIRecommendationMinAggregateInputType
+    _max?: AIRecommendationMaxAggregateInputType
+  }
+
+  export type AIRecommendationGroupByOutputType = {
+    id: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority: $Enums.Priority
+    data: JsonValue
+    isRead: boolean
+    isApplied: boolean
+    expiresAt: Date | null
+    createdAt: Date
+    userId: string
+    treeId: string | null
+    _count: AIRecommendationCountAggregateOutputType | null
+    _min: AIRecommendationMinAggregateOutputType | null
+    _max: AIRecommendationMaxAggregateOutputType | null
+  }
+
+  type GetAIRecommendationGroupByPayload<T extends AIRecommendationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AIRecommendationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AIRecommendationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AIRecommendationGroupByOutputType[P]>
+            : GetScalarType<T[P], AIRecommendationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AIRecommendationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    priority?: boolean
+    data?: boolean
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    treeId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tree?: boolean | AIRecommendation$treeArgs<ExtArgs>
+  }, ExtArgs["result"]["aIRecommendation"]>
+
+  export type AIRecommendationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    priority?: boolean
+    data?: boolean
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    treeId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tree?: boolean | AIRecommendation$treeArgs<ExtArgs>
+  }, ExtArgs["result"]["aIRecommendation"]>
+
+  export type AIRecommendationSelectScalar = {
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    priority?: boolean
+    data?: boolean
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    treeId?: boolean
+  }
+
+  export type AIRecommendationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tree?: boolean | AIRecommendation$treeArgs<ExtArgs>
+  }
+  export type AIRecommendationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tree?: boolean | AIRecommendation$treeArgs<ExtArgs>
+  }
+
+  export type $AIRecommendationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIRecommendation"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      tree: Prisma.$TreePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      type: $Enums.AIRecommendationType
+      title: string
+      description: string
+      priority: $Enums.Priority
+      data: Prisma.JsonValue
+      isRead: boolean
+      isApplied: boolean
+      expiresAt: Date | null
+      createdAt: Date
+      userId: string
+      treeId: string | null
+    }, ExtArgs["result"]["aIRecommendation"]>
+    composites: {}
+  }
+
+  type AIRecommendationGetPayload<S extends boolean | null | undefined | AIRecommendationDefaultArgs> = $Result.GetResult<Prisma.$AIRecommendationPayload, S>
+
+  type AIRecommendationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AIRecommendationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AIRecommendationCountAggregateInputType | true
+    }
+
+  export interface AIRecommendationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIRecommendation'], meta: { name: 'AIRecommendation' } }
+    /**
+     * Find zero or one AIRecommendation that matches the filter.
+     * @param {AIRecommendationFindUniqueArgs} args - Arguments to find a AIRecommendation
+     * @example
+     * // Get one AIRecommendation
+     * const aIRecommendation = await prisma.aIRecommendation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AIRecommendationFindUniqueArgs>(args: SelectSubset<T, AIRecommendationFindUniqueArgs<ExtArgs>>): Prisma__AIRecommendationClient<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AIRecommendation that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AIRecommendationFindUniqueOrThrowArgs} args - Arguments to find a AIRecommendation
+     * @example
+     * // Get one AIRecommendation
+     * const aIRecommendation = await prisma.aIRecommendation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AIRecommendationFindUniqueOrThrowArgs>(args: SelectSubset<T, AIRecommendationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIRecommendationClient<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AIRecommendation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIRecommendationFindFirstArgs} args - Arguments to find a AIRecommendation
+     * @example
+     * // Get one AIRecommendation
+     * const aIRecommendation = await prisma.aIRecommendation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AIRecommendationFindFirstArgs>(args?: SelectSubset<T, AIRecommendationFindFirstArgs<ExtArgs>>): Prisma__AIRecommendationClient<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AIRecommendation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIRecommendationFindFirstOrThrowArgs} args - Arguments to find a AIRecommendation
+     * @example
+     * // Get one AIRecommendation
+     * const aIRecommendation = await prisma.aIRecommendation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AIRecommendationFindFirstOrThrowArgs>(args?: SelectSubset<T, AIRecommendationFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIRecommendationClient<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AIRecommendations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIRecommendationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AIRecommendations
+     * const aIRecommendations = await prisma.aIRecommendation.findMany()
+     * 
+     * // Get first 10 AIRecommendations
+     * const aIRecommendations = await prisma.aIRecommendation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aIRecommendationWithIdOnly = await prisma.aIRecommendation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AIRecommendationFindManyArgs>(args?: SelectSubset<T, AIRecommendationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AIRecommendation.
+     * @param {AIRecommendationCreateArgs} args - Arguments to create a AIRecommendation.
+     * @example
+     * // Create one AIRecommendation
+     * const AIRecommendation = await prisma.aIRecommendation.create({
+     *   data: {
+     *     // ... data to create a AIRecommendation
+     *   }
+     * })
+     * 
+     */
+    create<T extends AIRecommendationCreateArgs>(args: SelectSubset<T, AIRecommendationCreateArgs<ExtArgs>>): Prisma__AIRecommendationClient<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AIRecommendations.
+     * @param {AIRecommendationCreateManyArgs} args - Arguments to create many AIRecommendations.
+     * @example
+     * // Create many AIRecommendations
+     * const aIRecommendation = await prisma.aIRecommendation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AIRecommendationCreateManyArgs>(args?: SelectSubset<T, AIRecommendationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AIRecommendations and returns the data saved in the database.
+     * @param {AIRecommendationCreateManyAndReturnArgs} args - Arguments to create many AIRecommendations.
+     * @example
+     * // Create many AIRecommendations
+     * const aIRecommendation = await prisma.aIRecommendation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AIRecommendations and only return the `id`
+     * const aIRecommendationWithIdOnly = await prisma.aIRecommendation.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AIRecommendationCreateManyAndReturnArgs>(args?: SelectSubset<T, AIRecommendationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AIRecommendation.
+     * @param {AIRecommendationDeleteArgs} args - Arguments to delete one AIRecommendation.
+     * @example
+     * // Delete one AIRecommendation
+     * const AIRecommendation = await prisma.aIRecommendation.delete({
+     *   where: {
+     *     // ... filter to delete one AIRecommendation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AIRecommendationDeleteArgs>(args: SelectSubset<T, AIRecommendationDeleteArgs<ExtArgs>>): Prisma__AIRecommendationClient<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AIRecommendation.
+     * @param {AIRecommendationUpdateArgs} args - Arguments to update one AIRecommendation.
+     * @example
+     * // Update one AIRecommendation
+     * const aIRecommendation = await prisma.aIRecommendation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AIRecommendationUpdateArgs>(args: SelectSubset<T, AIRecommendationUpdateArgs<ExtArgs>>): Prisma__AIRecommendationClient<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AIRecommendations.
+     * @param {AIRecommendationDeleteManyArgs} args - Arguments to filter AIRecommendations to delete.
+     * @example
+     * // Delete a few AIRecommendations
+     * const { count } = await prisma.aIRecommendation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AIRecommendationDeleteManyArgs>(args?: SelectSubset<T, AIRecommendationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIRecommendations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIRecommendationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AIRecommendations
+     * const aIRecommendation = await prisma.aIRecommendation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AIRecommendationUpdateManyArgs>(args: SelectSubset<T, AIRecommendationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AIRecommendation.
+     * @param {AIRecommendationUpsertArgs} args - Arguments to update or create a AIRecommendation.
+     * @example
+     * // Update or create a AIRecommendation
+     * const aIRecommendation = await prisma.aIRecommendation.upsert({
+     *   create: {
+     *     // ... data to create a AIRecommendation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AIRecommendation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AIRecommendationUpsertArgs>(args: SelectSubset<T, AIRecommendationUpsertArgs<ExtArgs>>): Prisma__AIRecommendationClient<$Result.GetResult<Prisma.$AIRecommendationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AIRecommendations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIRecommendationCountArgs} args - Arguments to filter AIRecommendations to count.
+     * @example
+     * // Count the number of AIRecommendations
+     * const count = await prisma.aIRecommendation.count({
+     *   where: {
+     *     // ... the filter for the AIRecommendations we want to count
+     *   }
+     * })
+    **/
+    count<T extends AIRecommendationCountArgs>(
+      args?: Subset<T, AIRecommendationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AIRecommendationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AIRecommendation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIRecommendationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AIRecommendationAggregateArgs>(args: Subset<T, AIRecommendationAggregateArgs>): Prisma.PrismaPromise<GetAIRecommendationAggregateType<T>>
+
+    /**
+     * Group by AIRecommendation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIRecommendationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AIRecommendationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AIRecommendationGroupByArgs['orderBy'] }
+        : { orderBy?: AIRecommendationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AIRecommendationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIRecommendationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AIRecommendation model
+   */
+  readonly fields: AIRecommendationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AIRecommendation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AIRecommendationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    tree<T extends AIRecommendation$treeArgs<ExtArgs> = {}>(args?: Subset<T, AIRecommendation$treeArgs<ExtArgs>>): Prisma__TreeClient<$Result.GetResult<Prisma.$TreePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AIRecommendation model
+   */ 
+  interface AIRecommendationFieldRefs {
+    readonly id: FieldRef<"AIRecommendation", 'String'>
+    readonly type: FieldRef<"AIRecommendation", 'AIRecommendationType'>
+    readonly title: FieldRef<"AIRecommendation", 'String'>
+    readonly description: FieldRef<"AIRecommendation", 'String'>
+    readonly priority: FieldRef<"AIRecommendation", 'Priority'>
+    readonly data: FieldRef<"AIRecommendation", 'Json'>
+    readonly isRead: FieldRef<"AIRecommendation", 'Boolean'>
+    readonly isApplied: FieldRef<"AIRecommendation", 'Boolean'>
+    readonly expiresAt: FieldRef<"AIRecommendation", 'DateTime'>
+    readonly createdAt: FieldRef<"AIRecommendation", 'DateTime'>
+    readonly userId: FieldRef<"AIRecommendation", 'String'>
+    readonly treeId: FieldRef<"AIRecommendation", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AIRecommendation findUnique
+   */
+  export type AIRecommendationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIRecommendation to fetch.
+     */
+    where: AIRecommendationWhereUniqueInput
+  }
+
+  /**
+   * AIRecommendation findUniqueOrThrow
+   */
+  export type AIRecommendationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIRecommendation to fetch.
+     */
+    where: AIRecommendationWhereUniqueInput
+  }
+
+  /**
+   * AIRecommendation findFirst
+   */
+  export type AIRecommendationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIRecommendation to fetch.
+     */
+    where?: AIRecommendationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIRecommendations to fetch.
+     */
+    orderBy?: AIRecommendationOrderByWithRelationInput | AIRecommendationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIRecommendations.
+     */
+    cursor?: AIRecommendationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIRecommendations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIRecommendations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIRecommendations.
+     */
+    distinct?: AIRecommendationScalarFieldEnum | AIRecommendationScalarFieldEnum[]
+  }
+
+  /**
+   * AIRecommendation findFirstOrThrow
+   */
+  export type AIRecommendationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIRecommendation to fetch.
+     */
+    where?: AIRecommendationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIRecommendations to fetch.
+     */
+    orderBy?: AIRecommendationOrderByWithRelationInput | AIRecommendationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIRecommendations.
+     */
+    cursor?: AIRecommendationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIRecommendations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIRecommendations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIRecommendations.
+     */
+    distinct?: AIRecommendationScalarFieldEnum | AIRecommendationScalarFieldEnum[]
+  }
+
+  /**
+   * AIRecommendation findMany
+   */
+  export type AIRecommendationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    /**
+     * Filter, which AIRecommendations to fetch.
+     */
+    where?: AIRecommendationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIRecommendations to fetch.
+     */
+    orderBy?: AIRecommendationOrderByWithRelationInput | AIRecommendationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AIRecommendations.
+     */
+    cursor?: AIRecommendationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIRecommendations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIRecommendations.
+     */
+    skip?: number
+    distinct?: AIRecommendationScalarFieldEnum | AIRecommendationScalarFieldEnum[]
+  }
+
+  /**
+   * AIRecommendation create
+   */
+  export type AIRecommendationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AIRecommendation.
+     */
+    data: XOR<AIRecommendationCreateInput, AIRecommendationUncheckedCreateInput>
+  }
+
+  /**
+   * AIRecommendation createMany
+   */
+  export type AIRecommendationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AIRecommendations.
+     */
+    data: AIRecommendationCreateManyInput | AIRecommendationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AIRecommendation createManyAndReturn
+   */
+  export type AIRecommendationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AIRecommendations.
+     */
+    data: AIRecommendationCreateManyInput | AIRecommendationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIRecommendation update
+   */
+  export type AIRecommendationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AIRecommendation.
+     */
+    data: XOR<AIRecommendationUpdateInput, AIRecommendationUncheckedUpdateInput>
+    /**
+     * Choose, which AIRecommendation to update.
+     */
+    where: AIRecommendationWhereUniqueInput
+  }
+
+  /**
+   * AIRecommendation updateMany
+   */
+  export type AIRecommendationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AIRecommendations.
+     */
+    data: XOR<AIRecommendationUpdateManyMutationInput, AIRecommendationUncheckedUpdateManyInput>
+    /**
+     * Filter which AIRecommendations to update
+     */
+    where?: AIRecommendationWhereInput
+  }
+
+  /**
+   * AIRecommendation upsert
+   */
+  export type AIRecommendationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AIRecommendation to update in case it exists.
+     */
+    where: AIRecommendationWhereUniqueInput
+    /**
+     * In case the AIRecommendation found by the `where` argument doesn't exist, create a new AIRecommendation with this data.
+     */
+    create: XOR<AIRecommendationCreateInput, AIRecommendationUncheckedCreateInput>
+    /**
+     * In case the AIRecommendation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AIRecommendationUpdateInput, AIRecommendationUncheckedUpdateInput>
+  }
+
+  /**
+   * AIRecommendation delete
+   */
+  export type AIRecommendationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+    /**
+     * Filter which AIRecommendation to delete.
+     */
+    where: AIRecommendationWhereUniqueInput
+  }
+
+  /**
+   * AIRecommendation deleteMany
+   */
+  export type AIRecommendationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIRecommendations to delete
+     */
+    where?: AIRecommendationWhereInput
+  }
+
+  /**
+   * AIRecommendation.tree
+   */
+  export type AIRecommendation$treeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tree
+     */
+    select?: TreeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TreeInclude<ExtArgs> | null
+    where?: TreeWhereInput
+  }
+
+  /**
+   * AIRecommendation without action
+   */
+  export type AIRecommendationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIRecommendation
+     */
+    select?: AIRecommendationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIRecommendationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AIInsight
+   */
+
+  export type AggregateAIInsight = {
+    _count: AIInsightCountAggregateOutputType | null
+    _avg: AIInsightAvgAggregateOutputType | null
+    _sum: AIInsightSumAggregateOutputType | null
+    _min: AIInsightMinAggregateOutputType | null
+    _max: AIInsightMaxAggregateOutputType | null
+  }
+
+  export type AIInsightAvgAggregateOutputType = {
+    confidence: number | null
+  }
+
+  export type AIInsightSumAggregateOutputType = {
+    confidence: number | null
+  }
+
+  export type AIInsightMinAggregateOutputType = {
+    id: string | null
+    type: $Enums.AIInsightType | null
+    title: string | null
+    content: string | null
+    confidence: number | null
+    isActive: boolean | null
+    createdAt: Date | null
+    userId: string | null
+    treeId: string | null
+    organizationId: string | null
+    campaignId: string | null
+  }
+
+  export type AIInsightMaxAggregateOutputType = {
+    id: string | null
+    type: $Enums.AIInsightType | null
+    title: string | null
+    content: string | null
+    confidence: number | null
+    isActive: boolean | null
+    createdAt: Date | null
+    userId: string | null
+    treeId: string | null
+    organizationId: string | null
+    campaignId: string | null
+  }
+
+  export type AIInsightCountAggregateOutputType = {
+    id: number
+    type: number
+    title: number
+    content: number
+    data: number
+    confidence: number
+    isActive: number
+    createdAt: number
+    userId: number
+    treeId: number
+    organizationId: number
+    campaignId: number
+    _all: number
+  }
+
+
+  export type AIInsightAvgAggregateInputType = {
+    confidence?: true
+  }
+
+  export type AIInsightSumAggregateInputType = {
+    confidence?: true
+  }
+
+  export type AIInsightMinAggregateInputType = {
+    id?: true
+    type?: true
+    title?: true
+    content?: true
+    confidence?: true
+    isActive?: true
+    createdAt?: true
+    userId?: true
+    treeId?: true
+    organizationId?: true
+    campaignId?: true
+  }
+
+  export type AIInsightMaxAggregateInputType = {
+    id?: true
+    type?: true
+    title?: true
+    content?: true
+    confidence?: true
+    isActive?: true
+    createdAt?: true
+    userId?: true
+    treeId?: true
+    organizationId?: true
+    campaignId?: true
+  }
+
+  export type AIInsightCountAggregateInputType = {
+    id?: true
+    type?: true
+    title?: true
+    content?: true
+    data?: true
+    confidence?: true
+    isActive?: true
+    createdAt?: true
+    userId?: true
+    treeId?: true
+    organizationId?: true
+    campaignId?: true
+    _all?: true
+  }
+
+  export type AIInsightAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIInsight to aggregate.
+     */
+    where?: AIInsightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInsights to fetch.
+     */
+    orderBy?: AIInsightOrderByWithRelationInput | AIInsightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AIInsightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInsights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInsights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AIInsights
+    **/
+    _count?: true | AIInsightCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AIInsightAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AIInsightSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AIInsightMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AIInsightMaxAggregateInputType
+  }
+
+  export type GetAIInsightAggregateType<T extends AIInsightAggregateArgs> = {
+        [P in keyof T & keyof AggregateAIInsight]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAIInsight[P]>
+      : GetScalarType<T[P], AggregateAIInsight[P]>
+  }
+
+
+
+
+  export type AIInsightGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AIInsightWhereInput
+    orderBy?: AIInsightOrderByWithAggregationInput | AIInsightOrderByWithAggregationInput[]
+    by: AIInsightScalarFieldEnum[] | AIInsightScalarFieldEnum
+    having?: AIInsightScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AIInsightCountAggregateInputType | true
+    _avg?: AIInsightAvgAggregateInputType
+    _sum?: AIInsightSumAggregateInputType
+    _min?: AIInsightMinAggregateInputType
+    _max?: AIInsightMaxAggregateInputType
+  }
+
+  export type AIInsightGroupByOutputType = {
+    id: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonValue
+    confidence: number
+    isActive: boolean
+    createdAt: Date
+    userId: string | null
+    treeId: string | null
+    organizationId: string | null
+    campaignId: string | null
+    _count: AIInsightCountAggregateOutputType | null
+    _avg: AIInsightAvgAggregateOutputType | null
+    _sum: AIInsightSumAggregateOutputType | null
+    _min: AIInsightMinAggregateOutputType | null
+    _max: AIInsightMaxAggregateOutputType | null
+  }
+
+  type GetAIInsightGroupByPayload<T extends AIInsightGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AIInsightGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AIInsightGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AIInsightGroupByOutputType[P]>
+            : GetScalarType<T[P], AIInsightGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AIInsightSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    content?: boolean
+    data?: boolean
+    confidence?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    treeId?: boolean
+    organizationId?: boolean
+    campaignId?: boolean
+    user?: boolean | AIInsight$userArgs<ExtArgs>
+    tree?: boolean | AIInsight$treeArgs<ExtArgs>
+    organization?: boolean | AIInsight$organizationArgs<ExtArgs>
+    campaign?: boolean | AIInsight$campaignArgs<ExtArgs>
+  }, ExtArgs["result"]["aIInsight"]>
+
+  export type AIInsightSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    content?: boolean
+    data?: boolean
+    confidence?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    treeId?: boolean
+    organizationId?: boolean
+    campaignId?: boolean
+    user?: boolean | AIInsight$userArgs<ExtArgs>
+    tree?: boolean | AIInsight$treeArgs<ExtArgs>
+    organization?: boolean | AIInsight$organizationArgs<ExtArgs>
+    campaign?: boolean | AIInsight$campaignArgs<ExtArgs>
+  }, ExtArgs["result"]["aIInsight"]>
+
+  export type AIInsightSelectScalar = {
+    id?: boolean
+    type?: boolean
+    title?: boolean
+    content?: boolean
+    data?: boolean
+    confidence?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    userId?: boolean
+    treeId?: boolean
+    organizationId?: boolean
+    campaignId?: boolean
+  }
+
+  export type AIInsightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | AIInsight$userArgs<ExtArgs>
+    tree?: boolean | AIInsight$treeArgs<ExtArgs>
+    organization?: boolean | AIInsight$organizationArgs<ExtArgs>
+    campaign?: boolean | AIInsight$campaignArgs<ExtArgs>
+  }
+  export type AIInsightIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | AIInsight$userArgs<ExtArgs>
+    tree?: boolean | AIInsight$treeArgs<ExtArgs>
+    organization?: boolean | AIInsight$organizationArgs<ExtArgs>
+    campaign?: boolean | AIInsight$campaignArgs<ExtArgs>
+  }
+
+  export type $AIInsightPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AIInsight"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+      tree: Prisma.$TreePayload<ExtArgs> | null
+      organization: Prisma.$OrganizationPayload<ExtArgs> | null
+      campaign: Prisma.$CampaignPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      type: $Enums.AIInsightType
+      title: string
+      content: string
+      data: Prisma.JsonValue
+      confidence: number
+      isActive: boolean
+      createdAt: Date
+      userId: string | null
+      treeId: string | null
+      organizationId: string | null
+      campaignId: string | null
+    }, ExtArgs["result"]["aIInsight"]>
+    composites: {}
+  }
+
+  type AIInsightGetPayload<S extends boolean | null | undefined | AIInsightDefaultArgs> = $Result.GetResult<Prisma.$AIInsightPayload, S>
+
+  type AIInsightCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<AIInsightFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: AIInsightCountAggregateInputType | true
+    }
+
+  export interface AIInsightDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AIInsight'], meta: { name: 'AIInsight' } }
+    /**
+     * Find zero or one AIInsight that matches the filter.
+     * @param {AIInsightFindUniqueArgs} args - Arguments to find a AIInsight
+     * @example
+     * // Get one AIInsight
+     * const aIInsight = await prisma.aIInsight.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AIInsightFindUniqueArgs>(args: SelectSubset<T, AIInsightFindUniqueArgs<ExtArgs>>): Prisma__AIInsightClient<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one AIInsight that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {AIInsightFindUniqueOrThrowArgs} args - Arguments to find a AIInsight
+     * @example
+     * // Get one AIInsight
+     * const aIInsight = await prisma.aIInsight.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AIInsightFindUniqueOrThrowArgs>(args: SelectSubset<T, AIInsightFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AIInsightClient<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first AIInsight that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInsightFindFirstArgs} args - Arguments to find a AIInsight
+     * @example
+     * // Get one AIInsight
+     * const aIInsight = await prisma.aIInsight.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AIInsightFindFirstArgs>(args?: SelectSubset<T, AIInsightFindFirstArgs<ExtArgs>>): Prisma__AIInsightClient<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first AIInsight that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInsightFindFirstOrThrowArgs} args - Arguments to find a AIInsight
+     * @example
+     * // Get one AIInsight
+     * const aIInsight = await prisma.aIInsight.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AIInsightFindFirstOrThrowArgs>(args?: SelectSubset<T, AIInsightFindFirstOrThrowArgs<ExtArgs>>): Prisma__AIInsightClient<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more AIInsights that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInsightFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AIInsights
+     * const aIInsights = await prisma.aIInsight.findMany()
+     * 
+     * // Get first 10 AIInsights
+     * const aIInsights = await prisma.aIInsight.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aIInsightWithIdOnly = await prisma.aIInsight.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AIInsightFindManyArgs>(args?: SelectSubset<T, AIInsightFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a AIInsight.
+     * @param {AIInsightCreateArgs} args - Arguments to create a AIInsight.
+     * @example
+     * // Create one AIInsight
+     * const AIInsight = await prisma.aIInsight.create({
+     *   data: {
+     *     // ... data to create a AIInsight
+     *   }
+     * })
+     * 
+     */
+    create<T extends AIInsightCreateArgs>(args: SelectSubset<T, AIInsightCreateArgs<ExtArgs>>): Prisma__AIInsightClient<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many AIInsights.
+     * @param {AIInsightCreateManyArgs} args - Arguments to create many AIInsights.
+     * @example
+     * // Create many AIInsights
+     * const aIInsight = await prisma.aIInsight.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AIInsightCreateManyArgs>(args?: SelectSubset<T, AIInsightCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AIInsights and returns the data saved in the database.
+     * @param {AIInsightCreateManyAndReturnArgs} args - Arguments to create many AIInsights.
+     * @example
+     * // Create many AIInsights
+     * const aIInsight = await prisma.aIInsight.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AIInsights and only return the `id`
+     * const aIInsightWithIdOnly = await prisma.aIInsight.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AIInsightCreateManyAndReturnArgs>(args?: SelectSubset<T, AIInsightCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a AIInsight.
+     * @param {AIInsightDeleteArgs} args - Arguments to delete one AIInsight.
+     * @example
+     * // Delete one AIInsight
+     * const AIInsight = await prisma.aIInsight.delete({
+     *   where: {
+     *     // ... filter to delete one AIInsight
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AIInsightDeleteArgs>(args: SelectSubset<T, AIInsightDeleteArgs<ExtArgs>>): Prisma__AIInsightClient<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one AIInsight.
+     * @param {AIInsightUpdateArgs} args - Arguments to update one AIInsight.
+     * @example
+     * // Update one AIInsight
+     * const aIInsight = await prisma.aIInsight.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AIInsightUpdateArgs>(args: SelectSubset<T, AIInsightUpdateArgs<ExtArgs>>): Prisma__AIInsightClient<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more AIInsights.
+     * @param {AIInsightDeleteManyArgs} args - Arguments to filter AIInsights to delete.
+     * @example
+     * // Delete a few AIInsights
+     * const { count } = await prisma.aIInsight.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AIInsightDeleteManyArgs>(args?: SelectSubset<T, AIInsightDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AIInsights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInsightUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AIInsights
+     * const aIInsight = await prisma.aIInsight.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AIInsightUpdateManyArgs>(args: SelectSubset<T, AIInsightUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one AIInsight.
+     * @param {AIInsightUpsertArgs} args - Arguments to update or create a AIInsight.
+     * @example
+     * // Update or create a AIInsight
+     * const aIInsight = await prisma.aIInsight.upsert({
+     *   create: {
+     *     // ... data to create a AIInsight
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AIInsight we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AIInsightUpsertArgs>(args: SelectSubset<T, AIInsightUpsertArgs<ExtArgs>>): Prisma__AIInsightClient<$Result.GetResult<Prisma.$AIInsightPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of AIInsights.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInsightCountArgs} args - Arguments to filter AIInsights to count.
+     * @example
+     * // Count the number of AIInsights
+     * const count = await prisma.aIInsight.count({
+     *   where: {
+     *     // ... the filter for the AIInsights we want to count
+     *   }
+     * })
+    **/
+    count<T extends AIInsightCountArgs>(
+      args?: Subset<T, AIInsightCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AIInsightCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AIInsight.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInsightAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AIInsightAggregateArgs>(args: Subset<T, AIInsightAggregateArgs>): Prisma.PrismaPromise<GetAIInsightAggregateType<T>>
+
+    /**
+     * Group by AIInsight.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AIInsightGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AIInsightGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AIInsightGroupByArgs['orderBy'] }
+        : { orderBy?: AIInsightGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AIInsightGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAIInsightGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AIInsight model
+   */
+  readonly fields: AIInsightFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AIInsight.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AIInsightClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends AIInsight$userArgs<ExtArgs> = {}>(args?: Subset<T, AIInsight$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    tree<T extends AIInsight$treeArgs<ExtArgs> = {}>(args?: Subset<T, AIInsight$treeArgs<ExtArgs>>): Prisma__TreeClient<$Result.GetResult<Prisma.$TreePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    organization<T extends AIInsight$organizationArgs<ExtArgs> = {}>(args?: Subset<T, AIInsight$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    campaign<T extends AIInsight$campaignArgs<ExtArgs> = {}>(args?: Subset<T, AIInsight$campaignArgs<ExtArgs>>): Prisma__CampaignClient<$Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AIInsight model
+   */ 
+  interface AIInsightFieldRefs {
+    readonly id: FieldRef<"AIInsight", 'String'>
+    readonly type: FieldRef<"AIInsight", 'AIInsightType'>
+    readonly title: FieldRef<"AIInsight", 'String'>
+    readonly content: FieldRef<"AIInsight", 'String'>
+    readonly data: FieldRef<"AIInsight", 'Json'>
+    readonly confidence: FieldRef<"AIInsight", 'Float'>
+    readonly isActive: FieldRef<"AIInsight", 'Boolean'>
+    readonly createdAt: FieldRef<"AIInsight", 'DateTime'>
+    readonly userId: FieldRef<"AIInsight", 'String'>
+    readonly treeId: FieldRef<"AIInsight", 'String'>
+    readonly organizationId: FieldRef<"AIInsight", 'String'>
+    readonly campaignId: FieldRef<"AIInsight", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AIInsight findUnique
+   */
+  export type AIInsightFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInsight to fetch.
+     */
+    where: AIInsightWhereUniqueInput
+  }
+
+  /**
+   * AIInsight findUniqueOrThrow
+   */
+  export type AIInsightFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInsight to fetch.
+     */
+    where: AIInsightWhereUniqueInput
+  }
+
+  /**
+   * AIInsight findFirst
+   */
+  export type AIInsightFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInsight to fetch.
+     */
+    where?: AIInsightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInsights to fetch.
+     */
+    orderBy?: AIInsightOrderByWithRelationInput | AIInsightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIInsights.
+     */
+    cursor?: AIInsightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInsights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInsights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIInsights.
+     */
+    distinct?: AIInsightScalarFieldEnum | AIInsightScalarFieldEnum[]
+  }
+
+  /**
+   * AIInsight findFirstOrThrow
+   */
+  export type AIInsightFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInsight to fetch.
+     */
+    where?: AIInsightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInsights to fetch.
+     */
+    orderBy?: AIInsightOrderByWithRelationInput | AIInsightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AIInsights.
+     */
+    cursor?: AIInsightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInsights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInsights.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AIInsights.
+     */
+    distinct?: AIInsightScalarFieldEnum | AIInsightScalarFieldEnum[]
+  }
+
+  /**
+   * AIInsight findMany
+   */
+  export type AIInsightFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    /**
+     * Filter, which AIInsights to fetch.
+     */
+    where?: AIInsightWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AIInsights to fetch.
+     */
+    orderBy?: AIInsightOrderByWithRelationInput | AIInsightOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AIInsights.
+     */
+    cursor?: AIInsightWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AIInsights from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AIInsights.
+     */
+    skip?: number
+    distinct?: AIInsightScalarFieldEnum | AIInsightScalarFieldEnum[]
+  }
+
+  /**
+   * AIInsight create
+   */
+  export type AIInsightCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AIInsight.
+     */
+    data: XOR<AIInsightCreateInput, AIInsightUncheckedCreateInput>
+  }
+
+  /**
+   * AIInsight createMany
+   */
+  export type AIInsightCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AIInsights.
+     */
+    data: AIInsightCreateManyInput | AIInsightCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AIInsight createManyAndReturn
+   */
+  export type AIInsightCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many AIInsights.
+     */
+    data: AIInsightCreateManyInput | AIInsightCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AIInsight update
+   */
+  export type AIInsightUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AIInsight.
+     */
+    data: XOR<AIInsightUpdateInput, AIInsightUncheckedUpdateInput>
+    /**
+     * Choose, which AIInsight to update.
+     */
+    where: AIInsightWhereUniqueInput
+  }
+
+  /**
+   * AIInsight updateMany
+   */
+  export type AIInsightUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AIInsights.
+     */
+    data: XOR<AIInsightUpdateManyMutationInput, AIInsightUncheckedUpdateManyInput>
+    /**
+     * Filter which AIInsights to update
+     */
+    where?: AIInsightWhereInput
+  }
+
+  /**
+   * AIInsight upsert
+   */
+  export type AIInsightUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AIInsight to update in case it exists.
+     */
+    where: AIInsightWhereUniqueInput
+    /**
+     * In case the AIInsight found by the `where` argument doesn't exist, create a new AIInsight with this data.
+     */
+    create: XOR<AIInsightCreateInput, AIInsightUncheckedCreateInput>
+    /**
+     * In case the AIInsight was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AIInsightUpdateInput, AIInsightUncheckedUpdateInput>
+  }
+
+  /**
+   * AIInsight delete
+   */
+  export type AIInsightDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
+    /**
+     * Filter which AIInsight to delete.
+     */
+    where: AIInsightWhereUniqueInput
+  }
+
+  /**
+   * AIInsight deleteMany
+   */
+  export type AIInsightDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AIInsights to delete
+     */
+    where?: AIInsightWhereInput
+  }
+
+  /**
+   * AIInsight.user
+   */
+  export type AIInsight$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * AIInsight.tree
+   */
+  export type AIInsight$treeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tree
+     */
+    select?: TreeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TreeInclude<ExtArgs> | null
+    where?: TreeWhereInput
+  }
+
+  /**
+   * AIInsight.organization
+   */
+  export type AIInsight$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * AIInsight.campaign
+   */
+  export type AIInsight$campaignArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campaign
+     */
+    select?: CampaignSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampaignInclude<ExtArgs> | null
+    where?: CampaignWhereInput
+  }
+
+  /**
+   * AIInsight without action
+   */
+  export type AIInsightDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AIInsight
+     */
+    select?: AIInsightSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AIInsightInclude<ExtArgs> | null
   }
 
 
@@ -11517,6 +19194,8 @@ export namespace Prisma {
     title: string | null
     message: string | null
     isRead: boolean | null
+    isActionable: boolean | null
+    actionUrl: string | null
     createdAt: Date | null
     userId: string | null
   }
@@ -11527,6 +19206,8 @@ export namespace Prisma {
     title: string | null
     message: string | null
     isRead: boolean | null
+    isActionable: boolean | null
+    actionUrl: string | null
     createdAt: Date | null
     userId: string | null
   }
@@ -11538,6 +19219,8 @@ export namespace Prisma {
     message: number
     data: number
     isRead: number
+    isActionable: number
+    actionUrl: number
     createdAt: number
     userId: number
     _all: number
@@ -11550,6 +19233,8 @@ export namespace Prisma {
     title?: true
     message?: true
     isRead?: true
+    isActionable?: true
+    actionUrl?: true
     createdAt?: true
     userId?: true
   }
@@ -11560,6 +19245,8 @@ export namespace Prisma {
     title?: true
     message?: true
     isRead?: true
+    isActionable?: true
+    actionUrl?: true
     createdAt?: true
     userId?: true
   }
@@ -11571,6 +19258,8 @@ export namespace Prisma {
     message?: true
     data?: true
     isRead?: true
+    isActionable?: true
+    actionUrl?: true
     createdAt?: true
     userId?: true
     _all?: true
@@ -11655,6 +19344,8 @@ export namespace Prisma {
     message: string
     data: JsonValue | null
     isRead: boolean
+    isActionable: boolean
+    actionUrl: string | null
     createdAt: Date
     userId: string
     _count: NotificationCountAggregateOutputType | null
@@ -11683,6 +19374,8 @@ export namespace Prisma {
     message?: boolean
     data?: boolean
     isRead?: boolean
+    isActionable?: boolean
+    actionUrl?: boolean
     createdAt?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -11695,6 +19388,8 @@ export namespace Prisma {
     message?: boolean
     data?: boolean
     isRead?: boolean
+    isActionable?: boolean
+    actionUrl?: boolean
     createdAt?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -11707,6 +19402,8 @@ export namespace Prisma {
     message?: boolean
     data?: boolean
     isRead?: boolean
+    isActionable?: boolean
+    actionUrl?: boolean
     createdAt?: boolean
     userId?: boolean
   }
@@ -11730,6 +19427,8 @@ export namespace Prisma {
       message: string
       data: Prisma.JsonValue | null
       isRead: boolean
+      isActionable: boolean
+      actionUrl: string | null
       createdAt: Date
       userId: string
     }, ExtArgs["result"]["notification"]>
@@ -12132,6 +19831,8 @@ export namespace Prisma {
     readonly message: FieldRef<"Notification", 'String'>
     readonly data: FieldRef<"Notification", 'Json'>
     readonly isRead: FieldRef<"Notification", 'Boolean'>
+    readonly isActionable: FieldRef<"Notification", 'Boolean'>
+    readonly actionUrl: FieldRef<"Notification", 'String'>
     readonly createdAt: FieldRef<"Notification", 'DateTime'>
     readonly userId: FieldRef<"Notification", 'String'>
   }
@@ -12472,31 +20173,20 @@ export namespace Prisma {
 
   export type AggregateLearningModule = {
     _count: LearningModuleCountAggregateOutputType | null
-    _avg: LearningModuleAvgAggregateOutputType | null
-    _sum: LearningModuleSumAggregateOutputType | null
     _min: LearningModuleMinAggregateOutputType | null
     _max: LearningModuleMaxAggregateOutputType | null
-  }
-
-  export type LearningModuleAvgAggregateOutputType = {
-    duration: number | null
-    order: number | null
-  }
-
-  export type LearningModuleSumAggregateOutputType = {
-    duration: number | null
-    order: number | null
   }
 
   export type LearningModuleMinAggregateOutputType = {
     id: string | null
     title: string | null
     description: string | null
-    duration: number | null
+    content: string | null
     difficulty: $Enums.Difficulty | null
-    thumbnailUrl: string | null
+    category: string | null
+    imageUrl: string | null
+    videoUrl: string | null
     isActive: boolean | null
-    order: number | null
     createdAt: Date | null
   }
 
@@ -12504,11 +20194,12 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
-    duration: number | null
+    content: string | null
     difficulty: $Enums.Difficulty | null
-    thumbnailUrl: string | null
+    category: string | null
+    imageUrl: string | null
+    videoUrl: string | null
     isActive: boolean | null
-    order: number | null
     createdAt: Date | null
   }
 
@@ -12517,36 +20208,26 @@ export namespace Prisma {
     title: number
     description: number
     content: number
-    duration: number
     difficulty: number
-    topics: number
-    thumbnailUrl: number
+    category: number
+    imageUrl: number
+    videoUrl: number
     isActive: number
-    order: number
     createdAt: number
     _all: number
   }
 
 
-  export type LearningModuleAvgAggregateInputType = {
-    duration?: true
-    order?: true
-  }
-
-  export type LearningModuleSumAggregateInputType = {
-    duration?: true
-    order?: true
-  }
-
   export type LearningModuleMinAggregateInputType = {
     id?: true
     title?: true
     description?: true
-    duration?: true
+    content?: true
     difficulty?: true
-    thumbnailUrl?: true
+    category?: true
+    imageUrl?: true
+    videoUrl?: true
     isActive?: true
-    order?: true
     createdAt?: true
   }
 
@@ -12554,11 +20235,12 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    duration?: true
+    content?: true
     difficulty?: true
-    thumbnailUrl?: true
+    category?: true
+    imageUrl?: true
+    videoUrl?: true
     isActive?: true
-    order?: true
     createdAt?: true
   }
 
@@ -12567,12 +20249,11 @@ export namespace Prisma {
     title?: true
     description?: true
     content?: true
-    duration?: true
     difficulty?: true
-    topics?: true
-    thumbnailUrl?: true
+    category?: true
+    imageUrl?: true
+    videoUrl?: true
     isActive?: true
-    order?: true
     createdAt?: true
     _all?: true
   }
@@ -12615,18 +20296,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: LearningModuleAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: LearningModuleSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: LearningModuleMinAggregateInputType
@@ -12657,8 +20326,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: LearningModuleCountAggregateInputType | true
-    _avg?: LearningModuleAvgAggregateInputType
-    _sum?: LearningModuleSumAggregateInputType
     _min?: LearningModuleMinAggregateInputType
     _max?: LearningModuleMaxAggregateInputType
   }
@@ -12667,17 +20334,14 @@ export namespace Prisma {
     id: string
     title: string
     description: string
-    content: JsonValue
-    duration: number
+    content: string
     difficulty: $Enums.Difficulty
-    topics: string[]
-    thumbnailUrl: string | null
+    category: string
+    imageUrl: string | null
+    videoUrl: string | null
     isActive: boolean
-    order: number
     createdAt: Date
     _count: LearningModuleCountAggregateOutputType | null
-    _avg: LearningModuleAvgAggregateOutputType | null
-    _sum: LearningModuleSumAggregateOutputType | null
     _min: LearningModuleMinAggregateOutputType | null
     _max: LearningModuleMaxAggregateOutputType | null
   }
@@ -12701,12 +20365,11 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     content?: boolean
-    duration?: boolean
     difficulty?: boolean
-    topics?: boolean
-    thumbnailUrl?: boolean
+    category?: boolean
+    imageUrl?: boolean
+    videoUrl?: boolean
     isActive?: boolean
-    order?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["learningModule"]>
 
@@ -12715,12 +20378,11 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     content?: boolean
-    duration?: boolean
     difficulty?: boolean
-    topics?: boolean
-    thumbnailUrl?: boolean
+    category?: boolean
+    imageUrl?: boolean
+    videoUrl?: boolean
     isActive?: boolean
-    order?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["learningModule"]>
 
@@ -12729,12 +20391,11 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     content?: boolean
-    duration?: boolean
     difficulty?: boolean
-    topics?: boolean
-    thumbnailUrl?: boolean
+    category?: boolean
+    imageUrl?: boolean
+    videoUrl?: boolean
     isActive?: boolean
-    order?: boolean
     createdAt?: boolean
   }
 
@@ -12746,13 +20407,12 @@ export namespace Prisma {
       id: string
       title: string
       description: string
-      content: Prisma.JsonValue
-      duration: number
+      content: string
       difficulty: $Enums.Difficulty
-      topics: string[]
-      thumbnailUrl: string | null
+      category: string
+      imageUrl: string | null
+      videoUrl: string | null
       isActive: boolean
-      order: number
       createdAt: Date
     }, ExtArgs["result"]["learningModule"]>
     composites: {}
@@ -13150,13 +20810,12 @@ export namespace Prisma {
     readonly id: FieldRef<"LearningModule", 'String'>
     readonly title: FieldRef<"LearningModule", 'String'>
     readonly description: FieldRef<"LearningModule", 'String'>
-    readonly content: FieldRef<"LearningModule", 'Json'>
-    readonly duration: FieldRef<"LearningModule", 'Int'>
+    readonly content: FieldRef<"LearningModule", 'String'>
     readonly difficulty: FieldRef<"LearningModule", 'Difficulty'>
-    readonly topics: FieldRef<"LearningModule", 'String[]'>
-    readonly thumbnailUrl: FieldRef<"LearningModule", 'String'>
+    readonly category: FieldRef<"LearningModule", 'String'>
+    readonly imageUrl: FieldRef<"LearningModule", 'String'>
+    readonly videoUrl: FieldRef<"LearningModule", 'String'>
     readonly isActive: FieldRef<"LearningModule", 'Boolean'>
-    readonly order: FieldRef<"LearningModule", 'Int'>
     readonly createdAt: FieldRef<"LearningModule", 'DateTime'>
   }
     
@@ -13461,52 +21120,47 @@ export namespace Prisma {
   export type GlobalStatsAvgAggregateOutputType = {
     totalTrees: number | null
     totalUsers: number | null
-    totalUpdates: number | null
-    totalAdoptions: number | null
-    co2OffsetKg: number | null
-    countriesActive: number | null
+    totalOrganizations: number | null
+    totalCO2Offset: number | null
+    totalPoints: number | null
   }
 
   export type GlobalStatsSumAggregateOutputType = {
     totalTrees: number | null
     totalUsers: number | null
-    totalUpdates: number | null
-    totalAdoptions: number | null
-    co2OffsetKg: number | null
-    countriesActive: number | null
+    totalOrganizations: number | null
+    totalCO2Offset: number | null
+    totalPoints: number | null
   }
 
   export type GlobalStatsMinAggregateOutputType = {
     id: string | null
     totalTrees: number | null
     totalUsers: number | null
-    totalUpdates: number | null
-    totalAdoptions: number | null
-    co2OffsetKg: number | null
-    countriesActive: number | null
-    updatedAt: Date | null
+    totalOrganizations: number | null
+    totalCO2Offset: number | null
+    totalPoints: number | null
+    date: Date | null
   }
 
   export type GlobalStatsMaxAggregateOutputType = {
     id: string | null
     totalTrees: number | null
     totalUsers: number | null
-    totalUpdates: number | null
-    totalAdoptions: number | null
-    co2OffsetKg: number | null
-    countriesActive: number | null
-    updatedAt: Date | null
+    totalOrganizations: number | null
+    totalCO2Offset: number | null
+    totalPoints: number | null
+    date: Date | null
   }
 
   export type GlobalStatsCountAggregateOutputType = {
     id: number
     totalTrees: number
     totalUsers: number
-    totalUpdates: number
-    totalAdoptions: number
-    co2OffsetKg: number
-    countriesActive: number
-    updatedAt: number
+    totalOrganizations: number
+    totalCO2Offset: number
+    totalPoints: number
+    date: number
     _all: number
   }
 
@@ -13514,52 +21168,47 @@ export namespace Prisma {
   export type GlobalStatsAvgAggregateInputType = {
     totalTrees?: true
     totalUsers?: true
-    totalUpdates?: true
-    totalAdoptions?: true
-    co2OffsetKg?: true
-    countriesActive?: true
+    totalOrganizations?: true
+    totalCO2Offset?: true
+    totalPoints?: true
   }
 
   export type GlobalStatsSumAggregateInputType = {
     totalTrees?: true
     totalUsers?: true
-    totalUpdates?: true
-    totalAdoptions?: true
-    co2OffsetKg?: true
-    countriesActive?: true
+    totalOrganizations?: true
+    totalCO2Offset?: true
+    totalPoints?: true
   }
 
   export type GlobalStatsMinAggregateInputType = {
     id?: true
     totalTrees?: true
     totalUsers?: true
-    totalUpdates?: true
-    totalAdoptions?: true
-    co2OffsetKg?: true
-    countriesActive?: true
-    updatedAt?: true
+    totalOrganizations?: true
+    totalCO2Offset?: true
+    totalPoints?: true
+    date?: true
   }
 
   export type GlobalStatsMaxAggregateInputType = {
     id?: true
     totalTrees?: true
     totalUsers?: true
-    totalUpdates?: true
-    totalAdoptions?: true
-    co2OffsetKg?: true
-    countriesActive?: true
-    updatedAt?: true
+    totalOrganizations?: true
+    totalCO2Offset?: true
+    totalPoints?: true
+    date?: true
   }
 
   export type GlobalStatsCountAggregateInputType = {
     id?: true
     totalTrees?: true
     totalUsers?: true
-    totalUpdates?: true
-    totalAdoptions?: true
-    co2OffsetKg?: true
-    countriesActive?: true
-    updatedAt?: true
+    totalOrganizations?: true
+    totalCO2Offset?: true
+    totalPoints?: true
+    date?: true
     _all?: true
   }
 
@@ -13653,11 +21302,10 @@ export namespace Prisma {
     id: string
     totalTrees: number
     totalUsers: number
-    totalUpdates: number
-    totalAdoptions: number
-    co2OffsetKg: number
-    countriesActive: number
-    updatedAt: Date
+    totalOrganizations: number
+    totalCO2Offset: number
+    totalPoints: number
+    date: Date
     _count: GlobalStatsCountAggregateOutputType | null
     _avg: GlobalStatsAvgAggregateOutputType | null
     _sum: GlobalStatsSumAggregateOutputType | null
@@ -13683,33 +21331,30 @@ export namespace Prisma {
     id?: boolean
     totalTrees?: boolean
     totalUsers?: boolean
-    totalUpdates?: boolean
-    totalAdoptions?: boolean
-    co2OffsetKg?: boolean
-    countriesActive?: boolean
-    updatedAt?: boolean
+    totalOrganizations?: boolean
+    totalCO2Offset?: boolean
+    totalPoints?: boolean
+    date?: boolean
   }, ExtArgs["result"]["globalStats"]>
 
   export type GlobalStatsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     totalTrees?: boolean
     totalUsers?: boolean
-    totalUpdates?: boolean
-    totalAdoptions?: boolean
-    co2OffsetKg?: boolean
-    countriesActive?: boolean
-    updatedAt?: boolean
+    totalOrganizations?: boolean
+    totalCO2Offset?: boolean
+    totalPoints?: boolean
+    date?: boolean
   }, ExtArgs["result"]["globalStats"]>
 
   export type GlobalStatsSelectScalar = {
     id?: boolean
     totalTrees?: boolean
     totalUsers?: boolean
-    totalUpdates?: boolean
-    totalAdoptions?: boolean
-    co2OffsetKg?: boolean
-    countriesActive?: boolean
-    updatedAt?: boolean
+    totalOrganizations?: boolean
+    totalCO2Offset?: boolean
+    totalPoints?: boolean
+    date?: boolean
   }
 
 
@@ -13720,11 +21365,10 @@ export namespace Prisma {
       id: string
       totalTrees: number
       totalUsers: number
-      totalUpdates: number
-      totalAdoptions: number
-      co2OffsetKg: number
-      countriesActive: number
-      updatedAt: Date
+      totalOrganizations: number
+      totalCO2Offset: number
+      totalPoints: number
+      date: Date
     }, ExtArgs["result"]["globalStats"]>
     composites: {}
   }
@@ -14121,11 +21765,10 @@ export namespace Prisma {
     readonly id: FieldRef<"GlobalStats", 'String'>
     readonly totalTrees: FieldRef<"GlobalStats", 'Int'>
     readonly totalUsers: FieldRef<"GlobalStats", 'Int'>
-    readonly totalUpdates: FieldRef<"GlobalStats", 'Int'>
-    readonly totalAdoptions: FieldRef<"GlobalStats", 'Int'>
-    readonly co2OffsetKg: FieldRef<"GlobalStats", 'Float'>
-    readonly countriesActive: FieldRef<"GlobalStats", 'Int'>
-    readonly updatedAt: FieldRef<"GlobalStats", 'DateTime'>
+    readonly totalOrganizations: FieldRef<"GlobalStats", 'Int'>
+    readonly totalCO2Offset: FieldRef<"GlobalStats", 'Float'>
+    readonly totalPoints: FieldRef<"GlobalStats", 'Int'>
+    readonly date: FieldRef<"GlobalStats", 'DateTime'>
   }
     
 
@@ -14296,7 +21939,7 @@ export namespace Prisma {
     /**
      * The data needed to create a GlobalStats.
      */
-    data: XOR<GlobalStatsCreateInput, GlobalStatsUncheckedCreateInput>
+    data?: XOR<GlobalStatsCreateInput, GlobalStatsUncheckedCreateInput>
   }
 
   /**
@@ -14440,12 +22083,67 @@ export namespace Prisma {
     emailNotifications: 'emailNotifications',
     city: 'city',
     country: 'country',
+    role: 'role',
+    aiPreferences: 'aiPreferences',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     lastLoginAt: 'lastLoginAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const OrganizationScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    logoUrl: 'logoUrl',
+    website: 'website',
+    contactEmail: 'contactEmail',
+    contactPhone: 'contactPhone',
+    address: 'address',
+    isVerified: 'isVerified',
+    aiEnabled: 'aiEnabled',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    ownerId: 'ownerId'
+  };
+
+  export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[keyof typeof OrganizationScalarFieldEnum]
+
+
+  export const OrganizationMemberScalarFieldEnum: {
+    id: 'id',
+    role: 'role',
+    joinedAt: 'joinedAt',
+    treesContributed: 'treesContributed',
+    isActive: 'isActive',
+    organizationId: 'organizationId',
+    userId: 'userId'
+  };
+
+  export type OrganizationMemberScalarFieldEnum = (typeof OrganizationMemberScalarFieldEnum)[keyof typeof OrganizationMemberScalarFieldEnum]
+
+
+  export const CampaignScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    targetTrees: 'targetTrees',
+    plantedTrees: 'plantedTrees',
+    status: 'status',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    location: 'location',
+    budget: 'budget',
+    aiOptimized: 'aiOptimized',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    organizationId: 'organizationId',
+    createdBy: 'createdBy'
+  };
+
+  export type CampaignScalarFieldEnum = (typeof CampaignScalarFieldEnum)[keyof typeof CampaignScalarFieldEnum]
 
 
   export const TreeScalarFieldEnum: {
@@ -14463,7 +22161,12 @@ export namespace Prisma {
     isAdoptable: 'isAdoptable',
     transferReason: 'transferReason',
     lastUpdateAt: 'lastUpdateAt',
-    ownerId: 'ownerId'
+    aiHealthScore: 'aiHealthScore',
+    aiCareRecommendations: 'aiCareRecommendations',
+    aiGrowthPrediction: 'aiGrowthPrediction',
+    ownerId: 'ownerId',
+    organizationId: 'organizationId',
+    campaignId: 'campaignId'
   };
 
   export type TreeScalarFieldEnum = (typeof TreeScalarFieldEnum)[keyof typeof TreeScalarFieldEnum]
@@ -14476,6 +22179,7 @@ export namespace Prisma {
     photoUrl: 'photoUrl',
     growthMeasurements: 'growthMeasurements',
     gpsLocation: 'gpsLocation',
+    aiAnalysis: 'aiAnalysis',
     createdAt: 'createdAt',
     treeId: 'treeId',
     userId: 'userId'
@@ -14490,12 +22194,68 @@ export namespace Prisma {
     commitmentMessage: 'commitmentMessage',
     commitmentDuration: 'commitmentDuration',
     adoptedAt: 'adoptedAt',
+    aiMatchScore: 'aiMatchScore',
     treeId: 'treeId',
     previousOwnerId: 'previousOwnerId',
     newOwnerId: 'newOwnerId'
   };
 
   export type TreeAdoptionScalarFieldEnum = (typeof TreeAdoptionScalarFieldEnum)[keyof typeof TreeAdoptionScalarFieldEnum]
+
+
+  export const AIInteractionScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    input: 'input',
+    output: 'output',
+    model: 'model',
+    tokensUsed: 'tokensUsed',
+    cost: 'cost',
+    responseTime: 'responseTime',
+    success: 'success',
+    error: 'error',
+    createdAt: 'createdAt',
+    userId: 'userId',
+    treeId: 'treeId'
+  };
+
+  export type AIInteractionScalarFieldEnum = (typeof AIInteractionScalarFieldEnum)[keyof typeof AIInteractionScalarFieldEnum]
+
+
+  export const AIRecommendationScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    title: 'title',
+    description: 'description',
+    priority: 'priority',
+    data: 'data',
+    isRead: 'isRead',
+    isApplied: 'isApplied',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    userId: 'userId',
+    treeId: 'treeId'
+  };
+
+  export type AIRecommendationScalarFieldEnum = (typeof AIRecommendationScalarFieldEnum)[keyof typeof AIRecommendationScalarFieldEnum]
+
+
+  export const AIInsightScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    title: 'title',
+    content: 'content',
+    data: 'data',
+    confidence: 'confidence',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    userId: 'userId',
+    treeId: 'treeId',
+    organizationId: 'organizationId',
+    campaignId: 'campaignId'
+  };
+
+  export type AIInsightScalarFieldEnum = (typeof AIInsightScalarFieldEnum)[keyof typeof AIInsightScalarFieldEnum]
 
 
   export const BadgeScalarFieldEnum: {
@@ -14573,6 +22333,8 @@ export namespace Prisma {
     message: 'message',
     data: 'data',
     isRead: 'isRead',
+    isActionable: 'isActionable',
+    actionUrl: 'actionUrl',
     createdAt: 'createdAt',
     userId: 'userId'
   };
@@ -14585,12 +22347,11 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     content: 'content',
-    duration: 'duration',
     difficulty: 'difficulty',
-    topics: 'topics',
-    thumbnailUrl: 'thumbnailUrl',
+    category: 'category',
+    imageUrl: 'imageUrl',
+    videoUrl: 'videoUrl',
     isActive: 'isActive',
-    order: 'order',
     createdAt: 'createdAt'
   };
 
@@ -14601,11 +22362,10 @@ export namespace Prisma {
     id: 'id',
     totalTrees: 'totalTrees',
     totalUsers: 'totalUsers',
-    totalUpdates: 'totalUpdates',
-    totalAdoptions: 'totalAdoptions',
-    co2OffsetKg: 'co2OffsetKg',
-    countriesActive: 'countriesActive',
-    updatedAt: 'updatedAt'
+    totalOrganizations: 'totalOrganizations',
+    totalCO2Offset: 'totalCO2Offset',
+    totalPoints: 'totalPoints',
+    date: 'date'
   };
 
   export type GlobalStatsScalarFieldEnum = (typeof GlobalStatsScalarFieldEnum)[keyof typeof GlobalStatsScalarFieldEnum]
@@ -14619,19 +22379,19 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -14642,14 +22402,6 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
   export const JsonNullValueFilter: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull,
@@ -14657,6 +22409,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -14700,6 +22460,27 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'UserRole'
+   */
+  export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole[]'
+   */
+  export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -14710,6 +22491,48 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'OrganizationRole'
+   */
+  export type EnumOrganizationRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrganizationRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'OrganizationRole[]'
+   */
+  export type ListEnumOrganizationRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrganizationRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CampaignStatus'
+   */
+  export type EnumCampaignStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CampaignStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'CampaignStatus[]'
+   */
+  export type ListEnumCampaignStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CampaignStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -14742,9 +22565,72 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
+   * Reference to a field of type 'Float'
    */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AIInteractionType'
+   */
+  export type EnumAIInteractionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AIInteractionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AIInteractionType[]'
+   */
+  export type ListEnumAIInteractionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AIInteractionType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AIRecommendationType'
+   */
+  export type EnumAIRecommendationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AIRecommendationType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AIRecommendationType[]'
+   */
+  export type ListEnumAIRecommendationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AIRecommendationType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Priority'
+   */
+  export type EnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority'>
+    
+
+
+  /**
+   * Reference to a field of type 'Priority[]'
+   */
+  export type ListEnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AIInsightType'
+   */
+  export type EnumAIInsightTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AIInsightType'>
+    
+
+
+  /**
+   * Reference to a field of type 'AIInsightType[]'
+   */
+  export type ListEnumAIInsightTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AIInsightType[]'>
     
 
 
@@ -14830,20 +22716,6 @@ export namespace Prisma {
    */
   export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty[]'>
     
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
   /**
    * Deep Input Types
    */
@@ -14864,6 +22736,8 @@ export namespace Prisma {
     emailNotifications?: BoolFilter<"User"> | boolean
     city?: StringNullableFilter<"User"> | string | null
     country?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    aiPreferences?: JsonNullableFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -14875,6 +22749,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionListRelationFilter
     notifications?: NotificationListRelationFilter
     certificates?: CertificateListRelationFilter
+    organizationMemberships?: OrganizationMemberListRelationFilter
+    aiInteractions?: AIInteractionListRelationFilter
+    aiRecommendations?: AIRecommendationListRelationFilter
+    aiInsights?: AIInsightListRelationFilter
+    ownedOrganizations?: OrganizationListRelationFilter
+    createdCampaigns?: CampaignListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14889,6 +22769,8 @@ export namespace Prisma {
     emailNotifications?: SortOrder
     city?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
+    role?: SortOrder
+    aiPreferences?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLoginAt?: SortOrderInput | SortOrder
@@ -14900,6 +22782,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
     certificates?: CertificateOrderByRelationAggregateInput
+    organizationMemberships?: OrganizationMemberOrderByRelationAggregateInput
+    aiInteractions?: AIInteractionOrderByRelationAggregateInput
+    aiRecommendations?: AIRecommendationOrderByRelationAggregateInput
+    aiInsights?: AIInsightOrderByRelationAggregateInput
+    ownedOrganizations?: OrganizationOrderByRelationAggregateInput
+    createdCampaigns?: CampaignOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -14917,6 +22805,8 @@ export namespace Prisma {
     emailNotifications?: BoolFilter<"User"> | boolean
     city?: StringNullableFilter<"User"> | string | null
     country?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    aiPreferences?: JsonNullableFilter<"User">
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -14928,6 +22818,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionListRelationFilter
     notifications?: NotificationListRelationFilter
     certificates?: CertificateListRelationFilter
+    organizationMemberships?: OrganizationMemberListRelationFilter
+    aiInteractions?: AIInteractionListRelationFilter
+    aiRecommendations?: AIRecommendationListRelationFilter
+    aiInsights?: AIInsightListRelationFilter
+    ownedOrganizations?: OrganizationListRelationFilter
+    createdCampaigns?: CampaignListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -14942,6 +22838,8 @@ export namespace Prisma {
     emailNotifications?: SortOrder
     city?: SortOrderInput | SortOrder
     country?: SortOrderInput | SortOrder
+    role?: SortOrder
+    aiPreferences?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLoginAt?: SortOrderInput | SortOrder
@@ -14967,9 +22865,305 @@ export namespace Prisma {
     emailNotifications?: BoolWithAggregatesFilter<"User"> | boolean
     city?: StringNullableWithAggregatesFilter<"User"> | string | null
     country?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    aiPreferences?: JsonNullableWithAggregatesFilter<"User">
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     lastLoginAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  }
+
+  export type OrganizationWhereInput = {
+    AND?: OrganizationWhereInput | OrganizationWhereInput[]
+    OR?: OrganizationWhereInput[]
+    NOT?: OrganizationWhereInput | OrganizationWhereInput[]
+    id?: UuidFilter<"Organization"> | string
+    name?: StringFilter<"Organization"> | string
+    description?: StringNullableFilter<"Organization"> | string | null
+    logoUrl?: StringNullableFilter<"Organization"> | string | null
+    website?: StringNullableFilter<"Organization"> | string | null
+    contactEmail?: StringFilter<"Organization"> | string
+    contactPhone?: StringNullableFilter<"Organization"> | string | null
+    address?: StringNullableFilter<"Organization"> | string | null
+    isVerified?: BoolFilter<"Organization"> | boolean
+    aiEnabled?: BoolFilter<"Organization"> | boolean
+    createdAt?: DateTimeFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeFilter<"Organization"> | Date | string
+    ownerId?: UuidFilter<"Organization"> | string
+    owner?: XOR<UserRelationFilter, UserWhereInput>
+    members?: OrganizationMemberListRelationFilter
+    campaigns?: CampaignListRelationFilter
+    trees?: TreeListRelationFilter
+    aiInsights?: AIInsightListRelationFilter
+  }
+
+  export type OrganizationOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    logoUrl?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
+    aiEnabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ownerId?: SortOrder
+    owner?: UserOrderByWithRelationInput
+    members?: OrganizationMemberOrderByRelationAggregateInput
+    campaigns?: CampaignOrderByRelationAggregateInput
+    trees?: TreeOrderByRelationAggregateInput
+    aiInsights?: AIInsightOrderByRelationAggregateInput
+  }
+
+  export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OrganizationWhereInput | OrganizationWhereInput[]
+    OR?: OrganizationWhereInput[]
+    NOT?: OrganizationWhereInput | OrganizationWhereInput[]
+    name?: StringFilter<"Organization"> | string
+    description?: StringNullableFilter<"Organization"> | string | null
+    logoUrl?: StringNullableFilter<"Organization"> | string | null
+    website?: StringNullableFilter<"Organization"> | string | null
+    contactEmail?: StringFilter<"Organization"> | string
+    contactPhone?: StringNullableFilter<"Organization"> | string | null
+    address?: StringNullableFilter<"Organization"> | string | null
+    isVerified?: BoolFilter<"Organization"> | boolean
+    aiEnabled?: BoolFilter<"Organization"> | boolean
+    createdAt?: DateTimeFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeFilter<"Organization"> | Date | string
+    ownerId?: UuidFilter<"Organization"> | string
+    owner?: XOR<UserRelationFilter, UserWhereInput>
+    members?: OrganizationMemberListRelationFilter
+    campaigns?: CampaignListRelationFilter
+    trees?: TreeListRelationFilter
+    aiInsights?: AIInsightListRelationFilter
+  }, "id">
+
+  export type OrganizationOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    logoUrl?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
+    aiEnabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ownerId?: SortOrder
+    _count?: OrganizationCountOrderByAggregateInput
+    _max?: OrganizationMaxOrderByAggregateInput
+    _min?: OrganizationMinOrderByAggregateInput
+  }
+
+  export type OrganizationScalarWhereWithAggregatesInput = {
+    AND?: OrganizationScalarWhereWithAggregatesInput | OrganizationScalarWhereWithAggregatesInput[]
+    OR?: OrganizationScalarWhereWithAggregatesInput[]
+    NOT?: OrganizationScalarWhereWithAggregatesInput | OrganizationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Organization"> | string
+    name?: StringWithAggregatesFilter<"Organization"> | string
+    description?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    logoUrl?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    website?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    contactEmail?: StringWithAggregatesFilter<"Organization"> | string
+    contactPhone?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    address?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    isVerified?: BoolWithAggregatesFilter<"Organization"> | boolean
+    aiEnabled?: BoolWithAggregatesFilter<"Organization"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
+    ownerId?: UuidWithAggregatesFilter<"Organization"> | string
+  }
+
+  export type OrganizationMemberWhereInput = {
+    AND?: OrganizationMemberWhereInput | OrganizationMemberWhereInput[]
+    OR?: OrganizationMemberWhereInput[]
+    NOT?: OrganizationMemberWhereInput | OrganizationMemberWhereInput[]
+    id?: UuidFilter<"OrganizationMember"> | string
+    role?: EnumOrganizationRoleFilter<"OrganizationMember"> | $Enums.OrganizationRole
+    joinedAt?: DateTimeFilter<"OrganizationMember"> | Date | string
+    treesContributed?: IntFilter<"OrganizationMember"> | number
+    isActive?: BoolFilter<"OrganizationMember"> | boolean
+    organizationId?: UuidFilter<"OrganizationMember"> | string
+    userId?: UuidFilter<"OrganizationMember"> | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type OrganizationMemberOrderByWithRelationInput = {
+    id?: SortOrder
+    role?: SortOrder
+    joinedAt?: SortOrder
+    treesContributed?: SortOrder
+    isActive?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type OrganizationMemberWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    organizationId_userId?: OrganizationMemberOrganizationIdUserIdCompoundUniqueInput
+    AND?: OrganizationMemberWhereInput | OrganizationMemberWhereInput[]
+    OR?: OrganizationMemberWhereInput[]
+    NOT?: OrganizationMemberWhereInput | OrganizationMemberWhereInput[]
+    role?: EnumOrganizationRoleFilter<"OrganizationMember"> | $Enums.OrganizationRole
+    joinedAt?: DateTimeFilter<"OrganizationMember"> | Date | string
+    treesContributed?: IntFilter<"OrganizationMember"> | number
+    isActive?: BoolFilter<"OrganizationMember"> | boolean
+    organizationId?: UuidFilter<"OrganizationMember"> | string
+    userId?: UuidFilter<"OrganizationMember"> | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "organizationId_userId">
+
+  export type OrganizationMemberOrderByWithAggregationInput = {
+    id?: SortOrder
+    role?: SortOrder
+    joinedAt?: SortOrder
+    treesContributed?: SortOrder
+    isActive?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+    _count?: OrganizationMemberCountOrderByAggregateInput
+    _avg?: OrganizationMemberAvgOrderByAggregateInput
+    _max?: OrganizationMemberMaxOrderByAggregateInput
+    _min?: OrganizationMemberMinOrderByAggregateInput
+    _sum?: OrganizationMemberSumOrderByAggregateInput
+  }
+
+  export type OrganizationMemberScalarWhereWithAggregatesInput = {
+    AND?: OrganizationMemberScalarWhereWithAggregatesInput | OrganizationMemberScalarWhereWithAggregatesInput[]
+    OR?: OrganizationMemberScalarWhereWithAggregatesInput[]
+    NOT?: OrganizationMemberScalarWhereWithAggregatesInput | OrganizationMemberScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"OrganizationMember"> | string
+    role?: EnumOrganizationRoleWithAggregatesFilter<"OrganizationMember"> | $Enums.OrganizationRole
+    joinedAt?: DateTimeWithAggregatesFilter<"OrganizationMember"> | Date | string
+    treesContributed?: IntWithAggregatesFilter<"OrganizationMember"> | number
+    isActive?: BoolWithAggregatesFilter<"OrganizationMember"> | boolean
+    organizationId?: UuidWithAggregatesFilter<"OrganizationMember"> | string
+    userId?: UuidWithAggregatesFilter<"OrganizationMember"> | string
+  }
+
+  export type CampaignWhereInput = {
+    AND?: CampaignWhereInput | CampaignWhereInput[]
+    OR?: CampaignWhereInput[]
+    NOT?: CampaignWhereInput | CampaignWhereInput[]
+    id?: UuidFilter<"Campaign"> | string
+    name?: StringFilter<"Campaign"> | string
+    description?: StringNullableFilter<"Campaign"> | string | null
+    targetTrees?: IntFilter<"Campaign"> | number
+    plantedTrees?: IntFilter<"Campaign"> | number
+    status?: EnumCampaignStatusFilter<"Campaign"> | $Enums.CampaignStatus
+    startDate?: DateTimeFilter<"Campaign"> | Date | string
+    endDate?: DateTimeFilter<"Campaign"> | Date | string
+    location?: JsonNullableFilter<"Campaign">
+    budget?: DecimalNullableFilter<"Campaign"> | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFilter<"Campaign"> | boolean
+    createdAt?: DateTimeFilter<"Campaign"> | Date | string
+    updatedAt?: DateTimeFilter<"Campaign"> | Date | string
+    organizationId?: UuidFilter<"Campaign"> | string
+    createdBy?: UuidFilter<"Campaign"> | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    creator?: XOR<UserRelationFilter, UserWhereInput>
+    trees?: TreeListRelationFilter
+    aiInsights?: AIInsightListRelationFilter
+  }
+
+  export type CampaignOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    targetTrees?: SortOrder
+    plantedTrees?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    location?: SortOrderInput | SortOrder
+    budget?: SortOrderInput | SortOrder
+    aiOptimized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organizationId?: SortOrder
+    createdBy?: SortOrder
+    organization?: OrganizationOrderByWithRelationInput
+    creator?: UserOrderByWithRelationInput
+    trees?: TreeOrderByRelationAggregateInput
+    aiInsights?: AIInsightOrderByRelationAggregateInput
+  }
+
+  export type CampaignWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CampaignWhereInput | CampaignWhereInput[]
+    OR?: CampaignWhereInput[]
+    NOT?: CampaignWhereInput | CampaignWhereInput[]
+    name?: StringFilter<"Campaign"> | string
+    description?: StringNullableFilter<"Campaign"> | string | null
+    targetTrees?: IntFilter<"Campaign"> | number
+    plantedTrees?: IntFilter<"Campaign"> | number
+    status?: EnumCampaignStatusFilter<"Campaign"> | $Enums.CampaignStatus
+    startDate?: DateTimeFilter<"Campaign"> | Date | string
+    endDate?: DateTimeFilter<"Campaign"> | Date | string
+    location?: JsonNullableFilter<"Campaign">
+    budget?: DecimalNullableFilter<"Campaign"> | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFilter<"Campaign"> | boolean
+    createdAt?: DateTimeFilter<"Campaign"> | Date | string
+    updatedAt?: DateTimeFilter<"Campaign"> | Date | string
+    organizationId?: UuidFilter<"Campaign"> | string
+    createdBy?: UuidFilter<"Campaign"> | string
+    organization?: XOR<OrganizationRelationFilter, OrganizationWhereInput>
+    creator?: XOR<UserRelationFilter, UserWhereInput>
+    trees?: TreeListRelationFilter
+    aiInsights?: AIInsightListRelationFilter
+  }, "id">
+
+  export type CampaignOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    targetTrees?: SortOrder
+    plantedTrees?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    location?: SortOrderInput | SortOrder
+    budget?: SortOrderInput | SortOrder
+    aiOptimized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organizationId?: SortOrder
+    createdBy?: SortOrder
+    _count?: CampaignCountOrderByAggregateInput
+    _avg?: CampaignAvgOrderByAggregateInput
+    _max?: CampaignMaxOrderByAggregateInput
+    _min?: CampaignMinOrderByAggregateInput
+    _sum?: CampaignSumOrderByAggregateInput
+  }
+
+  export type CampaignScalarWhereWithAggregatesInput = {
+    AND?: CampaignScalarWhereWithAggregatesInput | CampaignScalarWhereWithAggregatesInput[]
+    OR?: CampaignScalarWhereWithAggregatesInput[]
+    NOT?: CampaignScalarWhereWithAggregatesInput | CampaignScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Campaign"> | string
+    name?: StringWithAggregatesFilter<"Campaign"> | string
+    description?: StringNullableWithAggregatesFilter<"Campaign"> | string | null
+    targetTrees?: IntWithAggregatesFilter<"Campaign"> | number
+    plantedTrees?: IntWithAggregatesFilter<"Campaign"> | number
+    status?: EnumCampaignStatusWithAggregatesFilter<"Campaign"> | $Enums.CampaignStatus
+    startDate?: DateTimeWithAggregatesFilter<"Campaign"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"Campaign"> | Date | string
+    location?: JsonNullableWithAggregatesFilter<"Campaign">
+    budget?: DecimalNullableWithAggregatesFilter<"Campaign"> | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolWithAggregatesFilter<"Campaign"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Campaign"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Campaign"> | Date | string
+    organizationId?: UuidWithAggregatesFilter<"Campaign"> | string
+    createdBy?: UuidWithAggregatesFilter<"Campaign"> | string
   }
 
   export type TreeWhereInput = {
@@ -14990,11 +23184,21 @@ export namespace Prisma {
     isAdoptable?: BoolFilter<"Tree"> | boolean
     transferReason?: StringNullableFilter<"Tree"> | string | null
     lastUpdateAt?: DateTimeNullableFilter<"Tree"> | Date | string | null
+    aiHealthScore?: FloatNullableFilter<"Tree"> | number | null
+    aiCareRecommendations?: JsonNullableFilter<"Tree">
+    aiGrowthPrediction?: JsonNullableFilter<"Tree">
     ownerId?: UuidFilter<"Tree"> | string
+    organizationId?: UuidNullableFilter<"Tree"> | string | null
+    campaignId?: UuidNullableFilter<"Tree"> | string | null
     owner?: XOR<UserRelationFilter, UserWhereInput>
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    campaign?: XOR<CampaignNullableRelationFilter, CampaignWhereInput> | null
     updates?: TreeUpdateListRelationFilter
     adoptions?: TreeAdoptionListRelationFilter
     certificates?: CertificateListRelationFilter
+    aiInsights?: AIInsightListRelationFilter
+    aiInteractions?: AIInteractionListRelationFilter
+    aiRecommendations?: AIRecommendationListRelationFilter
   }
 
   export type TreeOrderByWithRelationInput = {
@@ -15012,11 +23216,21 @@ export namespace Prisma {
     isAdoptable?: SortOrder
     transferReason?: SortOrderInput | SortOrder
     lastUpdateAt?: SortOrderInput | SortOrder
+    aiHealthScore?: SortOrderInput | SortOrder
+    aiCareRecommendations?: SortOrderInput | SortOrder
+    aiGrowthPrediction?: SortOrderInput | SortOrder
     ownerId?: SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    campaignId?: SortOrderInput | SortOrder
     owner?: UserOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+    campaign?: CampaignOrderByWithRelationInput
     updates?: TreeUpdateOrderByRelationAggregateInput
     adoptions?: TreeAdoptionOrderByRelationAggregateInput
     certificates?: CertificateOrderByRelationAggregateInput
+    aiInsights?: AIInsightOrderByRelationAggregateInput
+    aiInteractions?: AIInteractionOrderByRelationAggregateInput
+    aiRecommendations?: AIRecommendationOrderByRelationAggregateInput
   }
 
   export type TreeWhereUniqueInput = Prisma.AtLeast<{
@@ -15037,11 +23251,21 @@ export namespace Prisma {
     isAdoptable?: BoolFilter<"Tree"> | boolean
     transferReason?: StringNullableFilter<"Tree"> | string | null
     lastUpdateAt?: DateTimeNullableFilter<"Tree"> | Date | string | null
+    aiHealthScore?: FloatNullableFilter<"Tree"> | number | null
+    aiCareRecommendations?: JsonNullableFilter<"Tree">
+    aiGrowthPrediction?: JsonNullableFilter<"Tree">
     ownerId?: UuidFilter<"Tree"> | string
+    organizationId?: UuidNullableFilter<"Tree"> | string | null
+    campaignId?: UuidNullableFilter<"Tree"> | string | null
     owner?: XOR<UserRelationFilter, UserWhereInput>
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    campaign?: XOR<CampaignNullableRelationFilter, CampaignWhereInput> | null
     updates?: TreeUpdateListRelationFilter
     adoptions?: TreeAdoptionListRelationFilter
     certificates?: CertificateListRelationFilter
+    aiInsights?: AIInsightListRelationFilter
+    aiInteractions?: AIInteractionListRelationFilter
+    aiRecommendations?: AIRecommendationListRelationFilter
   }, "id" | "qrCode">
 
   export type TreeOrderByWithAggregationInput = {
@@ -15059,7 +23283,12 @@ export namespace Prisma {
     isAdoptable?: SortOrder
     transferReason?: SortOrderInput | SortOrder
     lastUpdateAt?: SortOrderInput | SortOrder
+    aiHealthScore?: SortOrderInput | SortOrder
+    aiCareRecommendations?: SortOrderInput | SortOrder
+    aiGrowthPrediction?: SortOrderInput | SortOrder
     ownerId?: SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    campaignId?: SortOrderInput | SortOrder
     _count?: TreeCountOrderByAggregateInput
     _avg?: TreeAvgOrderByAggregateInput
     _max?: TreeMaxOrderByAggregateInput
@@ -15085,7 +23314,12 @@ export namespace Prisma {
     isAdoptable?: BoolWithAggregatesFilter<"Tree"> | boolean
     transferReason?: StringNullableWithAggregatesFilter<"Tree"> | string | null
     lastUpdateAt?: DateTimeNullableWithAggregatesFilter<"Tree"> | Date | string | null
+    aiHealthScore?: FloatNullableWithAggregatesFilter<"Tree"> | number | null
+    aiCareRecommendations?: JsonNullableWithAggregatesFilter<"Tree">
+    aiGrowthPrediction?: JsonNullableWithAggregatesFilter<"Tree">
     ownerId?: UuidWithAggregatesFilter<"Tree"> | string
+    organizationId?: UuidNullableWithAggregatesFilter<"Tree"> | string | null
+    campaignId?: UuidNullableWithAggregatesFilter<"Tree"> | string | null
   }
 
   export type TreeUpdateWhereInput = {
@@ -15098,6 +23332,7 @@ export namespace Prisma {
     photoUrl?: StringFilter<"TreeUpdate"> | string
     growthMeasurements?: JsonNullableFilter<"TreeUpdate">
     gpsLocation?: JsonNullableFilter<"TreeUpdate">
+    aiAnalysis?: JsonNullableFilter<"TreeUpdate">
     createdAt?: DateTimeFilter<"TreeUpdate"> | Date | string
     treeId?: UuidFilter<"TreeUpdate"> | string
     userId?: UuidFilter<"TreeUpdate"> | string
@@ -15112,6 +23347,7 @@ export namespace Prisma {
     photoUrl?: SortOrder
     growthMeasurements?: SortOrderInput | SortOrder
     gpsLocation?: SortOrderInput | SortOrder
+    aiAnalysis?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     treeId?: SortOrder
     userId?: SortOrder
@@ -15129,6 +23365,7 @@ export namespace Prisma {
     photoUrl?: StringFilter<"TreeUpdate"> | string
     growthMeasurements?: JsonNullableFilter<"TreeUpdate">
     gpsLocation?: JsonNullableFilter<"TreeUpdate">
+    aiAnalysis?: JsonNullableFilter<"TreeUpdate">
     createdAt?: DateTimeFilter<"TreeUpdate"> | Date | string
     treeId?: UuidFilter<"TreeUpdate"> | string
     userId?: UuidFilter<"TreeUpdate"> | string
@@ -15143,6 +23380,7 @@ export namespace Prisma {
     photoUrl?: SortOrder
     growthMeasurements?: SortOrderInput | SortOrder
     gpsLocation?: SortOrderInput | SortOrder
+    aiAnalysis?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     treeId?: SortOrder
     userId?: SortOrder
@@ -15161,6 +23399,7 @@ export namespace Prisma {
     photoUrl?: StringWithAggregatesFilter<"TreeUpdate"> | string
     growthMeasurements?: JsonNullableWithAggregatesFilter<"TreeUpdate">
     gpsLocation?: JsonNullableWithAggregatesFilter<"TreeUpdate">
+    aiAnalysis?: JsonNullableWithAggregatesFilter<"TreeUpdate">
     createdAt?: DateTimeWithAggregatesFilter<"TreeUpdate"> | Date | string
     treeId?: UuidWithAggregatesFilter<"TreeUpdate"> | string
     userId?: UuidWithAggregatesFilter<"TreeUpdate"> | string
@@ -15175,6 +23414,7 @@ export namespace Prisma {
     commitmentMessage?: StringNullableFilter<"TreeAdoption"> | string | null
     commitmentDuration?: IntNullableFilter<"TreeAdoption"> | number | null
     adoptedAt?: DateTimeFilter<"TreeAdoption"> | Date | string
+    aiMatchScore?: FloatNullableFilter<"TreeAdoption"> | number | null
     treeId?: UuidFilter<"TreeAdoption"> | string
     previousOwnerId?: UuidFilter<"TreeAdoption"> | string
     newOwnerId?: UuidFilter<"TreeAdoption"> | string
@@ -15189,6 +23429,7 @@ export namespace Prisma {
     commitmentMessage?: SortOrderInput | SortOrder
     commitmentDuration?: SortOrderInput | SortOrder
     adoptedAt?: SortOrder
+    aiMatchScore?: SortOrderInput | SortOrder
     treeId?: SortOrder
     previousOwnerId?: SortOrder
     newOwnerId?: SortOrder
@@ -15206,6 +23447,7 @@ export namespace Prisma {
     commitmentMessage?: StringNullableFilter<"TreeAdoption"> | string | null
     commitmentDuration?: IntNullableFilter<"TreeAdoption"> | number | null
     adoptedAt?: DateTimeFilter<"TreeAdoption"> | Date | string
+    aiMatchScore?: FloatNullableFilter<"TreeAdoption"> | number | null
     treeId?: UuidFilter<"TreeAdoption"> | string
     previousOwnerId?: UuidFilter<"TreeAdoption"> | string
     newOwnerId?: UuidFilter<"TreeAdoption"> | string
@@ -15220,6 +23462,7 @@ export namespace Prisma {
     commitmentMessage?: SortOrderInput | SortOrder
     commitmentDuration?: SortOrderInput | SortOrder
     adoptedAt?: SortOrder
+    aiMatchScore?: SortOrderInput | SortOrder
     treeId?: SortOrder
     previousOwnerId?: SortOrder
     newOwnerId?: SortOrder
@@ -15239,9 +23482,304 @@ export namespace Prisma {
     commitmentMessage?: StringNullableWithAggregatesFilter<"TreeAdoption"> | string | null
     commitmentDuration?: IntNullableWithAggregatesFilter<"TreeAdoption"> | number | null
     adoptedAt?: DateTimeWithAggregatesFilter<"TreeAdoption"> | Date | string
+    aiMatchScore?: FloatNullableWithAggregatesFilter<"TreeAdoption"> | number | null
     treeId?: UuidWithAggregatesFilter<"TreeAdoption"> | string
     previousOwnerId?: UuidWithAggregatesFilter<"TreeAdoption"> | string
     newOwnerId?: UuidWithAggregatesFilter<"TreeAdoption"> | string
+  }
+
+  export type AIInteractionWhereInput = {
+    AND?: AIInteractionWhereInput | AIInteractionWhereInput[]
+    OR?: AIInteractionWhereInput[]
+    NOT?: AIInteractionWhereInput | AIInteractionWhereInput[]
+    id?: UuidFilter<"AIInteraction"> | string
+    type?: EnumAIInteractionTypeFilter<"AIInteraction"> | $Enums.AIInteractionType
+    input?: JsonFilter<"AIInteraction">
+    output?: JsonFilter<"AIInteraction">
+    model?: StringFilter<"AIInteraction"> | string
+    tokensUsed?: IntFilter<"AIInteraction"> | number
+    cost?: DecimalNullableFilter<"AIInteraction"> | Decimal | DecimalJsLike | number | string | null
+    responseTime?: IntNullableFilter<"AIInteraction"> | number | null
+    success?: BoolFilter<"AIInteraction"> | boolean
+    error?: StringNullableFilter<"AIInteraction"> | string | null
+    createdAt?: DateTimeFilter<"AIInteraction"> | Date | string
+    userId?: UuidFilter<"AIInteraction"> | string
+    treeId?: UuidNullableFilter<"AIInteraction"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    tree?: XOR<TreeNullableRelationFilter, TreeWhereInput> | null
+  }
+
+  export type AIInteractionOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    input?: SortOrder
+    output?: SortOrder
+    model?: SortOrder
+    tokensUsed?: SortOrder
+    cost?: SortOrderInput | SortOrder
+    responseTime?: SortOrderInput | SortOrder
+    success?: SortOrder
+    error?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    tree?: TreeOrderByWithRelationInput
+  }
+
+  export type AIInteractionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AIInteractionWhereInput | AIInteractionWhereInput[]
+    OR?: AIInteractionWhereInput[]
+    NOT?: AIInteractionWhereInput | AIInteractionWhereInput[]
+    type?: EnumAIInteractionTypeFilter<"AIInteraction"> | $Enums.AIInteractionType
+    input?: JsonFilter<"AIInteraction">
+    output?: JsonFilter<"AIInteraction">
+    model?: StringFilter<"AIInteraction"> | string
+    tokensUsed?: IntFilter<"AIInteraction"> | number
+    cost?: DecimalNullableFilter<"AIInteraction"> | Decimal | DecimalJsLike | number | string | null
+    responseTime?: IntNullableFilter<"AIInteraction"> | number | null
+    success?: BoolFilter<"AIInteraction"> | boolean
+    error?: StringNullableFilter<"AIInteraction"> | string | null
+    createdAt?: DateTimeFilter<"AIInteraction"> | Date | string
+    userId?: UuidFilter<"AIInteraction"> | string
+    treeId?: UuidNullableFilter<"AIInteraction"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    tree?: XOR<TreeNullableRelationFilter, TreeWhereInput> | null
+  }, "id">
+
+  export type AIInteractionOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    input?: SortOrder
+    output?: SortOrder
+    model?: SortOrder
+    tokensUsed?: SortOrder
+    cost?: SortOrderInput | SortOrder
+    responseTime?: SortOrderInput | SortOrder
+    success?: SortOrder
+    error?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrderInput | SortOrder
+    _count?: AIInteractionCountOrderByAggregateInput
+    _avg?: AIInteractionAvgOrderByAggregateInput
+    _max?: AIInteractionMaxOrderByAggregateInput
+    _min?: AIInteractionMinOrderByAggregateInput
+    _sum?: AIInteractionSumOrderByAggregateInput
+  }
+
+  export type AIInteractionScalarWhereWithAggregatesInput = {
+    AND?: AIInteractionScalarWhereWithAggregatesInput | AIInteractionScalarWhereWithAggregatesInput[]
+    OR?: AIInteractionScalarWhereWithAggregatesInput[]
+    NOT?: AIInteractionScalarWhereWithAggregatesInput | AIInteractionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"AIInteraction"> | string
+    type?: EnumAIInteractionTypeWithAggregatesFilter<"AIInteraction"> | $Enums.AIInteractionType
+    input?: JsonWithAggregatesFilter<"AIInteraction">
+    output?: JsonWithAggregatesFilter<"AIInteraction">
+    model?: StringWithAggregatesFilter<"AIInteraction"> | string
+    tokensUsed?: IntWithAggregatesFilter<"AIInteraction"> | number
+    cost?: DecimalNullableWithAggregatesFilter<"AIInteraction"> | Decimal | DecimalJsLike | number | string | null
+    responseTime?: IntNullableWithAggregatesFilter<"AIInteraction"> | number | null
+    success?: BoolWithAggregatesFilter<"AIInteraction"> | boolean
+    error?: StringNullableWithAggregatesFilter<"AIInteraction"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AIInteraction"> | Date | string
+    userId?: UuidWithAggregatesFilter<"AIInteraction"> | string
+    treeId?: UuidNullableWithAggregatesFilter<"AIInteraction"> | string | null
+  }
+
+  export type AIRecommendationWhereInput = {
+    AND?: AIRecommendationWhereInput | AIRecommendationWhereInput[]
+    OR?: AIRecommendationWhereInput[]
+    NOT?: AIRecommendationWhereInput | AIRecommendationWhereInput[]
+    id?: UuidFilter<"AIRecommendation"> | string
+    type?: EnumAIRecommendationTypeFilter<"AIRecommendation"> | $Enums.AIRecommendationType
+    title?: StringFilter<"AIRecommendation"> | string
+    description?: StringFilter<"AIRecommendation"> | string
+    priority?: EnumPriorityFilter<"AIRecommendation"> | $Enums.Priority
+    data?: JsonFilter<"AIRecommendation">
+    isRead?: BoolFilter<"AIRecommendation"> | boolean
+    isApplied?: BoolFilter<"AIRecommendation"> | boolean
+    expiresAt?: DateTimeNullableFilter<"AIRecommendation"> | Date | string | null
+    createdAt?: DateTimeFilter<"AIRecommendation"> | Date | string
+    userId?: UuidFilter<"AIRecommendation"> | string
+    treeId?: UuidNullableFilter<"AIRecommendation"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    tree?: XOR<TreeNullableRelationFilter, TreeWhereInput> | null
+  }
+
+  export type AIRecommendationOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    priority?: SortOrder
+    data?: SortOrder
+    isRead?: SortOrder
+    isApplied?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    tree?: TreeOrderByWithRelationInput
+  }
+
+  export type AIRecommendationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AIRecommendationWhereInput | AIRecommendationWhereInput[]
+    OR?: AIRecommendationWhereInput[]
+    NOT?: AIRecommendationWhereInput | AIRecommendationWhereInput[]
+    type?: EnumAIRecommendationTypeFilter<"AIRecommendation"> | $Enums.AIRecommendationType
+    title?: StringFilter<"AIRecommendation"> | string
+    description?: StringFilter<"AIRecommendation"> | string
+    priority?: EnumPriorityFilter<"AIRecommendation"> | $Enums.Priority
+    data?: JsonFilter<"AIRecommendation">
+    isRead?: BoolFilter<"AIRecommendation"> | boolean
+    isApplied?: BoolFilter<"AIRecommendation"> | boolean
+    expiresAt?: DateTimeNullableFilter<"AIRecommendation"> | Date | string | null
+    createdAt?: DateTimeFilter<"AIRecommendation"> | Date | string
+    userId?: UuidFilter<"AIRecommendation"> | string
+    treeId?: UuidNullableFilter<"AIRecommendation"> | string | null
+    user?: XOR<UserRelationFilter, UserWhereInput>
+    tree?: XOR<TreeNullableRelationFilter, TreeWhereInput> | null
+  }, "id">
+
+  export type AIRecommendationOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    priority?: SortOrder
+    data?: SortOrder
+    isRead?: SortOrder
+    isApplied?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrderInput | SortOrder
+    _count?: AIRecommendationCountOrderByAggregateInput
+    _max?: AIRecommendationMaxOrderByAggregateInput
+    _min?: AIRecommendationMinOrderByAggregateInput
+  }
+
+  export type AIRecommendationScalarWhereWithAggregatesInput = {
+    AND?: AIRecommendationScalarWhereWithAggregatesInput | AIRecommendationScalarWhereWithAggregatesInput[]
+    OR?: AIRecommendationScalarWhereWithAggregatesInput[]
+    NOT?: AIRecommendationScalarWhereWithAggregatesInput | AIRecommendationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"AIRecommendation"> | string
+    type?: EnumAIRecommendationTypeWithAggregatesFilter<"AIRecommendation"> | $Enums.AIRecommendationType
+    title?: StringWithAggregatesFilter<"AIRecommendation"> | string
+    description?: StringWithAggregatesFilter<"AIRecommendation"> | string
+    priority?: EnumPriorityWithAggregatesFilter<"AIRecommendation"> | $Enums.Priority
+    data?: JsonWithAggregatesFilter<"AIRecommendation">
+    isRead?: BoolWithAggregatesFilter<"AIRecommendation"> | boolean
+    isApplied?: BoolWithAggregatesFilter<"AIRecommendation"> | boolean
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"AIRecommendation"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AIRecommendation"> | Date | string
+    userId?: UuidWithAggregatesFilter<"AIRecommendation"> | string
+    treeId?: UuidNullableWithAggregatesFilter<"AIRecommendation"> | string | null
+  }
+
+  export type AIInsightWhereInput = {
+    AND?: AIInsightWhereInput | AIInsightWhereInput[]
+    OR?: AIInsightWhereInput[]
+    NOT?: AIInsightWhereInput | AIInsightWhereInput[]
+    id?: UuidFilter<"AIInsight"> | string
+    type?: EnumAIInsightTypeFilter<"AIInsight"> | $Enums.AIInsightType
+    title?: StringFilter<"AIInsight"> | string
+    content?: StringFilter<"AIInsight"> | string
+    data?: JsonFilter<"AIInsight">
+    confidence?: FloatFilter<"AIInsight"> | number
+    isActive?: BoolFilter<"AIInsight"> | boolean
+    createdAt?: DateTimeFilter<"AIInsight"> | Date | string
+    userId?: UuidNullableFilter<"AIInsight"> | string | null
+    treeId?: UuidNullableFilter<"AIInsight"> | string | null
+    organizationId?: UuidNullableFilter<"AIInsight"> | string | null
+    campaignId?: UuidNullableFilter<"AIInsight"> | string | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    tree?: XOR<TreeNullableRelationFilter, TreeWhereInput> | null
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    campaign?: XOR<CampaignNullableRelationFilter, CampaignWhereInput> | null
+  }
+
+  export type AIInsightOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    data?: SortOrder
+    confidence?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    treeId?: SortOrderInput | SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    campaignId?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    tree?: TreeOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+    campaign?: CampaignOrderByWithRelationInput
+  }
+
+  export type AIInsightWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AIInsightWhereInput | AIInsightWhereInput[]
+    OR?: AIInsightWhereInput[]
+    NOT?: AIInsightWhereInput | AIInsightWhereInput[]
+    type?: EnumAIInsightTypeFilter<"AIInsight"> | $Enums.AIInsightType
+    title?: StringFilter<"AIInsight"> | string
+    content?: StringFilter<"AIInsight"> | string
+    data?: JsonFilter<"AIInsight">
+    confidence?: FloatFilter<"AIInsight"> | number
+    isActive?: BoolFilter<"AIInsight"> | boolean
+    createdAt?: DateTimeFilter<"AIInsight"> | Date | string
+    userId?: UuidNullableFilter<"AIInsight"> | string | null
+    treeId?: UuidNullableFilter<"AIInsight"> | string | null
+    organizationId?: UuidNullableFilter<"AIInsight"> | string | null
+    campaignId?: UuidNullableFilter<"AIInsight"> | string | null
+    user?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    tree?: XOR<TreeNullableRelationFilter, TreeWhereInput> | null
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    campaign?: XOR<CampaignNullableRelationFilter, CampaignWhereInput> | null
+  }, "id">
+
+  export type AIInsightOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    data?: SortOrder
+    confidence?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    treeId?: SortOrderInput | SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    campaignId?: SortOrderInput | SortOrder
+    _count?: AIInsightCountOrderByAggregateInput
+    _avg?: AIInsightAvgOrderByAggregateInput
+    _max?: AIInsightMaxOrderByAggregateInput
+    _min?: AIInsightMinOrderByAggregateInput
+    _sum?: AIInsightSumOrderByAggregateInput
+  }
+
+  export type AIInsightScalarWhereWithAggregatesInput = {
+    AND?: AIInsightScalarWhereWithAggregatesInput | AIInsightScalarWhereWithAggregatesInput[]
+    OR?: AIInsightScalarWhereWithAggregatesInput[]
+    NOT?: AIInsightScalarWhereWithAggregatesInput | AIInsightScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"AIInsight"> | string
+    type?: EnumAIInsightTypeWithAggregatesFilter<"AIInsight"> | $Enums.AIInsightType
+    title?: StringWithAggregatesFilter<"AIInsight"> | string
+    content?: StringWithAggregatesFilter<"AIInsight"> | string
+    data?: JsonWithAggregatesFilter<"AIInsight">
+    confidence?: FloatWithAggregatesFilter<"AIInsight"> | number
+    isActive?: BoolWithAggregatesFilter<"AIInsight"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"AIInsight"> | Date | string
+    userId?: UuidNullableWithAggregatesFilter<"AIInsight"> | string | null
+    treeId?: UuidNullableWithAggregatesFilter<"AIInsight"> | string | null
+    organizationId?: UuidNullableWithAggregatesFilter<"AIInsight"> | string | null
+    campaignId?: UuidNullableWithAggregatesFilter<"AIInsight"> | string | null
   }
 
   export type BadgeWhereInput = {
@@ -15610,6 +24148,8 @@ export namespace Prisma {
     message?: StringFilter<"Notification"> | string
     data?: JsonNullableFilter<"Notification">
     isRead?: BoolFilter<"Notification"> | boolean
+    isActionable?: BoolFilter<"Notification"> | boolean
+    actionUrl?: StringNullableFilter<"Notification"> | string | null
     createdAt?: DateTimeFilter<"Notification"> | Date | string
     userId?: UuidFilter<"Notification"> | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -15622,6 +24162,8 @@ export namespace Prisma {
     message?: SortOrder
     data?: SortOrderInput | SortOrder
     isRead?: SortOrder
+    isActionable?: SortOrder
+    actionUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -15637,6 +24179,8 @@ export namespace Prisma {
     message?: StringFilter<"Notification"> | string
     data?: JsonNullableFilter<"Notification">
     isRead?: BoolFilter<"Notification"> | boolean
+    isActionable?: BoolFilter<"Notification"> | boolean
+    actionUrl?: StringNullableFilter<"Notification"> | string | null
     createdAt?: DateTimeFilter<"Notification"> | Date | string
     userId?: UuidFilter<"Notification"> | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -15649,6 +24193,8 @@ export namespace Prisma {
     message?: SortOrder
     data?: SortOrderInput | SortOrder
     isRead?: SortOrder
+    isActionable?: SortOrder
+    actionUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
     _count?: NotificationCountOrderByAggregateInput
@@ -15666,6 +24212,8 @@ export namespace Prisma {
     message?: StringWithAggregatesFilter<"Notification"> | string
     data?: JsonNullableWithAggregatesFilter<"Notification">
     isRead?: BoolWithAggregatesFilter<"Notification"> | boolean
+    isActionable?: BoolWithAggregatesFilter<"Notification"> | boolean
+    actionUrl?: StringNullableWithAggregatesFilter<"Notification"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
     userId?: UuidWithAggregatesFilter<"Notification"> | string
   }
@@ -15677,13 +24225,12 @@ export namespace Prisma {
     id?: UuidFilter<"LearningModule"> | string
     title?: StringFilter<"LearningModule"> | string
     description?: StringFilter<"LearningModule"> | string
-    content?: JsonFilter<"LearningModule">
-    duration?: IntFilter<"LearningModule"> | number
+    content?: StringFilter<"LearningModule"> | string
     difficulty?: EnumDifficultyFilter<"LearningModule"> | $Enums.Difficulty
-    topics?: StringNullableListFilter<"LearningModule">
-    thumbnailUrl?: StringNullableFilter<"LearningModule"> | string | null
+    category?: StringFilter<"LearningModule"> | string
+    imageUrl?: StringNullableFilter<"LearningModule"> | string | null
+    videoUrl?: StringNullableFilter<"LearningModule"> | string | null
     isActive?: BoolFilter<"LearningModule"> | boolean
-    order?: IntFilter<"LearningModule"> | number
     createdAt?: DateTimeFilter<"LearningModule"> | Date | string
   }
 
@@ -15692,12 +24239,11 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     content?: SortOrder
-    duration?: SortOrder
     difficulty?: SortOrder
-    topics?: SortOrder
-    thumbnailUrl?: SortOrderInput | SortOrder
+    category?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    videoUrl?: SortOrderInput | SortOrder
     isActive?: SortOrder
-    order?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -15708,13 +24254,12 @@ export namespace Prisma {
     NOT?: LearningModuleWhereInput | LearningModuleWhereInput[]
     title?: StringFilter<"LearningModule"> | string
     description?: StringFilter<"LearningModule"> | string
-    content?: JsonFilter<"LearningModule">
-    duration?: IntFilter<"LearningModule"> | number
+    content?: StringFilter<"LearningModule"> | string
     difficulty?: EnumDifficultyFilter<"LearningModule"> | $Enums.Difficulty
-    topics?: StringNullableListFilter<"LearningModule">
-    thumbnailUrl?: StringNullableFilter<"LearningModule"> | string | null
+    category?: StringFilter<"LearningModule"> | string
+    imageUrl?: StringNullableFilter<"LearningModule"> | string | null
+    videoUrl?: StringNullableFilter<"LearningModule"> | string | null
     isActive?: BoolFilter<"LearningModule"> | boolean
-    order?: IntFilter<"LearningModule"> | number
     createdAt?: DateTimeFilter<"LearningModule"> | Date | string
   }, "id">
 
@@ -15723,18 +24268,15 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     content?: SortOrder
-    duration?: SortOrder
     difficulty?: SortOrder
-    topics?: SortOrder
-    thumbnailUrl?: SortOrderInput | SortOrder
+    category?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    videoUrl?: SortOrderInput | SortOrder
     isActive?: SortOrder
-    order?: SortOrder
     createdAt?: SortOrder
     _count?: LearningModuleCountOrderByAggregateInput
-    _avg?: LearningModuleAvgOrderByAggregateInput
     _max?: LearningModuleMaxOrderByAggregateInput
     _min?: LearningModuleMinOrderByAggregateInput
-    _sum?: LearningModuleSumOrderByAggregateInput
   }
 
   export type LearningModuleScalarWhereWithAggregatesInput = {
@@ -15744,13 +24286,12 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"LearningModule"> | string
     title?: StringWithAggregatesFilter<"LearningModule"> | string
     description?: StringWithAggregatesFilter<"LearningModule"> | string
-    content?: JsonWithAggregatesFilter<"LearningModule">
-    duration?: IntWithAggregatesFilter<"LearningModule"> | number
+    content?: StringWithAggregatesFilter<"LearningModule"> | string
     difficulty?: EnumDifficultyWithAggregatesFilter<"LearningModule"> | $Enums.Difficulty
-    topics?: StringNullableListFilter<"LearningModule">
-    thumbnailUrl?: StringNullableWithAggregatesFilter<"LearningModule"> | string | null
+    category?: StringWithAggregatesFilter<"LearningModule"> | string
+    imageUrl?: StringNullableWithAggregatesFilter<"LearningModule"> | string | null
+    videoUrl?: StringNullableWithAggregatesFilter<"LearningModule"> | string | null
     isActive?: BoolWithAggregatesFilter<"LearningModule"> | boolean
-    order?: IntWithAggregatesFilter<"LearningModule"> | number
     createdAt?: DateTimeWithAggregatesFilter<"LearningModule"> | Date | string
   }
 
@@ -15761,47 +24302,43 @@ export namespace Prisma {
     id?: UuidFilter<"GlobalStats"> | string
     totalTrees?: IntFilter<"GlobalStats"> | number
     totalUsers?: IntFilter<"GlobalStats"> | number
-    totalUpdates?: IntFilter<"GlobalStats"> | number
-    totalAdoptions?: IntFilter<"GlobalStats"> | number
-    co2OffsetKg?: FloatFilter<"GlobalStats"> | number
-    countriesActive?: IntFilter<"GlobalStats"> | number
-    updatedAt?: DateTimeFilter<"GlobalStats"> | Date | string
+    totalOrganizations?: IntFilter<"GlobalStats"> | number
+    totalCO2Offset?: FloatFilter<"GlobalStats"> | number
+    totalPoints?: IntFilter<"GlobalStats"> | number
+    date?: DateTimeFilter<"GlobalStats"> | Date | string
   }
 
   export type GlobalStatsOrderByWithRelationInput = {
     id?: SortOrder
     totalTrees?: SortOrder
     totalUsers?: SortOrder
-    totalUpdates?: SortOrder
-    totalAdoptions?: SortOrder
-    co2OffsetKg?: SortOrder
-    countriesActive?: SortOrder
-    updatedAt?: SortOrder
+    totalOrganizations?: SortOrder
+    totalCO2Offset?: SortOrder
+    totalPoints?: SortOrder
+    date?: SortOrder
   }
 
   export type GlobalStatsWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    date?: Date | string
     AND?: GlobalStatsWhereInput | GlobalStatsWhereInput[]
     OR?: GlobalStatsWhereInput[]
     NOT?: GlobalStatsWhereInput | GlobalStatsWhereInput[]
     totalTrees?: IntFilter<"GlobalStats"> | number
     totalUsers?: IntFilter<"GlobalStats"> | number
-    totalUpdates?: IntFilter<"GlobalStats"> | number
-    totalAdoptions?: IntFilter<"GlobalStats"> | number
-    co2OffsetKg?: FloatFilter<"GlobalStats"> | number
-    countriesActive?: IntFilter<"GlobalStats"> | number
-    updatedAt?: DateTimeFilter<"GlobalStats"> | Date | string
-  }, "id">
+    totalOrganizations?: IntFilter<"GlobalStats"> | number
+    totalCO2Offset?: FloatFilter<"GlobalStats"> | number
+    totalPoints?: IntFilter<"GlobalStats"> | number
+  }, "id" | "date">
 
   export type GlobalStatsOrderByWithAggregationInput = {
     id?: SortOrder
     totalTrees?: SortOrder
     totalUsers?: SortOrder
-    totalUpdates?: SortOrder
-    totalAdoptions?: SortOrder
-    co2OffsetKg?: SortOrder
-    countriesActive?: SortOrder
-    updatedAt?: SortOrder
+    totalOrganizations?: SortOrder
+    totalCO2Offset?: SortOrder
+    totalPoints?: SortOrder
+    date?: SortOrder
     _count?: GlobalStatsCountOrderByAggregateInput
     _avg?: GlobalStatsAvgOrderByAggregateInput
     _max?: GlobalStatsMaxOrderByAggregateInput
@@ -15816,11 +24353,10 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"GlobalStats"> | string
     totalTrees?: IntWithAggregatesFilter<"GlobalStats"> | number
     totalUsers?: IntWithAggregatesFilter<"GlobalStats"> | number
-    totalUpdates?: IntWithAggregatesFilter<"GlobalStats"> | number
-    totalAdoptions?: IntWithAggregatesFilter<"GlobalStats"> | number
-    co2OffsetKg?: FloatWithAggregatesFilter<"GlobalStats"> | number
-    countriesActive?: IntWithAggregatesFilter<"GlobalStats"> | number
-    updatedAt?: DateTimeWithAggregatesFilter<"GlobalStats"> | Date | string
+    totalOrganizations?: IntWithAggregatesFilter<"GlobalStats"> | number
+    totalCO2Offset?: FloatWithAggregatesFilter<"GlobalStats"> | number
+    totalPoints?: IntWithAggregatesFilter<"GlobalStats"> | number
+    date?: DateTimeWithAggregatesFilter<"GlobalStats"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -15835,6 +24371,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -15846,6 +24384,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15860,6 +24404,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -15871,6 +24417,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUpdateInput = {
@@ -15885,6 +24437,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15896,6 +24450,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15910,6 +24470,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15921,6 +24483,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -15935,6 +24503,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -15952,6 +24522,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -15969,9 +24541,338 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OrganizationCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedOrganizationsInput
+    members?: OrganizationMemberCreateNestedManyWithoutOrganizationInput
+    campaigns?: CampaignCreateNestedManyWithoutOrganizationInput
+    trees?: TreeCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+    members?: OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    trees?: TreeUncheckedCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+    members?: OrganizationMemberUpdateManyWithoutOrganizationNestedInput
+    campaigns?: CampaignUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    members?: OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUncheckedUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+  }
+
+  export type OrganizationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrganizationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrganizationMemberCreateInput = {
+    id?: string
+    role?: $Enums.OrganizationRole
+    joinedAt?: Date | string
+    treesContributed?: number
+    isActive?: boolean
+    organization: OrganizationCreateNestedOneWithoutMembersInput
+    user: UserCreateNestedOneWithoutOrganizationMembershipsInput
+  }
+
+  export type OrganizationMemberUncheckedCreateInput = {
+    id?: string
+    role?: $Enums.OrganizationRole
+    joinedAt?: Date | string
+    treesContributed?: number
+    isActive?: boolean
+    organizationId: string
+    userId: string
+  }
+
+  export type OrganizationMemberUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    organization?: OrganizationUpdateOneRequiredWithoutMembersNestedInput
+    user?: UserUpdateOneRequiredWithoutOrganizationMembershipsNestedInput
+  }
+
+  export type OrganizationMemberUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrganizationMemberCreateManyInput = {
+    id?: string
+    role?: $Enums.OrganizationRole
+    joinedAt?: Date | string
+    treesContributed?: number
+    isActive?: boolean
+    organizationId: string
+    userId: string
+  }
+
+  export type OrganizationMemberUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type OrganizationMemberUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CampaignCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutCampaignsInput
+    creator: UserCreateNestedOneWithoutCreatedCampaignsInput
+    trees?: TreeCreateNestedManyWithoutCampaignInput
+    aiInsights?: AIInsightCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organizationId: string
+    createdBy: string
+    trees?: TreeUncheckedCreateNestedManyWithoutCampaignInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutCampaignsNestedInput
+    creator?: UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
+    trees?: TreeUpdateManyWithoutCampaignNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type CampaignUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    trees?: TreeUncheckedUpdateManyWithoutCampaignNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type CampaignCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organizationId: string
+    createdBy: string
+  }
+
+  export type CampaignUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CampaignUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type TreeCreateInput = {
@@ -15989,10 +24890,18 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     owner: UserCreateNestedOneWithoutTreesInput
+    organization?: OrganizationCreateNestedOneWithoutTreesInput
+    campaign?: CampaignCreateNestedOneWithoutTreesInput
     updates?: TreeUpdateCreateNestedManyWithoutTreeInput
     adoptions?: TreeAdoptionCreateNestedManyWithoutTreeInput
     certificates?: CertificateCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTreeInput
   }
 
   export type TreeUncheckedCreateInput = {
@@ -16010,10 +24919,18 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId: string
+    organizationId?: string | null
+    campaignId?: string | null
     updates?: TreeUpdateUncheckedCreateNestedManyWithoutTreeInput
     adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutTreeInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTreeInput
   }
 
   export type TreeUpdateInput = {
@@ -16031,10 +24948,18 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     owner?: UserUpdateOneRequiredWithoutTreesNestedInput
+    organization?: OrganizationUpdateOneWithoutTreesNestedInput
+    campaign?: CampaignUpdateOneWithoutTreesNestedInput
     updates?: TreeUpdateUpdateManyWithoutTreeNestedInput
     adoptions?: TreeAdoptionUpdateManyWithoutTreeNestedInput
     certificates?: CertificateUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTreeNestedInput
   }
 
   export type TreeUncheckedUpdateInput = {
@@ -16052,10 +24977,18 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
     updates?: TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput
     adoptions?: TreeAdoptionUncheckedUpdateManyWithoutTreeNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput
   }
 
   export type TreeCreateManyInput = {
@@ -16073,7 +25006,12 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId: string
+    organizationId?: string | null
+    campaignId?: string | null
   }
 
   export type TreeUpdateManyMutationInput = {
@@ -16091,6 +25029,9 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type TreeUncheckedUpdateManyInput = {
@@ -16108,7 +25049,12 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TreeUpdateCreateInput = {
@@ -16118,6 +25064,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     tree: TreeCreateNestedOneWithoutUpdatesInput
     user: UserCreateNestedOneWithoutUpdatesInput
@@ -16130,6 +25077,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     treeId: string
     userId: string
@@ -16142,6 +25090,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tree?: TreeUpdateOneRequiredWithoutUpdatesNestedInput
     user?: UserUpdateOneRequiredWithoutUpdatesNestedInput
@@ -16154,6 +25103,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     treeId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -16166,6 +25116,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     treeId: string
     userId: string
@@ -16178,6 +25129,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16188,6 +25140,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     treeId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -16199,6 +25152,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     tree: TreeCreateNestedOneWithoutAdoptionsInput
     previousOwner: UserCreateNestedOneWithoutTransfersInput
     newOwner: UserCreateNestedOneWithoutAdoptionsInput
@@ -16210,6 +25164,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     treeId: string
     previousOwnerId: string
     newOwnerId: string
@@ -16221,6 +25176,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     tree?: TreeUpdateOneRequiredWithoutAdoptionsNestedInput
     previousOwner?: UserUpdateOneRequiredWithoutTransfersNestedInput
     newOwner?: UserUpdateOneRequiredWithoutAdoptionsNestedInput
@@ -16232,6 +25188,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     treeId?: StringFieldUpdateOperationsInput | string
     previousOwnerId?: StringFieldUpdateOperationsInput | string
     newOwnerId?: StringFieldUpdateOperationsInput | string
@@ -16243,6 +25200,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     treeId: string
     previousOwnerId: string
     newOwnerId: string
@@ -16254,6 +25212,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type TreeAdoptionUncheckedUpdateManyInput = {
@@ -16262,9 +25221,324 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     treeId?: StringFieldUpdateOperationsInput | string
     previousOwnerId?: StringFieldUpdateOperationsInput | string
     newOwnerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AIInteractionCreateInput = {
+    id?: string
+    type: $Enums.AIInteractionType
+    input: JsonNullValueInput | InputJsonValue
+    output: JsonNullValueInput | InputJsonValue
+    model: string
+    tokensUsed?: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    responseTime?: number | null
+    success?: boolean
+    error?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAiInteractionsInput
+    tree?: TreeCreateNestedOneWithoutAiInteractionsInput
+  }
+
+  export type AIInteractionUncheckedCreateInput = {
+    id?: string
+    type: $Enums.AIInteractionType
+    input: JsonNullValueInput | InputJsonValue
+    output: JsonNullValueInput | InputJsonValue
+    model: string
+    tokensUsed?: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    responseTime?: number | null
+    success?: boolean
+    error?: string | null
+    createdAt?: Date | string
+    userId: string
+    treeId?: string | null
+  }
+
+  export type AIInteractionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiInteractionsNestedInput
+    tree?: TreeUpdateOneWithoutAiInteractionsNestedInput
+  }
+
+  export type AIInteractionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInteractionCreateManyInput = {
+    id?: string
+    type: $Enums.AIInteractionType
+    input: JsonNullValueInput | InputJsonValue
+    output: JsonNullValueInput | InputJsonValue
+    model: string
+    tokensUsed?: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    responseTime?: number | null
+    success?: boolean
+    error?: string | null
+    createdAt?: Date | string
+    userId: string
+    treeId?: string | null
+  }
+
+  export type AIInteractionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIInteractionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIRecommendationCreateInput = {
+    id?: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority?: $Enums.Priority
+    data: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAiRecommendationsInput
+    tree?: TreeCreateNestedOneWithoutAiRecommendationsInput
+  }
+
+  export type AIRecommendationUncheckedCreateInput = {
+    id?: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority?: $Enums.Priority
+    data: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    userId: string
+    treeId?: string | null
+  }
+
+  export type AIRecommendationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiRecommendationsNestedInput
+    tree?: TreeUpdateOneWithoutAiRecommendationsNestedInput
+  }
+
+  export type AIRecommendationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIRecommendationCreateManyInput = {
+    id?: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority?: $Enums.Priority
+    data: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    userId: string
+    treeId?: string | null
+  }
+
+  export type AIRecommendationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIRecommendationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInsightCreateInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    user?: UserCreateNestedOneWithoutAiInsightsInput
+    tree?: TreeCreateNestedOneWithoutAiInsightsInput
+    organization?: OrganizationCreateNestedOneWithoutAiInsightsInput
+    campaign?: CampaignCreateNestedOneWithoutAiInsightsInput
+  }
+
+  export type AIInsightUncheckedCreateInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    userId?: string | null
+    treeId?: string | null
+    organizationId?: string | null
+    campaignId?: string | null
+  }
+
+  export type AIInsightUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutAiInsightsNestedInput
+    tree?: TreeUpdateOneWithoutAiInsightsNestedInput
+    organization?: OrganizationUpdateOneWithoutAiInsightsNestedInput
+    campaign?: CampaignUpdateOneWithoutAiInsightsNestedInput
+  }
+
+  export type AIInsightUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInsightCreateManyInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    userId?: string | null
+    treeId?: string | null
+    organizationId?: string | null
+    campaignId?: string | null
+  }
+
+  export type AIInsightUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AIInsightUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BadgeCreateInput = {
@@ -16647,6 +25921,8 @@ export namespace Prisma {
     message: string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: boolean
+    isActionable?: boolean
+    actionUrl?: string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutNotificationsInput
   }
@@ -16658,6 +25934,8 @@ export namespace Prisma {
     message: string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: boolean
+    isActionable?: boolean
+    actionUrl?: string | null
     createdAt?: Date | string
     userId: string
   }
@@ -16669,6 +25947,8 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    isActionable?: BoolFieldUpdateOperationsInput | boolean
+    actionUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
   }
@@ -16680,6 +25960,8 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    isActionable?: BoolFieldUpdateOperationsInput | boolean
+    actionUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
@@ -16691,6 +25973,8 @@ export namespace Prisma {
     message: string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: boolean
+    isActionable?: boolean
+    actionUrl?: string | null
     createdAt?: Date | string
     userId: string
   }
@@ -16702,6 +25986,8 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    isActionable?: BoolFieldUpdateOperationsInput | boolean
+    actionUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16712,6 +25998,8 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    isActionable?: BoolFieldUpdateOperationsInput | boolean
+    actionUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
@@ -16720,13 +26008,12 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    content: JsonNullValueInput | InputJsonValue
-    duration: number
-    difficulty: $Enums.Difficulty
-    topics?: LearningModuleCreatetopicsInput | string[]
-    thumbnailUrl?: string | null
+    content: string
+    difficulty?: $Enums.Difficulty
+    category: string
+    imageUrl?: string | null
+    videoUrl?: string | null
     isActive?: boolean
-    order?: number
     createdAt?: Date | string
   }
 
@@ -16734,13 +26021,12 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    content: JsonNullValueInput | InputJsonValue
-    duration: number
-    difficulty: $Enums.Difficulty
-    topics?: LearningModuleCreatetopicsInput | string[]
-    thumbnailUrl?: string | null
+    content: string
+    difficulty?: $Enums.Difficulty
+    category: string
+    imageUrl?: string | null
+    videoUrl?: string | null
     isActive?: boolean
-    order?: number
     createdAt?: Date | string
   }
 
@@ -16748,13 +26034,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: JsonNullValueInput | InputJsonValue
-    duration?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    topics?: LearningModuleUpdatetopicsInput | string[]
-    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16762,13 +26047,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: JsonNullValueInput | InputJsonValue
-    duration?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    topics?: LearningModuleUpdatetopicsInput | string[]
-    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16776,13 +26060,12 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    content: JsonNullValueInput | InputJsonValue
-    duration: number
-    difficulty: $Enums.Difficulty
-    topics?: LearningModuleCreatetopicsInput | string[]
-    thumbnailUrl?: string | null
+    content: string
+    difficulty?: $Enums.Difficulty
+    category: string
+    imageUrl?: string | null
+    videoUrl?: string | null
     isActive?: boolean
-    order?: number
     createdAt?: Date | string
   }
 
@@ -16790,13 +26073,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: JsonNullValueInput | InputJsonValue
-    duration?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    topics?: LearningModuleUpdatetopicsInput | string[]
-    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16804,13 +26086,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    content?: JsonNullValueInput | InputJsonValue
-    duration?: IntFieldUpdateOperationsInput | number
+    content?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
-    topics?: LearningModuleUpdatetopicsInput | string[]
-    thumbnailUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    order?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16818,77 +26099,70 @@ export namespace Prisma {
     id?: string
     totalTrees?: number
     totalUsers?: number
-    totalUpdates?: number
-    totalAdoptions?: number
-    co2OffsetKg?: number
-    countriesActive?: number
-    updatedAt?: Date | string
+    totalOrganizations?: number
+    totalCO2Offset?: number
+    totalPoints?: number
+    date?: Date | string
   }
 
   export type GlobalStatsUncheckedCreateInput = {
     id?: string
     totalTrees?: number
     totalUsers?: number
-    totalUpdates?: number
-    totalAdoptions?: number
-    co2OffsetKg?: number
-    countriesActive?: number
-    updatedAt?: Date | string
+    totalOrganizations?: number
+    totalCO2Offset?: number
+    totalPoints?: number
+    date?: Date | string
   }
 
   export type GlobalStatsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     totalTrees?: IntFieldUpdateOperationsInput | number
     totalUsers?: IntFieldUpdateOperationsInput | number
-    totalUpdates?: IntFieldUpdateOperationsInput | number
-    totalAdoptions?: IntFieldUpdateOperationsInput | number
-    co2OffsetKg?: FloatFieldUpdateOperationsInput | number
-    countriesActive?: IntFieldUpdateOperationsInput | number
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalOrganizations?: IntFieldUpdateOperationsInput | number
+    totalCO2Offset?: FloatFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GlobalStatsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     totalTrees?: IntFieldUpdateOperationsInput | number
     totalUsers?: IntFieldUpdateOperationsInput | number
-    totalUpdates?: IntFieldUpdateOperationsInput | number
-    totalAdoptions?: IntFieldUpdateOperationsInput | number
-    co2OffsetKg?: FloatFieldUpdateOperationsInput | number
-    countriesActive?: IntFieldUpdateOperationsInput | number
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalOrganizations?: IntFieldUpdateOperationsInput | number
+    totalCO2Offset?: FloatFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GlobalStatsCreateManyInput = {
     id?: string
     totalTrees?: number
     totalUsers?: number
-    totalUpdates?: number
-    totalAdoptions?: number
-    co2OffsetKg?: number
-    countriesActive?: number
-    updatedAt?: Date | string
+    totalOrganizations?: number
+    totalCO2Offset?: number
+    totalPoints?: number
+    date?: Date | string
   }
 
   export type GlobalStatsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     totalTrees?: IntFieldUpdateOperationsInput | number
     totalUsers?: IntFieldUpdateOperationsInput | number
-    totalUpdates?: IntFieldUpdateOperationsInput | number
-    totalAdoptions?: IntFieldUpdateOperationsInput | number
-    co2OffsetKg?: FloatFieldUpdateOperationsInput | number
-    countriesActive?: IntFieldUpdateOperationsInput | number
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalOrganizations?: IntFieldUpdateOperationsInput | number
+    totalCO2Offset?: FloatFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GlobalStatsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     totalTrees?: IntFieldUpdateOperationsInput | number
     totalUsers?: IntFieldUpdateOperationsInput | number
-    totalUpdates?: IntFieldUpdateOperationsInput | number
-    totalAdoptions?: IntFieldUpdateOperationsInput | number
-    co2OffsetKg?: FloatFieldUpdateOperationsInput | number
-    countriesActive?: IntFieldUpdateOperationsInput | number
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    totalOrganizations?: IntFieldUpdateOperationsInput | number
+    totalCO2Offset?: FloatFieldUpdateOperationsInput | number
+    totalPoints?: IntFieldUpdateOperationsInput | number
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -16947,6 +26221,35 @@ export namespace Prisma {
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type EnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+  export type JsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -17013,6 +26316,42 @@ export namespace Prisma {
     none?: CertificateWhereInput
   }
 
+  export type OrganizationMemberListRelationFilter = {
+    every?: OrganizationMemberWhereInput
+    some?: OrganizationMemberWhereInput
+    none?: OrganizationMemberWhereInput
+  }
+
+  export type AIInteractionListRelationFilter = {
+    every?: AIInteractionWhereInput
+    some?: AIInteractionWhereInput
+    none?: AIInteractionWhereInput
+  }
+
+  export type AIRecommendationListRelationFilter = {
+    every?: AIRecommendationWhereInput
+    some?: AIRecommendationWhereInput
+    none?: AIRecommendationWhereInput
+  }
+
+  export type AIInsightListRelationFilter = {
+    every?: AIInsightWhereInput
+    some?: AIInsightWhereInput
+    none?: AIInsightWhereInput
+  }
+
+  export type OrganizationListRelationFilter = {
+    every?: OrganizationWhereInput
+    some?: OrganizationWhereInput
+    none?: OrganizationWhereInput
+  }
+
+  export type CampaignListRelationFilter = {
+    every?: CampaignWhereInput
+    some?: CampaignWhereInput
+    none?: CampaignWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -17046,6 +26385,30 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type OrganizationMemberOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AIInteractionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AIRecommendationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AIInsightOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OrganizationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CampaignOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -17058,6 +26421,8 @@ export namespace Prisma {
     emailNotifications?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    role?: SortOrder
+    aiPreferences?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLoginAt?: SortOrder
@@ -17079,6 +26444,7 @@ export namespace Prisma {
     emailNotifications?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLoginAt?: SortOrder
@@ -17096,6 +26462,7 @@ export namespace Prisma {
     emailNotifications?: SortOrder
     city?: SortOrder
     country?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLoginAt?: SortOrder
@@ -17180,6 +26547,41 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -17206,6 +26608,232 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type UserRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type OrganizationCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    logoUrl?: SortOrder
+    website?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrder
+    address?: SortOrder
+    isVerified?: SortOrder
+    aiEnabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ownerId?: SortOrder
+  }
+
+  export type OrganizationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    logoUrl?: SortOrder
+    website?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrder
+    address?: SortOrder
+    isVerified?: SortOrder
+    aiEnabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ownerId?: SortOrder
+  }
+
+  export type OrganizationMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    logoUrl?: SortOrder
+    website?: SortOrder
+    contactEmail?: SortOrder
+    contactPhone?: SortOrder
+    address?: SortOrder
+    isVerified?: SortOrder
+    aiEnabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    ownerId?: SortOrder
+  }
+
+  export type EnumOrganizationRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationRole | EnumOrganizationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumOrganizationRoleFilter<$PrismaModel> | $Enums.OrganizationRole
+  }
+
+  export type OrganizationRelationFilter = {
+    is?: OrganizationWhereInput
+    isNot?: OrganizationWhereInput
+  }
+
+  export type OrganizationMemberOrganizationIdUserIdCompoundUniqueInput = {
+    organizationId: string
+    userId: string
+  }
+
+  export type OrganizationMemberCountOrderByAggregateInput = {
+    id?: SortOrder
+    role?: SortOrder
+    joinedAt?: SortOrder
+    treesContributed?: SortOrder
+    isActive?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type OrganizationMemberAvgOrderByAggregateInput = {
+    treesContributed?: SortOrder
+  }
+
+  export type OrganizationMemberMaxOrderByAggregateInput = {
+    id?: SortOrder
+    role?: SortOrder
+    joinedAt?: SortOrder
+    treesContributed?: SortOrder
+    isActive?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type OrganizationMemberMinOrderByAggregateInput = {
+    id?: SortOrder
+    role?: SortOrder
+    joinedAt?: SortOrder
+    treesContributed?: SortOrder
+    isActive?: SortOrder
+    organizationId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type OrganizationMemberSumOrderByAggregateInput = {
+    treesContributed?: SortOrder
+  }
+
+  export type EnumOrganizationRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationRole | EnumOrganizationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumOrganizationRoleWithAggregatesFilter<$PrismaModel> | $Enums.OrganizationRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOrganizationRoleFilter<$PrismaModel>
+    _max?: NestedEnumOrganizationRoleFilter<$PrismaModel>
+  }
+
+  export type EnumCampaignStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CampaignStatus | EnumCampaignStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CampaignStatus[] | ListEnumCampaignStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CampaignStatus[] | ListEnumCampaignStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCampaignStatusFilter<$PrismaModel> | $Enums.CampaignStatus
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type CampaignCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    targetTrees?: SortOrder
+    plantedTrees?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    location?: SortOrder
+    budget?: SortOrder
+    aiOptimized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organizationId?: SortOrder
+    createdBy?: SortOrder
+  }
+
+  export type CampaignAvgOrderByAggregateInput = {
+    targetTrees?: SortOrder
+    plantedTrees?: SortOrder
+    budget?: SortOrder
+  }
+
+  export type CampaignMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    targetTrees?: SortOrder
+    plantedTrees?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    budget?: SortOrder
+    aiOptimized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organizationId?: SortOrder
+    createdBy?: SortOrder
+  }
+
+  export type CampaignMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    targetTrees?: SortOrder
+    plantedTrees?: SortOrder
+    status?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    budget?: SortOrder
+    aiOptimized?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    organizationId?: SortOrder
+    createdBy?: SortOrder
+  }
+
+  export type CampaignSumOrderByAggregateInput = {
+    targetTrees?: SortOrder
+    plantedTrees?: SortOrder
+    budget?: SortOrder
+  }
+
+  export type EnumCampaignStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CampaignStatus | EnumCampaignStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CampaignStatus[] | ListEnumCampaignStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CampaignStatus[] | ListEnumCampaignStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCampaignStatusWithAggregatesFilter<$PrismaModel> | $Enums.CampaignStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCampaignStatusFilter<$PrismaModel>
+    _max?: NestedEnumCampaignStatusFilter<$PrismaModel>
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type EnumTreeSourceFilter<$PrismaModel = never> = {
@@ -17244,9 +26872,37 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type UserRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type UuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type OrganizationNullableRelationFilter = {
+    is?: OrganizationWhereInput | null
+    isNot?: OrganizationWhereInput | null
+  }
+
+  export type CampaignNullableRelationFilter = {
+    is?: CampaignWhereInput | null
+    isNot?: CampaignWhereInput | null
   }
 
   export type TreeCountOrderByAggregateInput = {
@@ -17264,11 +26920,17 @@ export namespace Prisma {
     isAdoptable?: SortOrder
     transferReason?: SortOrder
     lastUpdateAt?: SortOrder
+    aiHealthScore?: SortOrder
+    aiCareRecommendations?: SortOrder
+    aiGrowthPrediction?: SortOrder
     ownerId?: SortOrder
+    organizationId?: SortOrder
+    campaignId?: SortOrder
   }
 
   export type TreeAvgOrderByAggregateInput = {
     commitmentDuration?: SortOrder
+    aiHealthScore?: SortOrder
   }
 
   export type TreeMaxOrderByAggregateInput = {
@@ -17285,7 +26947,10 @@ export namespace Prisma {
     isAdoptable?: SortOrder
     transferReason?: SortOrder
     lastUpdateAt?: SortOrder
+    aiHealthScore?: SortOrder
     ownerId?: SortOrder
+    organizationId?: SortOrder
+    campaignId?: SortOrder
   }
 
   export type TreeMinOrderByAggregateInput = {
@@ -17302,11 +26967,15 @@ export namespace Prisma {
     isAdoptable?: SortOrder
     transferReason?: SortOrder
     lastUpdateAt?: SortOrder
+    aiHealthScore?: SortOrder
     ownerId?: SortOrder
+    organizationId?: SortOrder
+    campaignId?: SortOrder
   }
 
   export type TreeSumOrderByAggregateInput = {
     commitmentDuration?: SortOrder
+    aiHealthScore?: SortOrder
   }
 
   export type EnumTreeSourceWithAggregatesFilter<$PrismaModel = never> = {
@@ -17353,27 +27022,36 @@ export namespace Prisma {
     _min?: NestedJsonFilter<$PrismaModel>
     _max?: NestedJsonFilter<$PrismaModel>
   }
-  export type JsonNullableFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type TreeRelationFilter = {
@@ -17388,6 +27066,7 @@ export namespace Prisma {
     photoUrl?: SortOrder
     growthMeasurements?: SortOrder
     gpsLocation?: SortOrder
+    aiAnalysis?: SortOrder
     createdAt?: SortOrder
     treeId?: SortOrder
     userId?: SortOrder
@@ -17412,31 +27091,6 @@ export namespace Prisma {
     treeId?: SortOrder
     userId?: SortOrder
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
 
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
@@ -17455,6 +27109,7 @@ export namespace Prisma {
     commitmentMessage?: SortOrder
     commitmentDuration?: SortOrder
     adoptedAt?: SortOrder
+    aiMatchScore?: SortOrder
     treeId?: SortOrder
     previousOwnerId?: SortOrder
     newOwnerId?: SortOrder
@@ -17462,6 +27117,7 @@ export namespace Prisma {
 
   export type TreeAdoptionAvgOrderByAggregateInput = {
     commitmentDuration?: SortOrder
+    aiMatchScore?: SortOrder
   }
 
   export type TreeAdoptionMaxOrderByAggregateInput = {
@@ -17470,6 +27126,7 @@ export namespace Prisma {
     commitmentMessage?: SortOrder
     commitmentDuration?: SortOrder
     adoptedAt?: SortOrder
+    aiMatchScore?: SortOrder
     treeId?: SortOrder
     previousOwnerId?: SortOrder
     newOwnerId?: SortOrder
@@ -17481,6 +27138,7 @@ export namespace Prisma {
     commitmentMessage?: SortOrder
     commitmentDuration?: SortOrder
     adoptedAt?: SortOrder
+    aiMatchScore?: SortOrder
     treeId?: SortOrder
     previousOwnerId?: SortOrder
     newOwnerId?: SortOrder
@@ -17488,6 +27146,7 @@ export namespace Prisma {
 
   export type TreeAdoptionSumOrderByAggregateInput = {
     commitmentDuration?: SortOrder
+    aiMatchScore?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -17504,6 +27163,261 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumAIInteractionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIInteractionType | EnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIInteractionType[] | ListEnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIInteractionType[] | ListEnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIInteractionTypeFilter<$PrismaModel> | $Enums.AIInteractionType
+  }
+
+  export type TreeNullableRelationFilter = {
+    is?: TreeWhereInput | null
+    isNot?: TreeWhereInput | null
+  }
+
+  export type AIInteractionCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    input?: SortOrder
+    output?: SortOrder
+    model?: SortOrder
+    tokensUsed?: SortOrder
+    cost?: SortOrder
+    responseTime?: SortOrder
+    success?: SortOrder
+    error?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrder
+  }
+
+  export type AIInteractionAvgOrderByAggregateInput = {
+    tokensUsed?: SortOrder
+    cost?: SortOrder
+    responseTime?: SortOrder
+  }
+
+  export type AIInteractionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    model?: SortOrder
+    tokensUsed?: SortOrder
+    cost?: SortOrder
+    responseTime?: SortOrder
+    success?: SortOrder
+    error?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrder
+  }
+
+  export type AIInteractionMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    model?: SortOrder
+    tokensUsed?: SortOrder
+    cost?: SortOrder
+    responseTime?: SortOrder
+    success?: SortOrder
+    error?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrder
+  }
+
+  export type AIInteractionSumOrderByAggregateInput = {
+    tokensUsed?: SortOrder
+    cost?: SortOrder
+    responseTime?: SortOrder
+  }
+
+  export type EnumAIInteractionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIInteractionType | EnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIInteractionType[] | ListEnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIInteractionType[] | ListEnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIInteractionTypeWithAggregatesFilter<$PrismaModel> | $Enums.AIInteractionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAIInteractionTypeFilter<$PrismaModel>
+    _max?: NestedEnumAIInteractionTypeFilter<$PrismaModel>
+  }
+
+  export type EnumAIRecommendationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIRecommendationType | EnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIRecommendationType[] | ListEnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIRecommendationType[] | ListEnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIRecommendationTypeFilter<$PrismaModel> | $Enums.AIRecommendationType
+  }
+
+  export type EnumPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityFilter<$PrismaModel> | $Enums.Priority
+  }
+
+  export type AIRecommendationCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    priority?: SortOrder
+    data?: SortOrder
+    isRead?: SortOrder
+    isApplied?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrder
+  }
+
+  export type AIRecommendationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    priority?: SortOrder
+    isRead?: SortOrder
+    isApplied?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrder
+  }
+
+  export type AIRecommendationMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    priority?: SortOrder
+    isRead?: SortOrder
+    isApplied?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrder
+  }
+
+  export type EnumAIRecommendationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIRecommendationType | EnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIRecommendationType[] | ListEnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIRecommendationType[] | ListEnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIRecommendationTypeWithAggregatesFilter<$PrismaModel> | $Enums.AIRecommendationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAIRecommendationTypeFilter<$PrismaModel>
+    _max?: NestedEnumAIRecommendationTypeFilter<$PrismaModel>
+  }
+
+  export type EnumPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityWithAggregatesFilter<$PrismaModel> | $Enums.Priority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPriorityFilter<$PrismaModel>
+    _max?: NestedEnumPriorityFilter<$PrismaModel>
+  }
+
+  export type EnumAIInsightTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIInsightType | EnumAIInsightTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIInsightType[] | ListEnumAIInsightTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIInsightType[] | ListEnumAIInsightTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIInsightTypeFilter<$PrismaModel> | $Enums.AIInsightType
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type UserNullableRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type AIInsightCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    data?: SortOrder
+    confidence?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrder
+    organizationId?: SortOrder
+    campaignId?: SortOrder
+  }
+
+  export type AIInsightAvgOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type AIInsightMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    confidence?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrder
+    organizationId?: SortOrder
+    campaignId?: SortOrder
+  }
+
+  export type AIInsightMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    confidence?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    userId?: SortOrder
+    treeId?: SortOrder
+    organizationId?: SortOrder
+    campaignId?: SortOrder
+  }
+
+  export type AIInsightSumOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type EnumAIInsightTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIInsightType | EnumAIInsightTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIInsightType[] | ListEnumAIInsightTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIInsightType[] | ListEnumAIInsightTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIInsightTypeWithAggregatesFilter<$PrismaModel> | $Enums.AIInsightType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAIInsightTypeFilter<$PrismaModel>
+    _max?: NestedEnumAIInsightTypeFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnumBadgeCategoryFilter<$PrismaModel = never> = {
@@ -17728,23 +27642,6 @@ export namespace Prisma {
     not?: NestedEnumCertificateTypeFilter<$PrismaModel> | $Enums.CertificateType
   }
 
-  export type UuidNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type TreeNullableRelationFilter = {
-    is?: TreeWhereInput | null
-    isNot?: TreeWhereInput | null
-  }
-
   export type CertificateCountOrderByAggregateInput = {
     id?: SortOrder
     type?: SortOrder
@@ -17783,21 +27680,6 @@ export namespace Prisma {
     _max?: NestedEnumCertificateTypeFilter<$PrismaModel>
   }
 
-  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type EnumNotificationTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
     in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
@@ -17812,6 +27694,8 @@ export namespace Prisma {
     message?: SortOrder
     data?: SortOrder
     isRead?: SortOrder
+    isActionable?: SortOrder
+    actionUrl?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
   }
@@ -17822,6 +27706,8 @@ export namespace Prisma {
     title?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
+    isActionable?: SortOrder
+    actionUrl?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
   }
@@ -17832,6 +27718,8 @@ export namespace Prisma {
     title?: SortOrder
     message?: SortOrder
     isRead?: SortOrder
+    isActionable?: SortOrder
+    actionUrl?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
   }
@@ -17853,42 +27741,29 @@ export namespace Prisma {
     not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type LearningModuleCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
     content?: SortOrder
-    duration?: SortOrder
     difficulty?: SortOrder
-    topics?: SortOrder
-    thumbnailUrl?: SortOrder
+    category?: SortOrder
+    imageUrl?: SortOrder
+    videoUrl?: SortOrder
     isActive?: SortOrder
-    order?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type LearningModuleAvgOrderByAggregateInput = {
-    duration?: SortOrder
-    order?: SortOrder
   }
 
   export type LearningModuleMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    duration?: SortOrder
+    content?: SortOrder
     difficulty?: SortOrder
-    thumbnailUrl?: SortOrder
+    category?: SortOrder
+    imageUrl?: SortOrder
+    videoUrl?: SortOrder
     isActive?: SortOrder
-    order?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17896,17 +27771,13 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    duration?: SortOrder
+    content?: SortOrder
     difficulty?: SortOrder
-    thumbnailUrl?: SortOrder
+    category?: SortOrder
+    imageUrl?: SortOrder
+    videoUrl?: SortOrder
     isActive?: SortOrder
-    order?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type LearningModuleSumOrderByAggregateInput = {
-    duration?: SortOrder
-    order?: SortOrder
   }
 
   export type EnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
@@ -17919,82 +27790,50 @@ export namespace Prisma {
     _max?: NestedEnumDifficultyFilter<$PrismaModel>
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type GlobalStatsCountOrderByAggregateInput = {
     id?: SortOrder
     totalTrees?: SortOrder
     totalUsers?: SortOrder
-    totalUpdates?: SortOrder
-    totalAdoptions?: SortOrder
-    co2OffsetKg?: SortOrder
-    countriesActive?: SortOrder
-    updatedAt?: SortOrder
+    totalOrganizations?: SortOrder
+    totalCO2Offset?: SortOrder
+    totalPoints?: SortOrder
+    date?: SortOrder
   }
 
   export type GlobalStatsAvgOrderByAggregateInput = {
     totalTrees?: SortOrder
     totalUsers?: SortOrder
-    totalUpdates?: SortOrder
-    totalAdoptions?: SortOrder
-    co2OffsetKg?: SortOrder
-    countriesActive?: SortOrder
+    totalOrganizations?: SortOrder
+    totalCO2Offset?: SortOrder
+    totalPoints?: SortOrder
   }
 
   export type GlobalStatsMaxOrderByAggregateInput = {
     id?: SortOrder
     totalTrees?: SortOrder
     totalUsers?: SortOrder
-    totalUpdates?: SortOrder
-    totalAdoptions?: SortOrder
-    co2OffsetKg?: SortOrder
-    countriesActive?: SortOrder
-    updatedAt?: SortOrder
+    totalOrganizations?: SortOrder
+    totalCO2Offset?: SortOrder
+    totalPoints?: SortOrder
+    date?: SortOrder
   }
 
   export type GlobalStatsMinOrderByAggregateInput = {
     id?: SortOrder
     totalTrees?: SortOrder
     totalUsers?: SortOrder
-    totalUpdates?: SortOrder
-    totalAdoptions?: SortOrder
-    co2OffsetKg?: SortOrder
-    countriesActive?: SortOrder
-    updatedAt?: SortOrder
+    totalOrganizations?: SortOrder
+    totalCO2Offset?: SortOrder
+    totalPoints?: SortOrder
+    date?: SortOrder
   }
 
   export type GlobalStatsSumOrderByAggregateInput = {
     totalTrees?: SortOrder
     totalUsers?: SortOrder
-    totalUpdates?: SortOrder
-    totalAdoptions?: SortOrder
-    co2OffsetKg?: SortOrder
-    countriesActive?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+    totalOrganizations?: SortOrder
+    totalCO2Offset?: SortOrder
+    totalPoints?: SortOrder
   }
 
   export type TreeCreateNestedManyWithoutOwnerInput = {
@@ -18053,6 +27892,48 @@ export namespace Prisma {
     connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
   }
 
+  export type OrganizationMemberCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrganizationMemberCreateWithoutUserInput, OrganizationMemberUncheckedCreateWithoutUserInput> | OrganizationMemberCreateWithoutUserInput[] | OrganizationMemberUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrganizationMemberCreateOrConnectWithoutUserInput | OrganizationMemberCreateOrConnectWithoutUserInput[]
+    createMany?: OrganizationMemberCreateManyUserInputEnvelope
+    connect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+  }
+
+  export type AIInteractionCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIInteractionCreateWithoutUserInput, AIInteractionUncheckedCreateWithoutUserInput> | AIInteractionCreateWithoutUserInput[] | AIInteractionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIInteractionCreateOrConnectWithoutUserInput | AIInteractionCreateOrConnectWithoutUserInput[]
+    createMany?: AIInteractionCreateManyUserInputEnvelope
+    connect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+  }
+
+  export type AIRecommendationCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIRecommendationCreateWithoutUserInput, AIRecommendationUncheckedCreateWithoutUserInput> | AIRecommendationCreateWithoutUserInput[] | AIRecommendationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIRecommendationCreateOrConnectWithoutUserInput | AIRecommendationCreateOrConnectWithoutUserInput[]
+    createMany?: AIRecommendationCreateManyUserInputEnvelope
+    connect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+  }
+
+  export type AIInsightCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIInsightCreateWithoutUserInput, AIInsightUncheckedCreateWithoutUserInput> | AIInsightCreateWithoutUserInput[] | AIInsightUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutUserInput | AIInsightCreateOrConnectWithoutUserInput[]
+    createMany?: AIInsightCreateManyUserInputEnvelope
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+  }
+
+  export type OrganizationCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<OrganizationCreateWithoutOwnerInput, OrganizationUncheckedCreateWithoutOwnerInput> | OrganizationCreateWithoutOwnerInput[] | OrganizationUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: OrganizationCreateOrConnectWithoutOwnerInput | OrganizationCreateOrConnectWithoutOwnerInput[]
+    createMany?: OrganizationCreateManyOwnerInputEnvelope
+    connect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+  }
+
+  export type CampaignCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<CampaignCreateWithoutCreatorInput, CampaignUncheckedCreateWithoutCreatorInput> | CampaignCreateWithoutCreatorInput[] | CampaignUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: CampaignCreateOrConnectWithoutCreatorInput | CampaignCreateOrConnectWithoutCreatorInput[]
+    createMany?: CampaignCreateManyCreatorInputEnvelope
+    connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+  }
+
   export type TreeUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<TreeCreateWithoutOwnerInput, TreeUncheckedCreateWithoutOwnerInput> | TreeCreateWithoutOwnerInput[] | TreeUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: TreeCreateOrConnectWithoutOwnerInput | TreeCreateOrConnectWithoutOwnerInput[]
@@ -18109,6 +27990,48 @@ export namespace Prisma {
     connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
   }
 
+  export type OrganizationMemberUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrganizationMemberCreateWithoutUserInput, OrganizationMemberUncheckedCreateWithoutUserInput> | OrganizationMemberCreateWithoutUserInput[] | OrganizationMemberUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrganizationMemberCreateOrConnectWithoutUserInput | OrganizationMemberCreateOrConnectWithoutUserInput[]
+    createMany?: OrganizationMemberCreateManyUserInputEnvelope
+    connect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+  }
+
+  export type AIInteractionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIInteractionCreateWithoutUserInput, AIInteractionUncheckedCreateWithoutUserInput> | AIInteractionCreateWithoutUserInput[] | AIInteractionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIInteractionCreateOrConnectWithoutUserInput | AIInteractionCreateOrConnectWithoutUserInput[]
+    createMany?: AIInteractionCreateManyUserInputEnvelope
+    connect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+  }
+
+  export type AIRecommendationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIRecommendationCreateWithoutUserInput, AIRecommendationUncheckedCreateWithoutUserInput> | AIRecommendationCreateWithoutUserInput[] | AIRecommendationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIRecommendationCreateOrConnectWithoutUserInput | AIRecommendationCreateOrConnectWithoutUserInput[]
+    createMany?: AIRecommendationCreateManyUserInputEnvelope
+    connect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+  }
+
+  export type AIInsightUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AIInsightCreateWithoutUserInput, AIInsightUncheckedCreateWithoutUserInput> | AIInsightCreateWithoutUserInput[] | AIInsightUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutUserInput | AIInsightCreateOrConnectWithoutUserInput[]
+    createMany?: AIInsightCreateManyUserInputEnvelope
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+  }
+
+  export type OrganizationUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<OrganizationCreateWithoutOwnerInput, OrganizationUncheckedCreateWithoutOwnerInput> | OrganizationCreateWithoutOwnerInput[] | OrganizationUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: OrganizationCreateOrConnectWithoutOwnerInput | OrganizationCreateOrConnectWithoutOwnerInput[]
+    createMany?: OrganizationCreateManyOwnerInputEnvelope
+    connect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+  }
+
+  export type CampaignUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<CampaignCreateWithoutCreatorInput, CampaignUncheckedCreateWithoutCreatorInput> | CampaignCreateWithoutCreatorInput[] | CampaignUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: CampaignCreateOrConnectWithoutCreatorInput | CampaignCreateOrConnectWithoutCreatorInput[]
+    createMany?: CampaignCreateManyCreatorInputEnvelope
+    connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -18127,6 +28050,10 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type EnumUserRoleFieldUpdateOperationsInput = {
+    set?: $Enums.UserRole
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -18249,6 +28176,90 @@ export namespace Prisma {
     deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
   }
 
+  export type OrganizationMemberUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrganizationMemberCreateWithoutUserInput, OrganizationMemberUncheckedCreateWithoutUserInput> | OrganizationMemberCreateWithoutUserInput[] | OrganizationMemberUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrganizationMemberCreateOrConnectWithoutUserInput | OrganizationMemberCreateOrConnectWithoutUserInput[]
+    upsert?: OrganizationMemberUpsertWithWhereUniqueWithoutUserInput | OrganizationMemberUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrganizationMemberCreateManyUserInputEnvelope
+    set?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    disconnect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    delete?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    connect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    update?: OrganizationMemberUpdateWithWhereUniqueWithoutUserInput | OrganizationMemberUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrganizationMemberUpdateManyWithWhereWithoutUserInput | OrganizationMemberUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OrganizationMemberScalarWhereInput | OrganizationMemberScalarWhereInput[]
+  }
+
+  export type AIInteractionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIInteractionCreateWithoutUserInput, AIInteractionUncheckedCreateWithoutUserInput> | AIInteractionCreateWithoutUserInput[] | AIInteractionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIInteractionCreateOrConnectWithoutUserInput | AIInteractionCreateOrConnectWithoutUserInput[]
+    upsert?: AIInteractionUpsertWithWhereUniqueWithoutUserInput | AIInteractionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIInteractionCreateManyUserInputEnvelope
+    set?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    disconnect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    delete?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    connect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    update?: AIInteractionUpdateWithWhereUniqueWithoutUserInput | AIInteractionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIInteractionUpdateManyWithWhereWithoutUserInput | AIInteractionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIInteractionScalarWhereInput | AIInteractionScalarWhereInput[]
+  }
+
+  export type AIRecommendationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIRecommendationCreateWithoutUserInput, AIRecommendationUncheckedCreateWithoutUserInput> | AIRecommendationCreateWithoutUserInput[] | AIRecommendationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIRecommendationCreateOrConnectWithoutUserInput | AIRecommendationCreateOrConnectWithoutUserInput[]
+    upsert?: AIRecommendationUpsertWithWhereUniqueWithoutUserInput | AIRecommendationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIRecommendationCreateManyUserInputEnvelope
+    set?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    disconnect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    delete?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    connect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    update?: AIRecommendationUpdateWithWhereUniqueWithoutUserInput | AIRecommendationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIRecommendationUpdateManyWithWhereWithoutUserInput | AIRecommendationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIRecommendationScalarWhereInput | AIRecommendationScalarWhereInput[]
+  }
+
+  export type AIInsightUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIInsightCreateWithoutUserInput, AIInsightUncheckedCreateWithoutUserInput> | AIInsightCreateWithoutUserInput[] | AIInsightUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutUserInput | AIInsightCreateOrConnectWithoutUserInput[]
+    upsert?: AIInsightUpsertWithWhereUniqueWithoutUserInput | AIInsightUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIInsightCreateManyUserInputEnvelope
+    set?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    disconnect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    delete?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    update?: AIInsightUpdateWithWhereUniqueWithoutUserInput | AIInsightUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIInsightUpdateManyWithWhereWithoutUserInput | AIInsightUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+  }
+
+  export type OrganizationUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<OrganizationCreateWithoutOwnerInput, OrganizationUncheckedCreateWithoutOwnerInput> | OrganizationCreateWithoutOwnerInput[] | OrganizationUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: OrganizationCreateOrConnectWithoutOwnerInput | OrganizationCreateOrConnectWithoutOwnerInput[]
+    upsert?: OrganizationUpsertWithWhereUniqueWithoutOwnerInput | OrganizationUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: OrganizationCreateManyOwnerInputEnvelope
+    set?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    disconnect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    delete?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    connect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    update?: OrganizationUpdateWithWhereUniqueWithoutOwnerInput | OrganizationUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: OrganizationUpdateManyWithWhereWithoutOwnerInput | OrganizationUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: OrganizationScalarWhereInput | OrganizationScalarWhereInput[]
+  }
+
+  export type CampaignUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<CampaignCreateWithoutCreatorInput, CampaignUncheckedCreateWithoutCreatorInput> | CampaignCreateWithoutCreatorInput[] | CampaignUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: CampaignCreateOrConnectWithoutCreatorInput | CampaignCreateOrConnectWithoutCreatorInput[]
+    upsert?: CampaignUpsertWithWhereUniqueWithoutCreatorInput | CampaignUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: CampaignCreateManyCreatorInputEnvelope
+    set?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    disconnect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    delete?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    update?: CampaignUpdateWithWhereUniqueWithoutCreatorInput | CampaignUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: CampaignUpdateManyWithWhereWithoutCreatorInput | CampaignUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: CampaignScalarWhereInput | CampaignScalarWhereInput[]
+  }
+
   export type TreeUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<TreeCreateWithoutOwnerInput, TreeUncheckedCreateWithoutOwnerInput> | TreeCreateWithoutOwnerInput[] | TreeUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: TreeCreateOrConnectWithoutOwnerInput | TreeCreateOrConnectWithoutOwnerInput[]
@@ -18361,10 +28372,444 @@ export namespace Prisma {
     deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
   }
 
+  export type OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrganizationMemberCreateWithoutUserInput, OrganizationMemberUncheckedCreateWithoutUserInput> | OrganizationMemberCreateWithoutUserInput[] | OrganizationMemberUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrganizationMemberCreateOrConnectWithoutUserInput | OrganizationMemberCreateOrConnectWithoutUserInput[]
+    upsert?: OrganizationMemberUpsertWithWhereUniqueWithoutUserInput | OrganizationMemberUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrganizationMemberCreateManyUserInputEnvelope
+    set?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    disconnect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    delete?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    connect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    update?: OrganizationMemberUpdateWithWhereUniqueWithoutUserInput | OrganizationMemberUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrganizationMemberUpdateManyWithWhereWithoutUserInput | OrganizationMemberUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OrganizationMemberScalarWhereInput | OrganizationMemberScalarWhereInput[]
+  }
+
+  export type AIInteractionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIInteractionCreateWithoutUserInput, AIInteractionUncheckedCreateWithoutUserInput> | AIInteractionCreateWithoutUserInput[] | AIInteractionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIInteractionCreateOrConnectWithoutUserInput | AIInteractionCreateOrConnectWithoutUserInput[]
+    upsert?: AIInteractionUpsertWithWhereUniqueWithoutUserInput | AIInteractionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIInteractionCreateManyUserInputEnvelope
+    set?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    disconnect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    delete?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    connect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    update?: AIInteractionUpdateWithWhereUniqueWithoutUserInput | AIInteractionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIInteractionUpdateManyWithWhereWithoutUserInput | AIInteractionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIInteractionScalarWhereInput | AIInteractionScalarWhereInput[]
+  }
+
+  export type AIRecommendationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIRecommendationCreateWithoutUserInput, AIRecommendationUncheckedCreateWithoutUserInput> | AIRecommendationCreateWithoutUserInput[] | AIRecommendationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIRecommendationCreateOrConnectWithoutUserInput | AIRecommendationCreateOrConnectWithoutUserInput[]
+    upsert?: AIRecommendationUpsertWithWhereUniqueWithoutUserInput | AIRecommendationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIRecommendationCreateManyUserInputEnvelope
+    set?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    disconnect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    delete?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    connect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    update?: AIRecommendationUpdateWithWhereUniqueWithoutUserInput | AIRecommendationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIRecommendationUpdateManyWithWhereWithoutUserInput | AIRecommendationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIRecommendationScalarWhereInput | AIRecommendationScalarWhereInput[]
+  }
+
+  export type AIInsightUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AIInsightCreateWithoutUserInput, AIInsightUncheckedCreateWithoutUserInput> | AIInsightCreateWithoutUserInput[] | AIInsightUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutUserInput | AIInsightCreateOrConnectWithoutUserInput[]
+    upsert?: AIInsightUpsertWithWhereUniqueWithoutUserInput | AIInsightUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AIInsightCreateManyUserInputEnvelope
+    set?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    disconnect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    delete?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    update?: AIInsightUpdateWithWhereUniqueWithoutUserInput | AIInsightUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AIInsightUpdateManyWithWhereWithoutUserInput | AIInsightUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+  }
+
+  export type OrganizationUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<OrganizationCreateWithoutOwnerInput, OrganizationUncheckedCreateWithoutOwnerInput> | OrganizationCreateWithoutOwnerInput[] | OrganizationUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: OrganizationCreateOrConnectWithoutOwnerInput | OrganizationCreateOrConnectWithoutOwnerInput[]
+    upsert?: OrganizationUpsertWithWhereUniqueWithoutOwnerInput | OrganizationUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: OrganizationCreateManyOwnerInputEnvelope
+    set?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    disconnect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    delete?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    connect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    update?: OrganizationUpdateWithWhereUniqueWithoutOwnerInput | OrganizationUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: OrganizationUpdateManyWithWhereWithoutOwnerInput | OrganizationUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: OrganizationScalarWhereInput | OrganizationScalarWhereInput[]
+  }
+
+  export type CampaignUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<CampaignCreateWithoutCreatorInput, CampaignUncheckedCreateWithoutCreatorInput> | CampaignCreateWithoutCreatorInput[] | CampaignUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: CampaignCreateOrConnectWithoutCreatorInput | CampaignCreateOrConnectWithoutCreatorInput[]
+    upsert?: CampaignUpsertWithWhereUniqueWithoutCreatorInput | CampaignUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: CampaignCreateManyCreatorInputEnvelope
+    set?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    disconnect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    delete?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    update?: CampaignUpdateWithWhereUniqueWithoutCreatorInput | CampaignUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: CampaignUpdateManyWithWhereWithoutCreatorInput | CampaignUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: CampaignScalarWhereInput | CampaignScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutOwnedOrganizationsInput = {
+    create?: XOR<UserCreateWithoutOwnedOrganizationsInput, UserUncheckedCreateWithoutOwnedOrganizationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOwnedOrganizationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type OrganizationMemberCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<OrganizationMemberCreateWithoutOrganizationInput, OrganizationMemberUncheckedCreateWithoutOrganizationInput> | OrganizationMemberCreateWithoutOrganizationInput[] | OrganizationMemberUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: OrganizationMemberCreateOrConnectWithoutOrganizationInput | OrganizationMemberCreateOrConnectWithoutOrganizationInput[]
+    createMany?: OrganizationMemberCreateManyOrganizationInputEnvelope
+    connect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+  }
+
+  export type CampaignCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<CampaignCreateWithoutOrganizationInput, CampaignUncheckedCreateWithoutOrganizationInput> | CampaignCreateWithoutOrganizationInput[] | CampaignUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: CampaignCreateOrConnectWithoutOrganizationInput | CampaignCreateOrConnectWithoutOrganizationInput[]
+    createMany?: CampaignCreateManyOrganizationInputEnvelope
+    connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+  }
+
+  export type TreeCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<TreeCreateWithoutOrganizationInput, TreeUncheckedCreateWithoutOrganizationInput> | TreeCreateWithoutOrganizationInput[] | TreeUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: TreeCreateOrConnectWithoutOrganizationInput | TreeCreateOrConnectWithoutOrganizationInput[]
+    createMany?: TreeCreateManyOrganizationInputEnvelope
+    connect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+  }
+
+  export type AIInsightCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<AIInsightCreateWithoutOrganizationInput, AIInsightUncheckedCreateWithoutOrganizationInput> | AIInsightCreateWithoutOrganizationInput[] | AIInsightUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutOrganizationInput | AIInsightCreateOrConnectWithoutOrganizationInput[]
+    createMany?: AIInsightCreateManyOrganizationInputEnvelope
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+  }
+
+  export type OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<OrganizationMemberCreateWithoutOrganizationInput, OrganizationMemberUncheckedCreateWithoutOrganizationInput> | OrganizationMemberCreateWithoutOrganizationInput[] | OrganizationMemberUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: OrganizationMemberCreateOrConnectWithoutOrganizationInput | OrganizationMemberCreateOrConnectWithoutOrganizationInput[]
+    createMany?: OrganizationMemberCreateManyOrganizationInputEnvelope
+    connect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+  }
+
+  export type CampaignUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<CampaignCreateWithoutOrganizationInput, CampaignUncheckedCreateWithoutOrganizationInput> | CampaignCreateWithoutOrganizationInput[] | CampaignUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: CampaignCreateOrConnectWithoutOrganizationInput | CampaignCreateOrConnectWithoutOrganizationInput[]
+    createMany?: CampaignCreateManyOrganizationInputEnvelope
+    connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+  }
+
+  export type TreeUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<TreeCreateWithoutOrganizationInput, TreeUncheckedCreateWithoutOrganizationInput> | TreeCreateWithoutOrganizationInput[] | TreeUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: TreeCreateOrConnectWithoutOrganizationInput | TreeCreateOrConnectWithoutOrganizationInput[]
+    createMany?: TreeCreateManyOrganizationInputEnvelope
+    connect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+  }
+
+  export type AIInsightUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<AIInsightCreateWithoutOrganizationInput, AIInsightUncheckedCreateWithoutOrganizationInput> | AIInsightCreateWithoutOrganizationInput[] | AIInsightUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutOrganizationInput | AIInsightCreateOrConnectWithoutOrganizationInput[]
+    createMany?: AIInsightCreateManyOrganizationInputEnvelope
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput = {
+    create?: XOR<UserCreateWithoutOwnedOrganizationsInput, UserUncheckedCreateWithoutOwnedOrganizationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOwnedOrganizationsInput
+    upsert?: UserUpsertWithoutOwnedOrganizationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOwnedOrganizationsInput, UserUpdateWithoutOwnedOrganizationsInput>, UserUncheckedUpdateWithoutOwnedOrganizationsInput>
+  }
+
+  export type OrganizationMemberUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<OrganizationMemberCreateWithoutOrganizationInput, OrganizationMemberUncheckedCreateWithoutOrganizationInput> | OrganizationMemberCreateWithoutOrganizationInput[] | OrganizationMemberUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: OrganizationMemberCreateOrConnectWithoutOrganizationInput | OrganizationMemberCreateOrConnectWithoutOrganizationInput[]
+    upsert?: OrganizationMemberUpsertWithWhereUniqueWithoutOrganizationInput | OrganizationMemberUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: OrganizationMemberCreateManyOrganizationInputEnvelope
+    set?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    disconnect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    delete?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    connect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    update?: OrganizationMemberUpdateWithWhereUniqueWithoutOrganizationInput | OrganizationMemberUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: OrganizationMemberUpdateManyWithWhereWithoutOrganizationInput | OrganizationMemberUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: OrganizationMemberScalarWhereInput | OrganizationMemberScalarWhereInput[]
+  }
+
+  export type CampaignUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<CampaignCreateWithoutOrganizationInput, CampaignUncheckedCreateWithoutOrganizationInput> | CampaignCreateWithoutOrganizationInput[] | CampaignUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: CampaignCreateOrConnectWithoutOrganizationInput | CampaignCreateOrConnectWithoutOrganizationInput[]
+    upsert?: CampaignUpsertWithWhereUniqueWithoutOrganizationInput | CampaignUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: CampaignCreateManyOrganizationInputEnvelope
+    set?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    disconnect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    delete?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    update?: CampaignUpdateWithWhereUniqueWithoutOrganizationInput | CampaignUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: CampaignUpdateManyWithWhereWithoutOrganizationInput | CampaignUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: CampaignScalarWhereInput | CampaignScalarWhereInput[]
+  }
+
+  export type TreeUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<TreeCreateWithoutOrganizationInput, TreeUncheckedCreateWithoutOrganizationInput> | TreeCreateWithoutOrganizationInput[] | TreeUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: TreeCreateOrConnectWithoutOrganizationInput | TreeCreateOrConnectWithoutOrganizationInput[]
+    upsert?: TreeUpsertWithWhereUniqueWithoutOrganizationInput | TreeUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: TreeCreateManyOrganizationInputEnvelope
+    set?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    disconnect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    delete?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    connect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    update?: TreeUpdateWithWhereUniqueWithoutOrganizationInput | TreeUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: TreeUpdateManyWithWhereWithoutOrganizationInput | TreeUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: TreeScalarWhereInput | TreeScalarWhereInput[]
+  }
+
+  export type AIInsightUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<AIInsightCreateWithoutOrganizationInput, AIInsightUncheckedCreateWithoutOrganizationInput> | AIInsightCreateWithoutOrganizationInput[] | AIInsightUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutOrganizationInput | AIInsightCreateOrConnectWithoutOrganizationInput[]
+    upsert?: AIInsightUpsertWithWhereUniqueWithoutOrganizationInput | AIInsightUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: AIInsightCreateManyOrganizationInputEnvelope
+    set?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    disconnect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    delete?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    update?: AIInsightUpdateWithWhereUniqueWithoutOrganizationInput | AIInsightUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: AIInsightUpdateManyWithWhereWithoutOrganizationInput | AIInsightUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+  }
+
+  export type OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<OrganizationMemberCreateWithoutOrganizationInput, OrganizationMemberUncheckedCreateWithoutOrganizationInput> | OrganizationMemberCreateWithoutOrganizationInput[] | OrganizationMemberUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: OrganizationMemberCreateOrConnectWithoutOrganizationInput | OrganizationMemberCreateOrConnectWithoutOrganizationInput[]
+    upsert?: OrganizationMemberUpsertWithWhereUniqueWithoutOrganizationInput | OrganizationMemberUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: OrganizationMemberCreateManyOrganizationInputEnvelope
+    set?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    disconnect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    delete?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    connect?: OrganizationMemberWhereUniqueInput | OrganizationMemberWhereUniqueInput[]
+    update?: OrganizationMemberUpdateWithWhereUniqueWithoutOrganizationInput | OrganizationMemberUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: OrganizationMemberUpdateManyWithWhereWithoutOrganizationInput | OrganizationMemberUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: OrganizationMemberScalarWhereInput | OrganizationMemberScalarWhereInput[]
+  }
+
+  export type CampaignUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<CampaignCreateWithoutOrganizationInput, CampaignUncheckedCreateWithoutOrganizationInput> | CampaignCreateWithoutOrganizationInput[] | CampaignUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: CampaignCreateOrConnectWithoutOrganizationInput | CampaignCreateOrConnectWithoutOrganizationInput[]
+    upsert?: CampaignUpsertWithWhereUniqueWithoutOrganizationInput | CampaignUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: CampaignCreateManyOrganizationInputEnvelope
+    set?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    disconnect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    delete?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    connect?: CampaignWhereUniqueInput | CampaignWhereUniqueInput[]
+    update?: CampaignUpdateWithWhereUniqueWithoutOrganizationInput | CampaignUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: CampaignUpdateManyWithWhereWithoutOrganizationInput | CampaignUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: CampaignScalarWhereInput | CampaignScalarWhereInput[]
+  }
+
+  export type TreeUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<TreeCreateWithoutOrganizationInput, TreeUncheckedCreateWithoutOrganizationInput> | TreeCreateWithoutOrganizationInput[] | TreeUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: TreeCreateOrConnectWithoutOrganizationInput | TreeCreateOrConnectWithoutOrganizationInput[]
+    upsert?: TreeUpsertWithWhereUniqueWithoutOrganizationInput | TreeUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: TreeCreateManyOrganizationInputEnvelope
+    set?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    disconnect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    delete?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    connect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    update?: TreeUpdateWithWhereUniqueWithoutOrganizationInput | TreeUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: TreeUpdateManyWithWhereWithoutOrganizationInput | TreeUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: TreeScalarWhereInput | TreeScalarWhereInput[]
+  }
+
+  export type AIInsightUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<AIInsightCreateWithoutOrganizationInput, AIInsightUncheckedCreateWithoutOrganizationInput> | AIInsightCreateWithoutOrganizationInput[] | AIInsightUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutOrganizationInput | AIInsightCreateOrConnectWithoutOrganizationInput[]
+    upsert?: AIInsightUpsertWithWhereUniqueWithoutOrganizationInput | AIInsightUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: AIInsightCreateManyOrganizationInputEnvelope
+    set?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    disconnect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    delete?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    update?: AIInsightUpdateWithWhereUniqueWithoutOrganizationInput | AIInsightUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: AIInsightUpdateManyWithWhereWithoutOrganizationInput | AIInsightUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+  }
+
+  export type OrganizationCreateNestedOneWithoutMembersInput = {
+    create?: XOR<OrganizationCreateWithoutMembersInput, OrganizationUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutMembersInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutOrganizationMembershipsInput = {
+    create?: XOR<UserCreateWithoutOrganizationMembershipsInput, UserUncheckedCreateWithoutOrganizationMembershipsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOrganizationMembershipsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumOrganizationRoleFieldUpdateOperationsInput = {
+    set?: $Enums.OrganizationRole
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutMembersNestedInput = {
+    create?: XOR<OrganizationCreateWithoutMembersInput, OrganizationUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutMembersInput
+    upsert?: OrganizationUpsertWithoutMembersInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutMembersInput, OrganizationUpdateWithoutMembersInput>, OrganizationUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutOrganizationMembershipsNestedInput = {
+    create?: XOR<UserCreateWithoutOrganizationMembershipsInput, UserUncheckedCreateWithoutOrganizationMembershipsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOrganizationMembershipsInput
+    upsert?: UserUpsertWithoutOrganizationMembershipsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOrganizationMembershipsInput, UserUpdateWithoutOrganizationMembershipsInput>, UserUncheckedUpdateWithoutOrganizationMembershipsInput>
+  }
+
+  export type OrganizationCreateNestedOneWithoutCampaignsInput = {
+    create?: XOR<OrganizationCreateWithoutCampaignsInput, OrganizationUncheckedCreateWithoutCampaignsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutCampaignsInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCreatedCampaignsInput = {
+    create?: XOR<UserCreateWithoutCreatedCampaignsInput, UserUncheckedCreateWithoutCreatedCampaignsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedCampaignsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TreeCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<TreeCreateWithoutCampaignInput, TreeUncheckedCreateWithoutCampaignInput> | TreeCreateWithoutCampaignInput[] | TreeUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: TreeCreateOrConnectWithoutCampaignInput | TreeCreateOrConnectWithoutCampaignInput[]
+    createMany?: TreeCreateManyCampaignInputEnvelope
+    connect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+  }
+
+  export type AIInsightCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<AIInsightCreateWithoutCampaignInput, AIInsightUncheckedCreateWithoutCampaignInput> | AIInsightCreateWithoutCampaignInput[] | AIInsightUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutCampaignInput | AIInsightCreateOrConnectWithoutCampaignInput[]
+    createMany?: AIInsightCreateManyCampaignInputEnvelope
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+  }
+
+  export type TreeUncheckedCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<TreeCreateWithoutCampaignInput, TreeUncheckedCreateWithoutCampaignInput> | TreeCreateWithoutCampaignInput[] | TreeUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: TreeCreateOrConnectWithoutCampaignInput | TreeCreateOrConnectWithoutCampaignInput[]
+    createMany?: TreeCreateManyCampaignInputEnvelope
+    connect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+  }
+
+  export type AIInsightUncheckedCreateNestedManyWithoutCampaignInput = {
+    create?: XOR<AIInsightCreateWithoutCampaignInput, AIInsightUncheckedCreateWithoutCampaignInput> | AIInsightCreateWithoutCampaignInput[] | AIInsightUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutCampaignInput | AIInsightCreateOrConnectWithoutCampaignInput[]
+    createMany?: AIInsightCreateManyCampaignInputEnvelope
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+  }
+
+  export type EnumCampaignStatusFieldUpdateOperationsInput = {
+    set?: $Enums.CampaignStatus
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type OrganizationUpdateOneRequiredWithoutCampaignsNestedInput = {
+    create?: XOR<OrganizationCreateWithoutCampaignsInput, OrganizationUncheckedCreateWithoutCampaignsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutCampaignsInput
+    upsert?: OrganizationUpsertWithoutCampaignsInput
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutCampaignsInput, OrganizationUpdateWithoutCampaignsInput>, OrganizationUncheckedUpdateWithoutCampaignsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput = {
+    create?: XOR<UserCreateWithoutCreatedCampaignsInput, UserUncheckedCreateWithoutCreatedCampaignsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCreatedCampaignsInput
+    upsert?: UserUpsertWithoutCreatedCampaignsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreatedCampaignsInput, UserUpdateWithoutCreatedCampaignsInput>, UserUncheckedUpdateWithoutCreatedCampaignsInput>
+  }
+
+  export type TreeUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<TreeCreateWithoutCampaignInput, TreeUncheckedCreateWithoutCampaignInput> | TreeCreateWithoutCampaignInput[] | TreeUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: TreeCreateOrConnectWithoutCampaignInput | TreeCreateOrConnectWithoutCampaignInput[]
+    upsert?: TreeUpsertWithWhereUniqueWithoutCampaignInput | TreeUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: TreeCreateManyCampaignInputEnvelope
+    set?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    disconnect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    delete?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    connect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    update?: TreeUpdateWithWhereUniqueWithoutCampaignInput | TreeUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: TreeUpdateManyWithWhereWithoutCampaignInput | TreeUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: TreeScalarWhereInput | TreeScalarWhereInput[]
+  }
+
+  export type AIInsightUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<AIInsightCreateWithoutCampaignInput, AIInsightUncheckedCreateWithoutCampaignInput> | AIInsightCreateWithoutCampaignInput[] | AIInsightUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutCampaignInput | AIInsightCreateOrConnectWithoutCampaignInput[]
+    upsert?: AIInsightUpsertWithWhereUniqueWithoutCampaignInput | AIInsightUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: AIInsightCreateManyCampaignInputEnvelope
+    set?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    disconnect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    delete?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    update?: AIInsightUpdateWithWhereUniqueWithoutCampaignInput | AIInsightUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: AIInsightUpdateManyWithWhereWithoutCampaignInput | AIInsightUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+  }
+
+  export type TreeUncheckedUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<TreeCreateWithoutCampaignInput, TreeUncheckedCreateWithoutCampaignInput> | TreeCreateWithoutCampaignInput[] | TreeUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: TreeCreateOrConnectWithoutCampaignInput | TreeCreateOrConnectWithoutCampaignInput[]
+    upsert?: TreeUpsertWithWhereUniqueWithoutCampaignInput | TreeUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: TreeCreateManyCampaignInputEnvelope
+    set?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    disconnect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    delete?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    connect?: TreeWhereUniqueInput | TreeWhereUniqueInput[]
+    update?: TreeUpdateWithWhereUniqueWithoutCampaignInput | TreeUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: TreeUpdateManyWithWhereWithoutCampaignInput | TreeUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: TreeScalarWhereInput | TreeScalarWhereInput[]
+  }
+
+  export type AIInsightUncheckedUpdateManyWithoutCampaignNestedInput = {
+    create?: XOR<AIInsightCreateWithoutCampaignInput, AIInsightUncheckedCreateWithoutCampaignInput> | AIInsightCreateWithoutCampaignInput[] | AIInsightUncheckedCreateWithoutCampaignInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutCampaignInput | AIInsightCreateOrConnectWithoutCampaignInput[]
+    upsert?: AIInsightUpsertWithWhereUniqueWithoutCampaignInput | AIInsightUpsertWithWhereUniqueWithoutCampaignInput[]
+    createMany?: AIInsightCreateManyCampaignInputEnvelope
+    set?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    disconnect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    delete?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    update?: AIInsightUpdateWithWhereUniqueWithoutCampaignInput | AIInsightUpdateWithWhereUniqueWithoutCampaignInput[]
+    updateMany?: AIInsightUpdateManyWithWhereWithoutCampaignInput | AIInsightUpdateManyWithWhereWithoutCampaignInput[]
+    deleteMany?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutTreesInput = {
     create?: XOR<UserCreateWithoutTreesInput, UserUncheckedCreateWithoutTreesInput>
     connectOrCreate?: UserCreateOrConnectWithoutTreesInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutTreesInput = {
+    create?: XOR<OrganizationCreateWithoutTreesInput, OrganizationUncheckedCreateWithoutTreesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutTreesInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type CampaignCreateNestedOneWithoutTreesInput = {
+    create?: XOR<CampaignCreateWithoutTreesInput, CampaignUncheckedCreateWithoutTreesInput>
+    connectOrCreate?: CampaignCreateOrConnectWithoutTreesInput
+    connect?: CampaignWhereUniqueInput
   }
 
   export type TreeUpdateCreateNestedManyWithoutTreeInput = {
@@ -18388,6 +28833,27 @@ export namespace Prisma {
     connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
   }
 
+  export type AIInsightCreateNestedManyWithoutTreeInput = {
+    create?: XOR<AIInsightCreateWithoutTreeInput, AIInsightUncheckedCreateWithoutTreeInput> | AIInsightCreateWithoutTreeInput[] | AIInsightUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutTreeInput | AIInsightCreateOrConnectWithoutTreeInput[]
+    createMany?: AIInsightCreateManyTreeInputEnvelope
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+  }
+
+  export type AIInteractionCreateNestedManyWithoutTreeInput = {
+    create?: XOR<AIInteractionCreateWithoutTreeInput, AIInteractionUncheckedCreateWithoutTreeInput> | AIInteractionCreateWithoutTreeInput[] | AIInteractionUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIInteractionCreateOrConnectWithoutTreeInput | AIInteractionCreateOrConnectWithoutTreeInput[]
+    createMany?: AIInteractionCreateManyTreeInputEnvelope
+    connect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+  }
+
+  export type AIRecommendationCreateNestedManyWithoutTreeInput = {
+    create?: XOR<AIRecommendationCreateWithoutTreeInput, AIRecommendationUncheckedCreateWithoutTreeInput> | AIRecommendationCreateWithoutTreeInput[] | AIRecommendationUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIRecommendationCreateOrConnectWithoutTreeInput | AIRecommendationCreateOrConnectWithoutTreeInput[]
+    createMany?: AIRecommendationCreateManyTreeInputEnvelope
+    connect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+  }
+
   export type TreeUpdateUncheckedCreateNestedManyWithoutTreeInput = {
     create?: XOR<TreeUpdateCreateWithoutTreeInput, TreeUpdateUncheckedCreateWithoutTreeInput> | TreeUpdateCreateWithoutTreeInput[] | TreeUpdateUncheckedCreateWithoutTreeInput[]
     connectOrCreate?: TreeUpdateCreateOrConnectWithoutTreeInput | TreeUpdateCreateOrConnectWithoutTreeInput[]
@@ -18409,6 +28875,27 @@ export namespace Prisma {
     connect?: CertificateWhereUniqueInput | CertificateWhereUniqueInput[]
   }
 
+  export type AIInsightUncheckedCreateNestedManyWithoutTreeInput = {
+    create?: XOR<AIInsightCreateWithoutTreeInput, AIInsightUncheckedCreateWithoutTreeInput> | AIInsightCreateWithoutTreeInput[] | AIInsightUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutTreeInput | AIInsightCreateOrConnectWithoutTreeInput[]
+    createMany?: AIInsightCreateManyTreeInputEnvelope
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+  }
+
+  export type AIInteractionUncheckedCreateNestedManyWithoutTreeInput = {
+    create?: XOR<AIInteractionCreateWithoutTreeInput, AIInteractionUncheckedCreateWithoutTreeInput> | AIInteractionCreateWithoutTreeInput[] | AIInteractionUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIInteractionCreateOrConnectWithoutTreeInput | AIInteractionCreateOrConnectWithoutTreeInput[]
+    createMany?: AIInteractionCreateManyTreeInputEnvelope
+    connect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+  }
+
+  export type AIRecommendationUncheckedCreateNestedManyWithoutTreeInput = {
+    create?: XOR<AIRecommendationCreateWithoutTreeInput, AIRecommendationUncheckedCreateWithoutTreeInput> | AIRecommendationCreateWithoutTreeInput[] | AIRecommendationUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIRecommendationCreateOrConnectWithoutTreeInput | AIRecommendationCreateOrConnectWithoutTreeInput[]
+    createMany?: AIRecommendationCreateManyTreeInputEnvelope
+    connect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+  }
+
   export type EnumTreeSourceFieldUpdateOperationsInput = {
     set?: $Enums.TreeSource
   }
@@ -18417,12 +28904,40 @@ export namespace Prisma {
     set?: $Enums.HealthStatus
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UserUpdateOneRequiredWithoutTreesNestedInput = {
     create?: XOR<UserCreateWithoutTreesInput, UserUncheckedCreateWithoutTreesInput>
     connectOrCreate?: UserCreateOrConnectWithoutTreesInput
     upsert?: UserUpsertWithoutTreesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTreesInput, UserUpdateWithoutTreesInput>, UserUncheckedUpdateWithoutTreesInput>
+  }
+
+  export type OrganizationUpdateOneWithoutTreesNestedInput = {
+    create?: XOR<OrganizationCreateWithoutTreesInput, OrganizationUncheckedCreateWithoutTreesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutTreesInput
+    upsert?: OrganizationUpsertWithoutTreesInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutTreesInput, OrganizationUpdateWithoutTreesInput>, OrganizationUncheckedUpdateWithoutTreesInput>
+  }
+
+  export type CampaignUpdateOneWithoutTreesNestedInput = {
+    create?: XOR<CampaignCreateWithoutTreesInput, CampaignUncheckedCreateWithoutTreesInput>
+    connectOrCreate?: CampaignCreateOrConnectWithoutTreesInput
+    upsert?: CampaignUpsertWithoutTreesInput
+    disconnect?: CampaignWhereInput | boolean
+    delete?: CampaignWhereInput | boolean
+    connect?: CampaignWhereUniqueInput
+    update?: XOR<XOR<CampaignUpdateToOneWithWhereWithoutTreesInput, CampaignUpdateWithoutTreesInput>, CampaignUncheckedUpdateWithoutTreesInput>
   }
 
   export type TreeUpdateUpdateManyWithoutTreeNestedInput = {
@@ -18467,6 +28982,48 @@ export namespace Prisma {
     deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
   }
 
+  export type AIInsightUpdateManyWithoutTreeNestedInput = {
+    create?: XOR<AIInsightCreateWithoutTreeInput, AIInsightUncheckedCreateWithoutTreeInput> | AIInsightCreateWithoutTreeInput[] | AIInsightUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutTreeInput | AIInsightCreateOrConnectWithoutTreeInput[]
+    upsert?: AIInsightUpsertWithWhereUniqueWithoutTreeInput | AIInsightUpsertWithWhereUniqueWithoutTreeInput[]
+    createMany?: AIInsightCreateManyTreeInputEnvelope
+    set?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    disconnect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    delete?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    update?: AIInsightUpdateWithWhereUniqueWithoutTreeInput | AIInsightUpdateWithWhereUniqueWithoutTreeInput[]
+    updateMany?: AIInsightUpdateManyWithWhereWithoutTreeInput | AIInsightUpdateManyWithWhereWithoutTreeInput[]
+    deleteMany?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+  }
+
+  export type AIInteractionUpdateManyWithoutTreeNestedInput = {
+    create?: XOR<AIInteractionCreateWithoutTreeInput, AIInteractionUncheckedCreateWithoutTreeInput> | AIInteractionCreateWithoutTreeInput[] | AIInteractionUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIInteractionCreateOrConnectWithoutTreeInput | AIInteractionCreateOrConnectWithoutTreeInput[]
+    upsert?: AIInteractionUpsertWithWhereUniqueWithoutTreeInput | AIInteractionUpsertWithWhereUniqueWithoutTreeInput[]
+    createMany?: AIInteractionCreateManyTreeInputEnvelope
+    set?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    disconnect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    delete?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    connect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    update?: AIInteractionUpdateWithWhereUniqueWithoutTreeInput | AIInteractionUpdateWithWhereUniqueWithoutTreeInput[]
+    updateMany?: AIInteractionUpdateManyWithWhereWithoutTreeInput | AIInteractionUpdateManyWithWhereWithoutTreeInput[]
+    deleteMany?: AIInteractionScalarWhereInput | AIInteractionScalarWhereInput[]
+  }
+
+  export type AIRecommendationUpdateManyWithoutTreeNestedInput = {
+    create?: XOR<AIRecommendationCreateWithoutTreeInput, AIRecommendationUncheckedCreateWithoutTreeInput> | AIRecommendationCreateWithoutTreeInput[] | AIRecommendationUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIRecommendationCreateOrConnectWithoutTreeInput | AIRecommendationCreateOrConnectWithoutTreeInput[]
+    upsert?: AIRecommendationUpsertWithWhereUniqueWithoutTreeInput | AIRecommendationUpsertWithWhereUniqueWithoutTreeInput[]
+    createMany?: AIRecommendationCreateManyTreeInputEnvelope
+    set?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    disconnect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    delete?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    connect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    update?: AIRecommendationUpdateWithWhereUniqueWithoutTreeInput | AIRecommendationUpdateWithWhereUniqueWithoutTreeInput[]
+    updateMany?: AIRecommendationUpdateManyWithWhereWithoutTreeInput | AIRecommendationUpdateManyWithWhereWithoutTreeInput[]
+    deleteMany?: AIRecommendationScalarWhereInput | AIRecommendationScalarWhereInput[]
+  }
+
   export type TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput = {
     create?: XOR<TreeUpdateCreateWithoutTreeInput, TreeUpdateUncheckedCreateWithoutTreeInput> | TreeUpdateCreateWithoutTreeInput[] | TreeUpdateUncheckedCreateWithoutTreeInput[]
     connectOrCreate?: TreeUpdateCreateOrConnectWithoutTreeInput | TreeUpdateCreateOrConnectWithoutTreeInput[]
@@ -18507,6 +29064,48 @@ export namespace Prisma {
     update?: CertificateUpdateWithWhereUniqueWithoutTreeInput | CertificateUpdateWithWhereUniqueWithoutTreeInput[]
     updateMany?: CertificateUpdateManyWithWhereWithoutTreeInput | CertificateUpdateManyWithWhereWithoutTreeInput[]
     deleteMany?: CertificateScalarWhereInput | CertificateScalarWhereInput[]
+  }
+
+  export type AIInsightUncheckedUpdateManyWithoutTreeNestedInput = {
+    create?: XOR<AIInsightCreateWithoutTreeInput, AIInsightUncheckedCreateWithoutTreeInput> | AIInsightCreateWithoutTreeInput[] | AIInsightUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIInsightCreateOrConnectWithoutTreeInput | AIInsightCreateOrConnectWithoutTreeInput[]
+    upsert?: AIInsightUpsertWithWhereUniqueWithoutTreeInput | AIInsightUpsertWithWhereUniqueWithoutTreeInput[]
+    createMany?: AIInsightCreateManyTreeInputEnvelope
+    set?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    disconnect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    delete?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    connect?: AIInsightWhereUniqueInput | AIInsightWhereUniqueInput[]
+    update?: AIInsightUpdateWithWhereUniqueWithoutTreeInput | AIInsightUpdateWithWhereUniqueWithoutTreeInput[]
+    updateMany?: AIInsightUpdateManyWithWhereWithoutTreeInput | AIInsightUpdateManyWithWhereWithoutTreeInput[]
+    deleteMany?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+  }
+
+  export type AIInteractionUncheckedUpdateManyWithoutTreeNestedInput = {
+    create?: XOR<AIInteractionCreateWithoutTreeInput, AIInteractionUncheckedCreateWithoutTreeInput> | AIInteractionCreateWithoutTreeInput[] | AIInteractionUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIInteractionCreateOrConnectWithoutTreeInput | AIInteractionCreateOrConnectWithoutTreeInput[]
+    upsert?: AIInteractionUpsertWithWhereUniqueWithoutTreeInput | AIInteractionUpsertWithWhereUniqueWithoutTreeInput[]
+    createMany?: AIInteractionCreateManyTreeInputEnvelope
+    set?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    disconnect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    delete?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    connect?: AIInteractionWhereUniqueInput | AIInteractionWhereUniqueInput[]
+    update?: AIInteractionUpdateWithWhereUniqueWithoutTreeInput | AIInteractionUpdateWithWhereUniqueWithoutTreeInput[]
+    updateMany?: AIInteractionUpdateManyWithWhereWithoutTreeInput | AIInteractionUpdateManyWithWhereWithoutTreeInput[]
+    deleteMany?: AIInteractionScalarWhereInput | AIInteractionScalarWhereInput[]
+  }
+
+  export type AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput = {
+    create?: XOR<AIRecommendationCreateWithoutTreeInput, AIRecommendationUncheckedCreateWithoutTreeInput> | AIRecommendationCreateWithoutTreeInput[] | AIRecommendationUncheckedCreateWithoutTreeInput[]
+    connectOrCreate?: AIRecommendationCreateOrConnectWithoutTreeInput | AIRecommendationCreateOrConnectWithoutTreeInput[]
+    upsert?: AIRecommendationUpsertWithWhereUniqueWithoutTreeInput | AIRecommendationUpsertWithWhereUniqueWithoutTreeInput[]
+    createMany?: AIRecommendationCreateManyTreeInputEnvelope
+    set?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    disconnect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    delete?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    connect?: AIRecommendationWhereUniqueInput | AIRecommendationWhereUniqueInput[]
+    update?: AIRecommendationUpdateWithWhereUniqueWithoutTreeInput | AIRecommendationUpdateWithWhereUniqueWithoutTreeInput[]
+    updateMany?: AIRecommendationUpdateManyWithWhereWithoutTreeInput | AIRecommendationUpdateManyWithWhereWithoutTreeInput[]
+    deleteMany?: AIRecommendationScalarWhereInput | AIRecommendationScalarWhereInput[]
   }
 
   export type TreeCreateNestedOneWithoutUpdatesInput = {
@@ -18585,6 +29184,154 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAdoptionsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAdoptionsInput, UserUpdateWithoutAdoptionsInput>, UserUncheckedUpdateWithoutAdoptionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAiInteractionsInput = {
+    create?: XOR<UserCreateWithoutAiInteractionsInput, UserUncheckedCreateWithoutAiInteractionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiInteractionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TreeCreateNestedOneWithoutAiInteractionsInput = {
+    create?: XOR<TreeCreateWithoutAiInteractionsInput, TreeUncheckedCreateWithoutAiInteractionsInput>
+    connectOrCreate?: TreeCreateOrConnectWithoutAiInteractionsInput
+    connect?: TreeWhereUniqueInput
+  }
+
+  export type EnumAIInteractionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AIInteractionType
+  }
+
+  export type UserUpdateOneRequiredWithoutAiInteractionsNestedInput = {
+    create?: XOR<UserCreateWithoutAiInteractionsInput, UserUncheckedCreateWithoutAiInteractionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiInteractionsInput
+    upsert?: UserUpsertWithoutAiInteractionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiInteractionsInput, UserUpdateWithoutAiInteractionsInput>, UserUncheckedUpdateWithoutAiInteractionsInput>
+  }
+
+  export type TreeUpdateOneWithoutAiInteractionsNestedInput = {
+    create?: XOR<TreeCreateWithoutAiInteractionsInput, TreeUncheckedCreateWithoutAiInteractionsInput>
+    connectOrCreate?: TreeCreateOrConnectWithoutAiInteractionsInput
+    upsert?: TreeUpsertWithoutAiInteractionsInput
+    disconnect?: TreeWhereInput | boolean
+    delete?: TreeWhereInput | boolean
+    connect?: TreeWhereUniqueInput
+    update?: XOR<XOR<TreeUpdateToOneWithWhereWithoutAiInteractionsInput, TreeUpdateWithoutAiInteractionsInput>, TreeUncheckedUpdateWithoutAiInteractionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAiRecommendationsInput = {
+    create?: XOR<UserCreateWithoutAiRecommendationsInput, UserUncheckedCreateWithoutAiRecommendationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiRecommendationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TreeCreateNestedOneWithoutAiRecommendationsInput = {
+    create?: XOR<TreeCreateWithoutAiRecommendationsInput, TreeUncheckedCreateWithoutAiRecommendationsInput>
+    connectOrCreate?: TreeCreateOrConnectWithoutAiRecommendationsInput
+    connect?: TreeWhereUniqueInput
+  }
+
+  export type EnumAIRecommendationTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AIRecommendationType
+  }
+
+  export type EnumPriorityFieldUpdateOperationsInput = {
+    set?: $Enums.Priority
+  }
+
+  export type UserUpdateOneRequiredWithoutAiRecommendationsNestedInput = {
+    create?: XOR<UserCreateWithoutAiRecommendationsInput, UserUncheckedCreateWithoutAiRecommendationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiRecommendationsInput
+    upsert?: UserUpsertWithoutAiRecommendationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiRecommendationsInput, UserUpdateWithoutAiRecommendationsInput>, UserUncheckedUpdateWithoutAiRecommendationsInput>
+  }
+
+  export type TreeUpdateOneWithoutAiRecommendationsNestedInput = {
+    create?: XOR<TreeCreateWithoutAiRecommendationsInput, TreeUncheckedCreateWithoutAiRecommendationsInput>
+    connectOrCreate?: TreeCreateOrConnectWithoutAiRecommendationsInput
+    upsert?: TreeUpsertWithoutAiRecommendationsInput
+    disconnect?: TreeWhereInput | boolean
+    delete?: TreeWhereInput | boolean
+    connect?: TreeWhereUniqueInput
+    update?: XOR<XOR<TreeUpdateToOneWithWhereWithoutAiRecommendationsInput, TreeUpdateWithoutAiRecommendationsInput>, TreeUncheckedUpdateWithoutAiRecommendationsInput>
+  }
+
+  export type UserCreateNestedOneWithoutAiInsightsInput = {
+    create?: XOR<UserCreateWithoutAiInsightsInput, UserUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiInsightsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TreeCreateNestedOneWithoutAiInsightsInput = {
+    create?: XOR<TreeCreateWithoutAiInsightsInput, TreeUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: TreeCreateOrConnectWithoutAiInsightsInput
+    connect?: TreeWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutAiInsightsInput = {
+    create?: XOR<OrganizationCreateWithoutAiInsightsInput, OrganizationUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutAiInsightsInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type CampaignCreateNestedOneWithoutAiInsightsInput = {
+    create?: XOR<CampaignCreateWithoutAiInsightsInput, CampaignUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: CampaignCreateOrConnectWithoutAiInsightsInput
+    connect?: CampaignWhereUniqueInput
+  }
+
+  export type EnumAIInsightTypeFieldUpdateOperationsInput = {
+    set?: $Enums.AIInsightType
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneWithoutAiInsightsNestedInput = {
+    create?: XOR<UserCreateWithoutAiInsightsInput, UserUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiInsightsInput
+    upsert?: UserUpsertWithoutAiInsightsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiInsightsInput, UserUpdateWithoutAiInsightsInput>, UserUncheckedUpdateWithoutAiInsightsInput>
+  }
+
+  export type TreeUpdateOneWithoutAiInsightsNestedInput = {
+    create?: XOR<TreeCreateWithoutAiInsightsInput, TreeUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: TreeCreateOrConnectWithoutAiInsightsInput
+    upsert?: TreeUpsertWithoutAiInsightsInput
+    disconnect?: TreeWhereInput | boolean
+    delete?: TreeWhereInput | boolean
+    connect?: TreeWhereUniqueInput
+    update?: XOR<XOR<TreeUpdateToOneWithWhereWithoutAiInsightsInput, TreeUpdateWithoutAiInsightsInput>, TreeUncheckedUpdateWithoutAiInsightsInput>
+  }
+
+  export type OrganizationUpdateOneWithoutAiInsightsNestedInput = {
+    create?: XOR<OrganizationCreateWithoutAiInsightsInput, OrganizationUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutAiInsightsInput
+    upsert?: OrganizationUpsertWithoutAiInsightsInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutAiInsightsInput, OrganizationUpdateWithoutAiInsightsInput>, OrganizationUncheckedUpdateWithoutAiInsightsInput>
+  }
+
+  export type CampaignUpdateOneWithoutAiInsightsNestedInput = {
+    create?: XOR<CampaignCreateWithoutAiInsightsInput, CampaignUncheckedCreateWithoutAiInsightsInput>
+    connectOrCreate?: CampaignCreateOrConnectWithoutAiInsightsInput
+    upsert?: CampaignUpsertWithoutAiInsightsInput
+    disconnect?: CampaignWhereInput | boolean
+    delete?: CampaignWhereInput | boolean
+    connect?: CampaignWhereUniqueInput
+    update?: XOR<XOR<CampaignUpdateToOneWithWhereWithoutAiInsightsInput, CampaignUpdateWithoutAiInsightsInput>, CampaignUncheckedUpdateWithoutAiInsightsInput>
   }
 
   export type UserBadgeCreateNestedManyWithoutBadgeInput = {
@@ -18791,25 +29538,8 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
   }
 
-  export type LearningModuleCreatetopicsInput = {
-    set: string[]
-  }
-
   export type EnumDifficultyFieldUpdateOperationsInput = {
     set?: $Enums.Difficulty
-  }
-
-  export type LearningModuleUpdatetopicsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -18865,6 +29595,13 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -18983,6 +29720,38 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -19011,6 +29780,67 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumOrganizationRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationRole | EnumOrganizationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumOrganizationRoleFilter<$PrismaModel> | $Enums.OrganizationRole
+  }
+
+  export type NestedEnumOrganizationRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationRole | EnumOrganizationRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.OrganizationRole[] | ListEnumOrganizationRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumOrganizationRoleWithAggregatesFilter<$PrismaModel> | $Enums.OrganizationRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumOrganizationRoleFilter<$PrismaModel>
+    _max?: NestedEnumOrganizationRoleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCampaignStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.CampaignStatus | EnumCampaignStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CampaignStatus[] | ListEnumCampaignStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CampaignStatus[] | ListEnumCampaignStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCampaignStatusFilter<$PrismaModel> | $Enums.CampaignStatus
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedEnumCampaignStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CampaignStatus | EnumCampaignStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.CampaignStatus[] | ListEnumCampaignStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CampaignStatus[] | ListEnumCampaignStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumCampaignStatusWithAggregatesFilter<$PrismaModel> | $Enums.CampaignStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCampaignStatusFilter<$PrismaModel>
+    _max?: NestedEnumCampaignStatusFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumTreeSourceFilter<$PrismaModel = never> = {
     equals?: $Enums.TreeSource | EnumTreeSourceFieldRefInput<$PrismaModel>
     in?: $Enums.TreeSource[] | ListEnumTreeSourceFieldRefInput<$PrismaModel>
@@ -19023,6 +29853,28 @@ export namespace Prisma {
     in?: $Enums.HealthStatus[] | ListEnumHealthStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.HealthStatus[] | ListEnumHealthStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumHealthStatusFilter<$PrismaModel> | $Enums.HealthStatus
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedUuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedEnumTreeSourceWithAggregatesFilter<$PrismaModel = never> = {
@@ -19066,27 +29918,35 @@ export namespace Prisma {
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
-  export type NestedJsonNullableFilter<$PrismaModel = never> = 
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -19105,15 +29965,88 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+  export type NestedEnumAIInteractionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIInteractionType | EnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIInteractionType[] | ListEnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIInteractionType[] | ListEnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIInteractionTypeFilter<$PrismaModel> | $Enums.AIInteractionType
+  }
+
+  export type NestedEnumAIInteractionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIInteractionType | EnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIInteractionType[] | ListEnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIInteractionType[] | ListEnumAIInteractionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIInteractionTypeWithAggregatesFilter<$PrismaModel> | $Enums.AIInteractionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAIInteractionTypeFilter<$PrismaModel>
+    _max?: NestedEnumAIInteractionTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAIRecommendationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIRecommendationType | EnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIRecommendationType[] | ListEnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIRecommendationType[] | ListEnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIRecommendationTypeFilter<$PrismaModel> | $Enums.AIRecommendationType
+  }
+
+  export type NestedEnumPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityFilter<$PrismaModel> | $Enums.Priority
+  }
+
+  export type NestedEnumAIRecommendationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIRecommendationType | EnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIRecommendationType[] | ListEnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIRecommendationType[] | ListEnumAIRecommendationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIRecommendationTypeWithAggregatesFilter<$PrismaModel> | $Enums.AIRecommendationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAIRecommendationTypeFilter<$PrismaModel>
+    _max?: NestedEnumAIRecommendationTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Priority | EnumPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Priority[] | ListEnumPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriorityWithAggregatesFilter<$PrismaModel> | $Enums.Priority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPriorityFilter<$PrismaModel>
+    _max?: NestedEnumPriorityFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAIInsightTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIInsightType | EnumAIInsightTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIInsightType[] | ListEnumAIInsightTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIInsightType[] | ListEnumAIInsightTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIInsightTypeFilter<$PrismaModel> | $Enums.AIInsightType
+  }
+
+  export type NestedEnumAIInsightTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AIInsightType | EnumAIInsightTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.AIInsightType[] | ListEnumAIInsightTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AIInsightType[] | ListEnumAIInsightTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAIInsightTypeWithAggregatesFilter<$PrismaModel> | $Enums.AIInsightType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAIInsightTypeFilter<$PrismaModel>
+    _max?: NestedEnumAIInsightTypeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumBadgeCategoryFilter<$PrismaModel = never> = {
@@ -19174,17 +30107,6 @@ export namespace Prisma {
     not?: NestedEnumCertificateTypeFilter<$PrismaModel> | $Enums.CertificateType
   }
 
-  export type NestedUuidNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedEnumCertificateTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.CertificateType | EnumCertificateTypeFieldRefInput<$PrismaModel>
     in?: $Enums.CertificateType[] | ListEnumCertificateTypeFieldRefInput<$PrismaModel>
@@ -19193,20 +30115,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCertificateTypeFilter<$PrismaModel>
     _max?: NestedEnumCertificateTypeFilter<$PrismaModel>
-  }
-
-  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
@@ -19243,22 +30151,6 @@ export namespace Prisma {
     _max?: NestedEnumDifficultyFilter<$PrismaModel>
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
   export type TreeCreateWithoutOwnerInput = {
     id?: string
     qrCode: string
@@ -19274,9 +30166,17 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    organization?: OrganizationCreateNestedOneWithoutTreesInput
+    campaign?: CampaignCreateNestedOneWithoutTreesInput
     updates?: TreeUpdateCreateNestedManyWithoutTreeInput
     adoptions?: TreeAdoptionCreateNestedManyWithoutTreeInput
     certificates?: CertificateCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTreeInput
   }
 
   export type TreeUncheckedCreateWithoutOwnerInput = {
@@ -19294,9 +30194,17 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    organizationId?: string | null
+    campaignId?: string | null
     updates?: TreeUpdateUncheckedCreateNestedManyWithoutTreeInput
     adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutTreeInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTreeInput
   }
 
   export type TreeCreateOrConnectWithoutOwnerInput = {
@@ -19315,6 +30223,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     tree: TreeCreateNestedOneWithoutAdoptionsInput
     previousOwner: UserCreateNestedOneWithoutTransfersInput
   }
@@ -19325,6 +30234,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     treeId: string
     previousOwnerId: string
   }
@@ -19345,6 +30255,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     tree: TreeCreateNestedOneWithoutAdoptionsInput
     newOwner: UserCreateNestedOneWithoutAdoptionsInput
   }
@@ -19355,6 +30266,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     treeId: string
     newOwnerId: string
   }
@@ -19376,6 +30288,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     tree: TreeCreateNestedOneWithoutUpdatesInput
   }
@@ -19387,6 +30300,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     treeId: string
   }
@@ -19462,6 +30376,8 @@ export namespace Prisma {
     message: string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: boolean
+    isActionable?: boolean
+    actionUrl?: string | null
     createdAt?: Date | string
   }
 
@@ -19472,6 +30388,8 @@ export namespace Prisma {
     message: string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: boolean
+    isActionable?: boolean
+    actionUrl?: string | null
     createdAt?: Date | string
   }
 
@@ -19513,6 +30431,246 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OrganizationMemberCreateWithoutUserInput = {
+    id?: string
+    role?: $Enums.OrganizationRole
+    joinedAt?: Date | string
+    treesContributed?: number
+    isActive?: boolean
+    organization: OrganizationCreateNestedOneWithoutMembersInput
+  }
+
+  export type OrganizationMemberUncheckedCreateWithoutUserInput = {
+    id?: string
+    role?: $Enums.OrganizationRole
+    joinedAt?: Date | string
+    treesContributed?: number
+    isActive?: boolean
+    organizationId: string
+  }
+
+  export type OrganizationMemberCreateOrConnectWithoutUserInput = {
+    where: OrganizationMemberWhereUniqueInput
+    create: XOR<OrganizationMemberCreateWithoutUserInput, OrganizationMemberUncheckedCreateWithoutUserInput>
+  }
+
+  export type OrganizationMemberCreateManyUserInputEnvelope = {
+    data: OrganizationMemberCreateManyUserInput | OrganizationMemberCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIInteractionCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.AIInteractionType
+    input: JsonNullValueInput | InputJsonValue
+    output: JsonNullValueInput | InputJsonValue
+    model: string
+    tokensUsed?: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    responseTime?: number | null
+    success?: boolean
+    error?: string | null
+    createdAt?: Date | string
+    tree?: TreeCreateNestedOneWithoutAiInteractionsInput
+  }
+
+  export type AIInteractionUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.AIInteractionType
+    input: JsonNullValueInput | InputJsonValue
+    output: JsonNullValueInput | InputJsonValue
+    model: string
+    tokensUsed?: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    responseTime?: number | null
+    success?: boolean
+    error?: string | null
+    createdAt?: Date | string
+    treeId?: string | null
+  }
+
+  export type AIInteractionCreateOrConnectWithoutUserInput = {
+    where: AIInteractionWhereUniqueInput
+    create: XOR<AIInteractionCreateWithoutUserInput, AIInteractionUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIInteractionCreateManyUserInputEnvelope = {
+    data: AIInteractionCreateManyUserInput | AIInteractionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIRecommendationCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority?: $Enums.Priority
+    data: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    tree?: TreeCreateNestedOneWithoutAiRecommendationsInput
+  }
+
+  export type AIRecommendationUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority?: $Enums.Priority
+    data: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    treeId?: string | null
+  }
+
+  export type AIRecommendationCreateOrConnectWithoutUserInput = {
+    where: AIRecommendationWhereUniqueInput
+    create: XOR<AIRecommendationCreateWithoutUserInput, AIRecommendationUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIRecommendationCreateManyUserInputEnvelope = {
+    data: AIRecommendationCreateManyUserInput | AIRecommendationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIInsightCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    tree?: TreeCreateNestedOneWithoutAiInsightsInput
+    organization?: OrganizationCreateNestedOneWithoutAiInsightsInput
+    campaign?: CampaignCreateNestedOneWithoutAiInsightsInput
+  }
+
+  export type AIInsightUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    treeId?: string | null
+    organizationId?: string | null
+    campaignId?: string | null
+  }
+
+  export type AIInsightCreateOrConnectWithoutUserInput = {
+    where: AIInsightWhereUniqueInput
+    create: XOR<AIInsightCreateWithoutUserInput, AIInsightUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIInsightCreateManyUserInputEnvelope = {
+    data: AIInsightCreateManyUserInput | AIInsightCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationCreateWithoutOwnerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: OrganizationMemberCreateNestedManyWithoutOrganizationInput
+    campaigns?: CampaignCreateNestedManyWithoutOrganizationInput
+    trees?: TreeCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutOwnerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    trees?: TreeUncheckedCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutOwnerInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutOwnerInput, OrganizationUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type OrganizationCreateManyOwnerInputEnvelope = {
+    data: OrganizationCreateManyOwnerInput | OrganizationCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CampaignCreateWithoutCreatorInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutCampaignsInput
+    trees?: TreeCreateNestedManyWithoutCampaignInput
+    aiInsights?: AIInsightCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignUncheckedCreateWithoutCreatorInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organizationId: string
+    trees?: TreeUncheckedCreateNestedManyWithoutCampaignInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignCreateOrConnectWithoutCreatorInput = {
+    where: CampaignWhereUniqueInput
+    create: XOR<CampaignCreateWithoutCreatorInput, CampaignUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type CampaignCreateManyCreatorInputEnvelope = {
+    data: CampaignCreateManyCreatorInput | CampaignCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TreeUpsertWithWhereUniqueWithoutOwnerInput = {
     where: TreeWhereUniqueInput
     update: XOR<TreeUpdateWithoutOwnerInput, TreeUncheckedUpdateWithoutOwnerInput>
@@ -19547,7 +30705,12 @@ export namespace Prisma {
     isAdoptable?: BoolFilter<"Tree"> | boolean
     transferReason?: StringNullableFilter<"Tree"> | string | null
     lastUpdateAt?: DateTimeNullableFilter<"Tree"> | Date | string | null
+    aiHealthScore?: FloatNullableFilter<"Tree"> | number | null
+    aiCareRecommendations?: JsonNullableFilter<"Tree">
+    aiGrowthPrediction?: JsonNullableFilter<"Tree">
     ownerId?: UuidFilter<"Tree"> | string
+    organizationId?: UuidNullableFilter<"Tree"> | string | null
+    campaignId?: UuidNullableFilter<"Tree"> | string | null
   }
 
   export type TreeAdoptionUpsertWithWhereUniqueWithoutNewOwnerInput = {
@@ -19575,6 +30738,7 @@ export namespace Prisma {
     commitmentMessage?: StringNullableFilter<"TreeAdoption"> | string | null
     commitmentDuration?: IntNullableFilter<"TreeAdoption"> | number | null
     adoptedAt?: DateTimeFilter<"TreeAdoption"> | Date | string
+    aiMatchScore?: FloatNullableFilter<"TreeAdoption"> | number | null
     treeId?: UuidFilter<"TreeAdoption"> | string
     previousOwnerId?: UuidFilter<"TreeAdoption"> | string
     newOwnerId?: UuidFilter<"TreeAdoption"> | string
@@ -19622,6 +30786,7 @@ export namespace Prisma {
     photoUrl?: StringFilter<"TreeUpdate"> | string
     growthMeasurements?: JsonNullableFilter<"TreeUpdate">
     gpsLocation?: JsonNullableFilter<"TreeUpdate">
+    aiAnalysis?: JsonNullableFilter<"TreeUpdate">
     createdAt?: DateTimeFilter<"TreeUpdate"> | Date | string
     treeId?: UuidFilter<"TreeUpdate"> | string
     userId?: UuidFilter<"TreeUpdate"> | string
@@ -19710,6 +30875,8 @@ export namespace Prisma {
     message?: StringFilter<"Notification"> | string
     data?: JsonNullableFilter<"Notification">
     isRead?: BoolFilter<"Notification"> | boolean
+    isActionable?: BoolFilter<"Notification"> | boolean
+    actionUrl?: StringNullableFilter<"Notification"> | string | null
     createdAt?: DateTimeFilter<"Notification"> | Date | string
     userId?: UuidFilter<"Notification"> | string
   }
@@ -19743,6 +30910,1206 @@ export namespace Prisma {
     treeId?: UuidNullableFilter<"Certificate"> | string | null
   }
 
+  export type OrganizationMemberUpsertWithWhereUniqueWithoutUserInput = {
+    where: OrganizationMemberWhereUniqueInput
+    update: XOR<OrganizationMemberUpdateWithoutUserInput, OrganizationMemberUncheckedUpdateWithoutUserInput>
+    create: XOR<OrganizationMemberCreateWithoutUserInput, OrganizationMemberUncheckedCreateWithoutUserInput>
+  }
+
+  export type OrganizationMemberUpdateWithWhereUniqueWithoutUserInput = {
+    where: OrganizationMemberWhereUniqueInput
+    data: XOR<OrganizationMemberUpdateWithoutUserInput, OrganizationMemberUncheckedUpdateWithoutUserInput>
+  }
+
+  export type OrganizationMemberUpdateManyWithWhereWithoutUserInput = {
+    where: OrganizationMemberScalarWhereInput
+    data: XOR<OrganizationMemberUpdateManyMutationInput, OrganizationMemberUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type OrganizationMemberScalarWhereInput = {
+    AND?: OrganizationMemberScalarWhereInput | OrganizationMemberScalarWhereInput[]
+    OR?: OrganizationMemberScalarWhereInput[]
+    NOT?: OrganizationMemberScalarWhereInput | OrganizationMemberScalarWhereInput[]
+    id?: UuidFilter<"OrganizationMember"> | string
+    role?: EnumOrganizationRoleFilter<"OrganizationMember"> | $Enums.OrganizationRole
+    joinedAt?: DateTimeFilter<"OrganizationMember"> | Date | string
+    treesContributed?: IntFilter<"OrganizationMember"> | number
+    isActive?: BoolFilter<"OrganizationMember"> | boolean
+    organizationId?: UuidFilter<"OrganizationMember"> | string
+    userId?: UuidFilter<"OrganizationMember"> | string
+  }
+
+  export type AIInteractionUpsertWithWhereUniqueWithoutUserInput = {
+    where: AIInteractionWhereUniqueInput
+    update: XOR<AIInteractionUpdateWithoutUserInput, AIInteractionUncheckedUpdateWithoutUserInput>
+    create: XOR<AIInteractionCreateWithoutUserInput, AIInteractionUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIInteractionUpdateWithWhereUniqueWithoutUserInput = {
+    where: AIInteractionWhereUniqueInput
+    data: XOR<AIInteractionUpdateWithoutUserInput, AIInteractionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AIInteractionUpdateManyWithWhereWithoutUserInput = {
+    where: AIInteractionScalarWhereInput
+    data: XOR<AIInteractionUpdateManyMutationInput, AIInteractionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AIInteractionScalarWhereInput = {
+    AND?: AIInteractionScalarWhereInput | AIInteractionScalarWhereInput[]
+    OR?: AIInteractionScalarWhereInput[]
+    NOT?: AIInteractionScalarWhereInput | AIInteractionScalarWhereInput[]
+    id?: UuidFilter<"AIInteraction"> | string
+    type?: EnumAIInteractionTypeFilter<"AIInteraction"> | $Enums.AIInteractionType
+    input?: JsonFilter<"AIInteraction">
+    output?: JsonFilter<"AIInteraction">
+    model?: StringFilter<"AIInteraction"> | string
+    tokensUsed?: IntFilter<"AIInteraction"> | number
+    cost?: DecimalNullableFilter<"AIInteraction"> | Decimal | DecimalJsLike | number | string | null
+    responseTime?: IntNullableFilter<"AIInteraction"> | number | null
+    success?: BoolFilter<"AIInteraction"> | boolean
+    error?: StringNullableFilter<"AIInteraction"> | string | null
+    createdAt?: DateTimeFilter<"AIInteraction"> | Date | string
+    userId?: UuidFilter<"AIInteraction"> | string
+    treeId?: UuidNullableFilter<"AIInteraction"> | string | null
+  }
+
+  export type AIRecommendationUpsertWithWhereUniqueWithoutUserInput = {
+    where: AIRecommendationWhereUniqueInput
+    update: XOR<AIRecommendationUpdateWithoutUserInput, AIRecommendationUncheckedUpdateWithoutUserInput>
+    create: XOR<AIRecommendationCreateWithoutUserInput, AIRecommendationUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIRecommendationUpdateWithWhereUniqueWithoutUserInput = {
+    where: AIRecommendationWhereUniqueInput
+    data: XOR<AIRecommendationUpdateWithoutUserInput, AIRecommendationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AIRecommendationUpdateManyWithWhereWithoutUserInput = {
+    where: AIRecommendationScalarWhereInput
+    data: XOR<AIRecommendationUpdateManyMutationInput, AIRecommendationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AIRecommendationScalarWhereInput = {
+    AND?: AIRecommendationScalarWhereInput | AIRecommendationScalarWhereInput[]
+    OR?: AIRecommendationScalarWhereInput[]
+    NOT?: AIRecommendationScalarWhereInput | AIRecommendationScalarWhereInput[]
+    id?: UuidFilter<"AIRecommendation"> | string
+    type?: EnumAIRecommendationTypeFilter<"AIRecommendation"> | $Enums.AIRecommendationType
+    title?: StringFilter<"AIRecommendation"> | string
+    description?: StringFilter<"AIRecommendation"> | string
+    priority?: EnumPriorityFilter<"AIRecommendation"> | $Enums.Priority
+    data?: JsonFilter<"AIRecommendation">
+    isRead?: BoolFilter<"AIRecommendation"> | boolean
+    isApplied?: BoolFilter<"AIRecommendation"> | boolean
+    expiresAt?: DateTimeNullableFilter<"AIRecommendation"> | Date | string | null
+    createdAt?: DateTimeFilter<"AIRecommendation"> | Date | string
+    userId?: UuidFilter<"AIRecommendation"> | string
+    treeId?: UuidNullableFilter<"AIRecommendation"> | string | null
+  }
+
+  export type AIInsightUpsertWithWhereUniqueWithoutUserInput = {
+    where: AIInsightWhereUniqueInput
+    update: XOR<AIInsightUpdateWithoutUserInput, AIInsightUncheckedUpdateWithoutUserInput>
+    create: XOR<AIInsightCreateWithoutUserInput, AIInsightUncheckedCreateWithoutUserInput>
+  }
+
+  export type AIInsightUpdateWithWhereUniqueWithoutUserInput = {
+    where: AIInsightWhereUniqueInput
+    data: XOR<AIInsightUpdateWithoutUserInput, AIInsightUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AIInsightUpdateManyWithWhereWithoutUserInput = {
+    where: AIInsightScalarWhereInput
+    data: XOR<AIInsightUpdateManyMutationInput, AIInsightUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AIInsightScalarWhereInput = {
+    AND?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+    OR?: AIInsightScalarWhereInput[]
+    NOT?: AIInsightScalarWhereInput | AIInsightScalarWhereInput[]
+    id?: UuidFilter<"AIInsight"> | string
+    type?: EnumAIInsightTypeFilter<"AIInsight"> | $Enums.AIInsightType
+    title?: StringFilter<"AIInsight"> | string
+    content?: StringFilter<"AIInsight"> | string
+    data?: JsonFilter<"AIInsight">
+    confidence?: FloatFilter<"AIInsight"> | number
+    isActive?: BoolFilter<"AIInsight"> | boolean
+    createdAt?: DateTimeFilter<"AIInsight"> | Date | string
+    userId?: UuidNullableFilter<"AIInsight"> | string | null
+    treeId?: UuidNullableFilter<"AIInsight"> | string | null
+    organizationId?: UuidNullableFilter<"AIInsight"> | string | null
+    campaignId?: UuidNullableFilter<"AIInsight"> | string | null
+  }
+
+  export type OrganizationUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: OrganizationWhereUniqueInput
+    update: XOR<OrganizationUpdateWithoutOwnerInput, OrganizationUncheckedUpdateWithoutOwnerInput>
+    create: XOR<OrganizationCreateWithoutOwnerInput, OrganizationUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type OrganizationUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: OrganizationWhereUniqueInput
+    data: XOR<OrganizationUpdateWithoutOwnerInput, OrganizationUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type OrganizationUpdateManyWithWhereWithoutOwnerInput = {
+    where: OrganizationScalarWhereInput
+    data: XOR<OrganizationUpdateManyMutationInput, OrganizationUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type OrganizationScalarWhereInput = {
+    AND?: OrganizationScalarWhereInput | OrganizationScalarWhereInput[]
+    OR?: OrganizationScalarWhereInput[]
+    NOT?: OrganizationScalarWhereInput | OrganizationScalarWhereInput[]
+    id?: UuidFilter<"Organization"> | string
+    name?: StringFilter<"Organization"> | string
+    description?: StringNullableFilter<"Organization"> | string | null
+    logoUrl?: StringNullableFilter<"Organization"> | string | null
+    website?: StringNullableFilter<"Organization"> | string | null
+    contactEmail?: StringFilter<"Organization"> | string
+    contactPhone?: StringNullableFilter<"Organization"> | string | null
+    address?: StringNullableFilter<"Organization"> | string | null
+    isVerified?: BoolFilter<"Organization"> | boolean
+    aiEnabled?: BoolFilter<"Organization"> | boolean
+    createdAt?: DateTimeFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeFilter<"Organization"> | Date | string
+    ownerId?: UuidFilter<"Organization"> | string
+  }
+
+  export type CampaignUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: CampaignWhereUniqueInput
+    update: XOR<CampaignUpdateWithoutCreatorInput, CampaignUncheckedUpdateWithoutCreatorInput>
+    create: XOR<CampaignCreateWithoutCreatorInput, CampaignUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type CampaignUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: CampaignWhereUniqueInput
+    data: XOR<CampaignUpdateWithoutCreatorInput, CampaignUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type CampaignUpdateManyWithWhereWithoutCreatorInput = {
+    where: CampaignScalarWhereInput
+    data: XOR<CampaignUpdateManyMutationInput, CampaignUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type CampaignScalarWhereInput = {
+    AND?: CampaignScalarWhereInput | CampaignScalarWhereInput[]
+    OR?: CampaignScalarWhereInput[]
+    NOT?: CampaignScalarWhereInput | CampaignScalarWhereInput[]
+    id?: UuidFilter<"Campaign"> | string
+    name?: StringFilter<"Campaign"> | string
+    description?: StringNullableFilter<"Campaign"> | string | null
+    targetTrees?: IntFilter<"Campaign"> | number
+    plantedTrees?: IntFilter<"Campaign"> | number
+    status?: EnumCampaignStatusFilter<"Campaign"> | $Enums.CampaignStatus
+    startDate?: DateTimeFilter<"Campaign"> | Date | string
+    endDate?: DateTimeFilter<"Campaign"> | Date | string
+    location?: JsonNullableFilter<"Campaign">
+    budget?: DecimalNullableFilter<"Campaign"> | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFilter<"Campaign"> | boolean
+    createdAt?: DateTimeFilter<"Campaign"> | Date | string
+    updatedAt?: DateTimeFilter<"Campaign"> | Date | string
+    organizationId?: UuidFilter<"Campaign"> | string
+    createdBy?: UuidFilter<"Campaign"> | string
+  }
+
+  export type UserCreateWithoutOwnedOrganizationsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateCreateNestedManyWithoutUserInput
+    badges?: UserBadgeCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserUncheckedCreateWithoutOwnedOrganizationsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeUncheckedCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionUncheckedCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutUserInput
+    badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserCreateOrConnectWithoutOwnedOrganizationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOwnedOrganizationsInput, UserUncheckedCreateWithoutOwnedOrganizationsInput>
+  }
+
+  export type OrganizationMemberCreateWithoutOrganizationInput = {
+    id?: string
+    role?: $Enums.OrganizationRole
+    joinedAt?: Date | string
+    treesContributed?: number
+    isActive?: boolean
+    user: UserCreateNestedOneWithoutOrganizationMembershipsInput
+  }
+
+  export type OrganizationMemberUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    role?: $Enums.OrganizationRole
+    joinedAt?: Date | string
+    treesContributed?: number
+    isActive?: boolean
+    userId: string
+  }
+
+  export type OrganizationMemberCreateOrConnectWithoutOrganizationInput = {
+    where: OrganizationMemberWhereUniqueInput
+    create: XOR<OrganizationMemberCreateWithoutOrganizationInput, OrganizationMemberUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type OrganizationMemberCreateManyOrganizationInputEnvelope = {
+    data: OrganizationMemberCreateManyOrganizationInput | OrganizationMemberCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CampaignCreateWithoutOrganizationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    creator: UserCreateNestedOneWithoutCreatedCampaignsInput
+    trees?: TreeCreateNestedManyWithoutCampaignInput
+    aiInsights?: AIInsightCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: string
+    trees?: TreeUncheckedCreateNestedManyWithoutCampaignInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignCreateOrConnectWithoutOrganizationInput = {
+    where: CampaignWhereUniqueInput
+    create: XOR<CampaignCreateWithoutOrganizationInput, CampaignUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type CampaignCreateManyOrganizationInputEnvelope = {
+    data: CampaignCreateManyOrganizationInput | CampaignCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TreeCreateWithoutOrganizationInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner: UserCreateNestedOneWithoutTreesInput
+    campaign?: CampaignCreateNestedOneWithoutTreesInput
+    updates?: TreeUpdateCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutTreeInput
+    certificates?: CertificateCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId: string
+    campaignId?: string | null
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutTreeInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeCreateOrConnectWithoutOrganizationInput = {
+    where: TreeWhereUniqueInput
+    create: XOR<TreeCreateWithoutOrganizationInput, TreeUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type TreeCreateManyOrganizationInputEnvelope = {
+    data: TreeCreateManyOrganizationInput | TreeCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIInsightCreateWithoutOrganizationInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    user?: UserCreateNestedOneWithoutAiInsightsInput
+    tree?: TreeCreateNestedOneWithoutAiInsightsInput
+    campaign?: CampaignCreateNestedOneWithoutAiInsightsInput
+  }
+
+  export type AIInsightUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    userId?: string | null
+    treeId?: string | null
+    campaignId?: string | null
+  }
+
+  export type AIInsightCreateOrConnectWithoutOrganizationInput = {
+    where: AIInsightWhereUniqueInput
+    create: XOR<AIInsightCreateWithoutOrganizationInput, AIInsightUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type AIInsightCreateManyOrganizationInputEnvelope = {
+    data: AIInsightCreateManyOrganizationInput | AIInsightCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutOwnedOrganizationsInput = {
+    update: XOR<UserUpdateWithoutOwnedOrganizationsInput, UserUncheckedUpdateWithoutOwnedOrganizationsInput>
+    create: XOR<UserCreateWithoutOwnedOrganizationsInput, UserUncheckedCreateWithoutOwnedOrganizationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOwnedOrganizationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOwnedOrganizationsInput, UserUncheckedUpdateWithoutOwnedOrganizationsInput>
+  }
+
+  export type UserUpdateWithoutOwnedOrganizationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOwnedOrganizationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUncheckedUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUncheckedUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUncheckedUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type OrganizationMemberUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: OrganizationMemberWhereUniqueInput
+    update: XOR<OrganizationMemberUpdateWithoutOrganizationInput, OrganizationMemberUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<OrganizationMemberCreateWithoutOrganizationInput, OrganizationMemberUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type OrganizationMemberUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: OrganizationMemberWhereUniqueInput
+    data: XOR<OrganizationMemberUpdateWithoutOrganizationInput, OrganizationMemberUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type OrganizationMemberUpdateManyWithWhereWithoutOrganizationInput = {
+    where: OrganizationMemberScalarWhereInput
+    data: XOR<OrganizationMemberUpdateManyMutationInput, OrganizationMemberUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type CampaignUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: CampaignWhereUniqueInput
+    update: XOR<CampaignUpdateWithoutOrganizationInput, CampaignUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<CampaignCreateWithoutOrganizationInput, CampaignUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type CampaignUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: CampaignWhereUniqueInput
+    data: XOR<CampaignUpdateWithoutOrganizationInput, CampaignUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type CampaignUpdateManyWithWhereWithoutOrganizationInput = {
+    where: CampaignScalarWhereInput
+    data: XOR<CampaignUpdateManyMutationInput, CampaignUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type TreeUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: TreeWhereUniqueInput
+    update: XOR<TreeUpdateWithoutOrganizationInput, TreeUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<TreeCreateWithoutOrganizationInput, TreeUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type TreeUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: TreeWhereUniqueInput
+    data: XOR<TreeUpdateWithoutOrganizationInput, TreeUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type TreeUpdateManyWithWhereWithoutOrganizationInput = {
+    where: TreeScalarWhereInput
+    data: XOR<TreeUpdateManyMutationInput, TreeUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type AIInsightUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: AIInsightWhereUniqueInput
+    update: XOR<AIInsightUpdateWithoutOrganizationInput, AIInsightUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<AIInsightCreateWithoutOrganizationInput, AIInsightUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type AIInsightUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: AIInsightWhereUniqueInput
+    data: XOR<AIInsightUpdateWithoutOrganizationInput, AIInsightUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type AIInsightUpdateManyWithWhereWithoutOrganizationInput = {
+    where: AIInsightScalarWhereInput
+    data: XOR<AIInsightUpdateManyMutationInput, AIInsightUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type OrganizationCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedOrganizationsInput
+    campaigns?: CampaignCreateNestedManyWithoutOrganizationInput
+    trees?: TreeCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    trees?: TreeUncheckedCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutMembersInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutMembersInput, OrganizationUncheckedCreateWithoutMembersInput>
+  }
+
+  export type UserCreateWithoutOrganizationMembershipsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateCreateNestedManyWithoutUserInput
+    badges?: UserBadgeCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    certificates?: CertificateCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserUncheckedCreateWithoutOrganizationMembershipsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeUncheckedCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionUncheckedCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutUserInput
+    badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserCreateOrConnectWithoutOrganizationMembershipsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOrganizationMembershipsInput, UserUncheckedCreateWithoutOrganizationMembershipsInput>
+  }
+
+  export type OrganizationUpsertWithoutMembersInput = {
+    update: XOR<OrganizationUpdateWithoutMembersInput, OrganizationUncheckedUpdateWithoutMembersInput>
+    create: XOR<OrganizationCreateWithoutMembersInput, OrganizationUncheckedCreateWithoutMembersInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutMembersInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutMembersInput, OrganizationUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type OrganizationUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+    campaigns?: CampaignUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    campaigns?: CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUncheckedUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type UserUpsertWithoutOrganizationMembershipsInput = {
+    update: XOR<UserUpdateWithoutOrganizationMembershipsInput, UserUncheckedUpdateWithoutOrganizationMembershipsInput>
+    create: XOR<UserCreateWithoutOrganizationMembershipsInput, UserUncheckedCreateWithoutOrganizationMembershipsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOrganizationMembershipsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOrganizationMembershipsInput, UserUncheckedUpdateWithoutOrganizationMembershipsInput>
+  }
+
+  export type UserUpdateWithoutOrganizationMembershipsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOrganizationMembershipsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUncheckedUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUncheckedUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUncheckedUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type OrganizationCreateWithoutCampaignsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedOrganizationsInput
+    members?: OrganizationMemberCreateNestedManyWithoutOrganizationInput
+    trees?: TreeCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutCampaignsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+    members?: OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput
+    trees?: TreeUncheckedCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutCampaignsInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutCampaignsInput, OrganizationUncheckedCreateWithoutCampaignsInput>
+  }
+
+  export type UserCreateWithoutCreatedCampaignsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateCreateNestedManyWithoutUserInput
+    badges?: UserBadgeCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserUncheckedCreateWithoutCreatedCampaignsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeUncheckedCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionUncheckedCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutUserInput
+    badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserCreateOrConnectWithoutCreatedCampaignsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCreatedCampaignsInput, UserUncheckedCreateWithoutCreatedCampaignsInput>
+  }
+
+  export type TreeCreateWithoutCampaignInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner: UserCreateNestedOneWithoutTreesInput
+    organization?: OrganizationCreateNestedOneWithoutTreesInput
+    updates?: TreeUpdateCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutTreeInput
+    certificates?: CertificateCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeUncheckedCreateWithoutCampaignInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId: string
+    organizationId?: string | null
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutTreeInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeCreateOrConnectWithoutCampaignInput = {
+    where: TreeWhereUniqueInput
+    create: XOR<TreeCreateWithoutCampaignInput, TreeUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type TreeCreateManyCampaignInputEnvelope = {
+    data: TreeCreateManyCampaignInput | TreeCreateManyCampaignInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIInsightCreateWithoutCampaignInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    user?: UserCreateNestedOneWithoutAiInsightsInput
+    tree?: TreeCreateNestedOneWithoutAiInsightsInput
+    organization?: OrganizationCreateNestedOneWithoutAiInsightsInput
+  }
+
+  export type AIInsightUncheckedCreateWithoutCampaignInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    userId?: string | null
+    treeId?: string | null
+    organizationId?: string | null
+  }
+
+  export type AIInsightCreateOrConnectWithoutCampaignInput = {
+    where: AIInsightWhereUniqueInput
+    create: XOR<AIInsightCreateWithoutCampaignInput, AIInsightUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type AIInsightCreateManyCampaignInputEnvelope = {
+    data: AIInsightCreateManyCampaignInput | AIInsightCreateManyCampaignInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationUpsertWithoutCampaignsInput = {
+    update: XOR<OrganizationUpdateWithoutCampaignsInput, OrganizationUncheckedUpdateWithoutCampaignsInput>
+    create: XOR<OrganizationCreateWithoutCampaignsInput, OrganizationUncheckedCreateWithoutCampaignsInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutCampaignsInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutCampaignsInput, OrganizationUncheckedUpdateWithoutCampaignsInput>
+  }
+
+  export type OrganizationUpdateWithoutCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+    members?: OrganizationMemberUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    members?: OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUncheckedUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type UserUpsertWithoutCreatedCampaignsInput = {
+    update: XOR<UserUpdateWithoutCreatedCampaignsInput, UserUncheckedUpdateWithoutCreatedCampaignsInput>
+    create: XOR<UserCreateWithoutCreatedCampaignsInput, UserUncheckedCreateWithoutCreatedCampaignsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCreatedCampaignsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCreatedCampaignsInput, UserUncheckedUpdateWithoutCreatedCampaignsInput>
+  }
+
+  export type UserUpdateWithoutCreatedCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCreatedCampaignsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUncheckedUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUncheckedUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUncheckedUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type TreeUpsertWithWhereUniqueWithoutCampaignInput = {
+    where: TreeWhereUniqueInput
+    update: XOR<TreeUpdateWithoutCampaignInput, TreeUncheckedUpdateWithoutCampaignInput>
+    create: XOR<TreeCreateWithoutCampaignInput, TreeUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type TreeUpdateWithWhereUniqueWithoutCampaignInput = {
+    where: TreeWhereUniqueInput
+    data: XOR<TreeUpdateWithoutCampaignInput, TreeUncheckedUpdateWithoutCampaignInput>
+  }
+
+  export type TreeUpdateManyWithWhereWithoutCampaignInput = {
+    where: TreeScalarWhereInput
+    data: XOR<TreeUpdateManyMutationInput, TreeUncheckedUpdateManyWithoutCampaignInput>
+  }
+
+  export type AIInsightUpsertWithWhereUniqueWithoutCampaignInput = {
+    where: AIInsightWhereUniqueInput
+    update: XOR<AIInsightUpdateWithoutCampaignInput, AIInsightUncheckedUpdateWithoutCampaignInput>
+    create: XOR<AIInsightCreateWithoutCampaignInput, AIInsightUncheckedCreateWithoutCampaignInput>
+  }
+
+  export type AIInsightUpdateWithWhereUniqueWithoutCampaignInput = {
+    where: AIInsightWhereUniqueInput
+    data: XOR<AIInsightUpdateWithoutCampaignInput, AIInsightUncheckedUpdateWithoutCampaignInput>
+  }
+
+  export type AIInsightUpdateManyWithWhereWithoutCampaignInput = {
+    where: AIInsightScalarWhereInput
+    data: XOR<AIInsightUpdateManyMutationInput, AIInsightUncheckedUpdateManyWithoutCampaignInput>
+  }
+
   export type UserCreateWithoutTreesInput = {
     id?: string
     name: string
@@ -19755,6 +32122,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -19765,6 +32134,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUncheckedCreateWithoutTreesInput = {
@@ -19779,6 +32154,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -19789,11 +32166,103 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
   }
 
   export type UserCreateOrConnectWithoutTreesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutTreesInput, UserUncheckedCreateWithoutTreesInput>
+  }
+
+  export type OrganizationCreateWithoutTreesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedOrganizationsInput
+    members?: OrganizationMemberCreateNestedManyWithoutOrganizationInput
+    campaigns?: CampaignCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutTreesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+    members?: OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutTreesInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutTreesInput, OrganizationUncheckedCreateWithoutTreesInput>
+  }
+
+  export type CampaignCreateWithoutTreesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutCampaignsInput
+    creator: UserCreateNestedOneWithoutCreatedCampaignsInput
+    aiInsights?: AIInsightCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignUncheckedCreateWithoutTreesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organizationId: string
+    createdBy: string
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignCreateOrConnectWithoutTreesInput = {
+    where: CampaignWhereUniqueInput
+    create: XOR<CampaignCreateWithoutTreesInput, CampaignUncheckedCreateWithoutTreesInput>
   }
 
   export type TreeUpdateCreateWithoutTreeInput = {
@@ -19803,6 +32272,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutUpdatesInput
   }
@@ -19814,6 +32284,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     userId: string
   }
@@ -19834,6 +32305,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     previousOwner: UserCreateNestedOneWithoutTransfersInput
     newOwner: UserCreateNestedOneWithoutAdoptionsInput
   }
@@ -19844,6 +32316,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     previousOwnerId: string
     newOwnerId: string
   }
@@ -19886,6 +32359,122 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AIInsightCreateWithoutTreeInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    user?: UserCreateNestedOneWithoutAiInsightsInput
+    organization?: OrganizationCreateNestedOneWithoutAiInsightsInput
+    campaign?: CampaignCreateNestedOneWithoutAiInsightsInput
+  }
+
+  export type AIInsightUncheckedCreateWithoutTreeInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    userId?: string | null
+    organizationId?: string | null
+    campaignId?: string | null
+  }
+
+  export type AIInsightCreateOrConnectWithoutTreeInput = {
+    where: AIInsightWhereUniqueInput
+    create: XOR<AIInsightCreateWithoutTreeInput, AIInsightUncheckedCreateWithoutTreeInput>
+  }
+
+  export type AIInsightCreateManyTreeInputEnvelope = {
+    data: AIInsightCreateManyTreeInput | AIInsightCreateManyTreeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIInteractionCreateWithoutTreeInput = {
+    id?: string
+    type: $Enums.AIInteractionType
+    input: JsonNullValueInput | InputJsonValue
+    output: JsonNullValueInput | InputJsonValue
+    model: string
+    tokensUsed?: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    responseTime?: number | null
+    success?: boolean
+    error?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAiInteractionsInput
+  }
+
+  export type AIInteractionUncheckedCreateWithoutTreeInput = {
+    id?: string
+    type: $Enums.AIInteractionType
+    input: JsonNullValueInput | InputJsonValue
+    output: JsonNullValueInput | InputJsonValue
+    model: string
+    tokensUsed?: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    responseTime?: number | null
+    success?: boolean
+    error?: string | null
+    createdAt?: Date | string
+    userId: string
+  }
+
+  export type AIInteractionCreateOrConnectWithoutTreeInput = {
+    where: AIInteractionWhereUniqueInput
+    create: XOR<AIInteractionCreateWithoutTreeInput, AIInteractionUncheckedCreateWithoutTreeInput>
+  }
+
+  export type AIInteractionCreateManyTreeInputEnvelope = {
+    data: AIInteractionCreateManyTreeInput | AIInteractionCreateManyTreeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AIRecommendationCreateWithoutTreeInput = {
+    id?: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority?: $Enums.Priority
+    data: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAiRecommendationsInput
+  }
+
+  export type AIRecommendationUncheckedCreateWithoutTreeInput = {
+    id?: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority?: $Enums.Priority
+    data: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    userId: string
+  }
+
+  export type AIRecommendationCreateOrConnectWithoutTreeInput = {
+    where: AIRecommendationWhereUniqueInput
+    create: XOR<AIRecommendationCreateWithoutTreeInput, AIRecommendationUncheckedCreateWithoutTreeInput>
+  }
+
+  export type AIRecommendationCreateManyTreeInputEnvelope = {
+    data: AIRecommendationCreateManyTreeInput | AIRecommendationCreateManyTreeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutTreesInput = {
     update: XOR<UserUpdateWithoutTreesInput, UserUncheckedUpdateWithoutTreesInput>
     create: XOR<UserCreateWithoutTreesInput, UserUncheckedCreateWithoutTreesInput>
@@ -19909,6 +32498,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19919,6 +32510,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTreesInput = {
@@ -19933,6 +32530,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -19943,6 +32542,110 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type OrganizationUpsertWithoutTreesInput = {
+    update: XOR<OrganizationUpdateWithoutTreesInput, OrganizationUncheckedUpdateWithoutTreesInput>
+    create: XOR<OrganizationCreateWithoutTreesInput, OrganizationUncheckedCreateWithoutTreesInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutTreesInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutTreesInput, OrganizationUncheckedUpdateWithoutTreesInput>
+  }
+
+  export type OrganizationUpdateWithoutTreesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+    members?: OrganizationMemberUpdateManyWithoutOrganizationNestedInput
+    campaigns?: CampaignUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutTreesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    members?: OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type CampaignUpsertWithoutTreesInput = {
+    update: XOR<CampaignUpdateWithoutTreesInput, CampaignUncheckedUpdateWithoutTreesInput>
+    create: XOR<CampaignCreateWithoutTreesInput, CampaignUncheckedCreateWithoutTreesInput>
+    where?: CampaignWhereInput
+  }
+
+  export type CampaignUpdateToOneWithWhereWithoutTreesInput = {
+    where?: CampaignWhereInput
+    data: XOR<CampaignUpdateWithoutTreesInput, CampaignUncheckedUpdateWithoutTreesInput>
+  }
+
+  export type CampaignUpdateWithoutTreesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutCampaignsNestedInput
+    creator?: UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type CampaignUncheckedUpdateWithoutTreesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutCampaignNestedInput
   }
 
   export type TreeUpdateUpsertWithWhereUniqueWithoutTreeInput = {
@@ -19993,6 +32696,54 @@ export namespace Prisma {
     data: XOR<CertificateUpdateManyMutationInput, CertificateUncheckedUpdateManyWithoutTreeInput>
   }
 
+  export type AIInsightUpsertWithWhereUniqueWithoutTreeInput = {
+    where: AIInsightWhereUniqueInput
+    update: XOR<AIInsightUpdateWithoutTreeInput, AIInsightUncheckedUpdateWithoutTreeInput>
+    create: XOR<AIInsightCreateWithoutTreeInput, AIInsightUncheckedCreateWithoutTreeInput>
+  }
+
+  export type AIInsightUpdateWithWhereUniqueWithoutTreeInput = {
+    where: AIInsightWhereUniqueInput
+    data: XOR<AIInsightUpdateWithoutTreeInput, AIInsightUncheckedUpdateWithoutTreeInput>
+  }
+
+  export type AIInsightUpdateManyWithWhereWithoutTreeInput = {
+    where: AIInsightScalarWhereInput
+    data: XOR<AIInsightUpdateManyMutationInput, AIInsightUncheckedUpdateManyWithoutTreeInput>
+  }
+
+  export type AIInteractionUpsertWithWhereUniqueWithoutTreeInput = {
+    where: AIInteractionWhereUniqueInput
+    update: XOR<AIInteractionUpdateWithoutTreeInput, AIInteractionUncheckedUpdateWithoutTreeInput>
+    create: XOR<AIInteractionCreateWithoutTreeInput, AIInteractionUncheckedCreateWithoutTreeInput>
+  }
+
+  export type AIInteractionUpdateWithWhereUniqueWithoutTreeInput = {
+    where: AIInteractionWhereUniqueInput
+    data: XOR<AIInteractionUpdateWithoutTreeInput, AIInteractionUncheckedUpdateWithoutTreeInput>
+  }
+
+  export type AIInteractionUpdateManyWithWhereWithoutTreeInput = {
+    where: AIInteractionScalarWhereInput
+    data: XOR<AIInteractionUpdateManyMutationInput, AIInteractionUncheckedUpdateManyWithoutTreeInput>
+  }
+
+  export type AIRecommendationUpsertWithWhereUniqueWithoutTreeInput = {
+    where: AIRecommendationWhereUniqueInput
+    update: XOR<AIRecommendationUpdateWithoutTreeInput, AIRecommendationUncheckedUpdateWithoutTreeInput>
+    create: XOR<AIRecommendationCreateWithoutTreeInput, AIRecommendationUncheckedCreateWithoutTreeInput>
+  }
+
+  export type AIRecommendationUpdateWithWhereUniqueWithoutTreeInput = {
+    where: AIRecommendationWhereUniqueInput
+    data: XOR<AIRecommendationUpdateWithoutTreeInput, AIRecommendationUncheckedUpdateWithoutTreeInput>
+  }
+
+  export type AIRecommendationUpdateManyWithWhereWithoutTreeInput = {
+    where: AIRecommendationScalarWhereInput
+    data: XOR<AIRecommendationUpdateManyMutationInput, AIRecommendationUncheckedUpdateManyWithoutTreeInput>
+  }
+
   export type TreeCreateWithoutUpdatesInput = {
     id?: string
     qrCode: string
@@ -20008,9 +32759,17 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     owner: UserCreateNestedOneWithoutTreesInput
+    organization?: OrganizationCreateNestedOneWithoutTreesInput
+    campaign?: CampaignCreateNestedOneWithoutTreesInput
     adoptions?: TreeAdoptionCreateNestedManyWithoutTreeInput
     certificates?: CertificateCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTreeInput
   }
 
   export type TreeUncheckedCreateWithoutUpdatesInput = {
@@ -20028,9 +32787,17 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId: string
+    organizationId?: string | null
+    campaignId?: string | null
     adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutTreeInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTreeInput
   }
 
   export type TreeCreateOrConnectWithoutUpdatesInput = {
@@ -20050,6 +32817,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20060,6 +32829,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUncheckedCreateWithoutUpdatesInput = {
@@ -20074,6 +32849,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20084,6 +32861,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
   }
 
   export type UserCreateOrConnectWithoutUpdatesInput = {
@@ -20117,9 +32900,17 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     owner?: UserUpdateOneRequiredWithoutTreesNestedInput
+    organization?: OrganizationUpdateOneWithoutTreesNestedInput
+    campaign?: CampaignUpdateOneWithoutTreesNestedInput
     adoptions?: TreeAdoptionUpdateManyWithoutTreeNestedInput
     certificates?: CertificateUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTreeNestedInput
   }
 
   export type TreeUncheckedUpdateWithoutUpdatesInput = {
@@ -20137,9 +32928,17 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
     adoptions?: TreeAdoptionUncheckedUpdateManyWithoutTreeNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput
   }
 
   export type UserUpsertWithoutUpdatesInput = {
@@ -20165,6 +32964,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20175,6 +32976,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUpdatesInput = {
@@ -20189,6 +32996,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20199,6 +33008,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type TreeCreateWithoutAdoptionsInput = {
@@ -20216,9 +33031,17 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     owner: UserCreateNestedOneWithoutTreesInput
+    organization?: OrganizationCreateNestedOneWithoutTreesInput
+    campaign?: CampaignCreateNestedOneWithoutTreesInput
     updates?: TreeUpdateCreateNestedManyWithoutTreeInput
     certificates?: CertificateCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTreeInput
   }
 
   export type TreeUncheckedCreateWithoutAdoptionsInput = {
@@ -20236,9 +33059,17 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId: string
+    organizationId?: string | null
+    campaignId?: string | null
     updates?: TreeUpdateUncheckedCreateNestedManyWithoutTreeInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTreeInput
   }
 
   export type TreeCreateOrConnectWithoutAdoptionsInput = {
@@ -20258,6 +33089,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20268,6 +33101,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUncheckedCreateWithoutTransfersInput = {
@@ -20282,6 +33121,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20292,6 +33133,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
   }
 
   export type UserCreateOrConnectWithoutTransfersInput = {
@@ -20311,6 +33158,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20321,6 +33170,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUncheckedCreateWithoutAdoptionsInput = {
@@ -20335,6 +33190,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20345,6 +33202,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
   }
 
   export type UserCreateOrConnectWithoutAdoptionsInput = {
@@ -20378,9 +33241,17 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     owner?: UserUpdateOneRequiredWithoutTreesNestedInput
+    organization?: OrganizationUpdateOneWithoutTreesNestedInput
+    campaign?: CampaignUpdateOneWithoutTreesNestedInput
     updates?: TreeUpdateUpdateManyWithoutTreeNestedInput
     certificates?: CertificateUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTreeNestedInput
   }
 
   export type TreeUncheckedUpdateWithoutAdoptionsInput = {
@@ -20398,9 +33269,17 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
     updates?: TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput
   }
 
   export type UserUpsertWithoutTransfersInput = {
@@ -20426,6 +33305,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20436,6 +33317,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTransfersInput = {
@@ -20450,6 +33337,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20460,6 +33349,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUpsertWithoutAdoptionsInput = {
@@ -20485,6 +33380,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20495,6 +33392,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAdoptionsInput = {
@@ -20509,6 +33412,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20519,6 +33424,1012 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserCreateWithoutAiInteractionsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateCreateNestedManyWithoutUserInput
+    badges?: UserBadgeCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserUncheckedCreateWithoutAiInteractionsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeUncheckedCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionUncheckedCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutUserInput
+    badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserCreateOrConnectWithoutAiInteractionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiInteractionsInput, UserUncheckedCreateWithoutAiInteractionsInput>
+  }
+
+  export type TreeCreateWithoutAiInteractionsInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner: UserCreateNestedOneWithoutTreesInput
+    organization?: OrganizationCreateNestedOneWithoutTreesInput
+    campaign?: CampaignCreateNestedOneWithoutTreesInput
+    updates?: TreeUpdateCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutTreeInput
+    certificates?: CertificateCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeUncheckedCreateWithoutAiInteractionsInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId: string
+    organizationId?: string | null
+    campaignId?: string | null
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutTreeInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeCreateOrConnectWithoutAiInteractionsInput = {
+    where: TreeWhereUniqueInput
+    create: XOR<TreeCreateWithoutAiInteractionsInput, TreeUncheckedCreateWithoutAiInteractionsInput>
+  }
+
+  export type UserUpsertWithoutAiInteractionsInput = {
+    update: XOR<UserUpdateWithoutAiInteractionsInput, UserUncheckedUpdateWithoutAiInteractionsInput>
+    create: XOR<UserCreateWithoutAiInteractionsInput, UserUncheckedCreateWithoutAiInteractionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiInteractionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiInteractionsInput, UserUncheckedUpdateWithoutAiInteractionsInput>
+  }
+
+  export type UserUpdateWithoutAiInteractionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiInteractionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUncheckedUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUncheckedUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUncheckedUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type TreeUpsertWithoutAiInteractionsInput = {
+    update: XOR<TreeUpdateWithoutAiInteractionsInput, TreeUncheckedUpdateWithoutAiInteractionsInput>
+    create: XOR<TreeCreateWithoutAiInteractionsInput, TreeUncheckedCreateWithoutAiInteractionsInput>
+    where?: TreeWhereInput
+  }
+
+  export type TreeUpdateToOneWithWhereWithoutAiInteractionsInput = {
+    where?: TreeWhereInput
+    data: XOR<TreeUpdateWithoutAiInteractionsInput, TreeUncheckedUpdateWithoutAiInteractionsInput>
+  }
+
+  export type TreeUpdateWithoutAiInteractionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner?: UserUpdateOneRequiredWithoutTreesNestedInput
+    organization?: OrganizationUpdateOneWithoutTreesNestedInput
+    campaign?: CampaignUpdateOneWithoutTreesNestedInput
+    updates?: TreeUpdateUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTreeNestedInput
+  }
+
+  export type TreeUncheckedUpdateWithoutAiInteractionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+    updates?: TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput
+  }
+
+  export type UserCreateWithoutAiRecommendationsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateCreateNestedManyWithoutUserInput
+    badges?: UserBadgeCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserUncheckedCreateWithoutAiRecommendationsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeUncheckedCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionUncheckedCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutUserInput
+    badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserCreateOrConnectWithoutAiRecommendationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiRecommendationsInput, UserUncheckedCreateWithoutAiRecommendationsInput>
+  }
+
+  export type TreeCreateWithoutAiRecommendationsInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner: UserCreateNestedOneWithoutTreesInput
+    organization?: OrganizationCreateNestedOneWithoutTreesInput
+    campaign?: CampaignCreateNestedOneWithoutTreesInput
+    updates?: TreeUpdateCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutTreeInput
+    certificates?: CertificateCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeUncheckedCreateWithoutAiRecommendationsInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId: string
+    organizationId?: string | null
+    campaignId?: string | null
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutTreeInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeCreateOrConnectWithoutAiRecommendationsInput = {
+    where: TreeWhereUniqueInput
+    create: XOR<TreeCreateWithoutAiRecommendationsInput, TreeUncheckedCreateWithoutAiRecommendationsInput>
+  }
+
+  export type UserUpsertWithoutAiRecommendationsInput = {
+    update: XOR<UserUpdateWithoutAiRecommendationsInput, UserUncheckedUpdateWithoutAiRecommendationsInput>
+    create: XOR<UserCreateWithoutAiRecommendationsInput, UserUncheckedCreateWithoutAiRecommendationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiRecommendationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiRecommendationsInput, UserUncheckedUpdateWithoutAiRecommendationsInput>
+  }
+
+  export type UserUpdateWithoutAiRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUncheckedUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUncheckedUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUncheckedUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type TreeUpsertWithoutAiRecommendationsInput = {
+    update: XOR<TreeUpdateWithoutAiRecommendationsInput, TreeUncheckedUpdateWithoutAiRecommendationsInput>
+    create: XOR<TreeCreateWithoutAiRecommendationsInput, TreeUncheckedCreateWithoutAiRecommendationsInput>
+    where?: TreeWhereInput
+  }
+
+  export type TreeUpdateToOneWithWhereWithoutAiRecommendationsInput = {
+    where?: TreeWhereInput
+    data: XOR<TreeUpdateWithoutAiRecommendationsInput, TreeUncheckedUpdateWithoutAiRecommendationsInput>
+  }
+
+  export type TreeUpdateWithoutAiRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner?: UserUpdateOneRequiredWithoutTreesNestedInput
+    organization?: OrganizationUpdateOneWithoutTreesNestedInput
+    campaign?: CampaignUpdateOneWithoutTreesNestedInput
+    updates?: TreeUpdateUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutTreeNestedInput
+  }
+
+  export type TreeUncheckedUpdateWithoutAiRecommendationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+    updates?: TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutTreeNestedInput
+  }
+
+  export type UserCreateWithoutAiInsightsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateCreateNestedManyWithoutUserInput
+    badges?: UserBadgeCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserUncheckedCreateWithoutAiInsightsInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    profilePicture?: string | null
+    bio?: string | null
+    greenPoints?: number
+    isProfilePublic?: boolean
+    emailNotifications?: boolean
+    city?: string | null
+    country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    trees?: TreeUncheckedCreateNestedManyWithoutOwnerInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutNewOwnerInput
+    transfers?: TreeAdoptionUncheckedCreateNestedManyWithoutPreviousOwnerInput
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutUserInput
+    badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
+    rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type UserCreateOrConnectWithoutAiInsightsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiInsightsInput, UserUncheckedCreateWithoutAiInsightsInput>
+  }
+
+  export type TreeCreateWithoutAiInsightsInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner: UserCreateNestedOneWithoutTreesInput
+    organization?: OrganizationCreateNestedOneWithoutTreesInput
+    campaign?: CampaignCreateNestedOneWithoutTreesInput
+    updates?: TreeUpdateCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionCreateNestedManyWithoutTreeInput
+    certificates?: CertificateCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeUncheckedCreateWithoutAiInsightsInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId: string
+    organizationId?: string | null
+    campaignId?: string | null
+    updates?: TreeUpdateUncheckedCreateNestedManyWithoutTreeInput
+    adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutTreeInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTreeInput
+  }
+
+  export type TreeCreateOrConnectWithoutAiInsightsInput = {
+    where: TreeWhereUniqueInput
+    create: XOR<TreeCreateWithoutAiInsightsInput, TreeUncheckedCreateWithoutAiInsightsInput>
+  }
+
+  export type OrganizationCreateWithoutAiInsightsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedOrganizationsInput
+    members?: OrganizationMemberCreateNestedManyWithoutOrganizationInput
+    campaigns?: CampaignCreateNestedManyWithoutOrganizationInput
+    trees?: TreeCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutAiInsightsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+    members?: OrganizationMemberUncheckedCreateNestedManyWithoutOrganizationInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutOrganizationInput
+    trees?: TreeUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutAiInsightsInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutAiInsightsInput, OrganizationUncheckedCreateWithoutAiInsightsInput>
+  }
+
+  export type CampaignCreateWithoutAiInsightsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organization: OrganizationCreateNestedOneWithoutCampaignsInput
+    creator: UserCreateNestedOneWithoutCreatedCampaignsInput
+    trees?: TreeCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignUncheckedCreateWithoutAiInsightsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organizationId: string
+    createdBy: string
+    trees?: TreeUncheckedCreateNestedManyWithoutCampaignInput
+  }
+
+  export type CampaignCreateOrConnectWithoutAiInsightsInput = {
+    where: CampaignWhereUniqueInput
+    create: XOR<CampaignCreateWithoutAiInsightsInput, CampaignUncheckedCreateWithoutAiInsightsInput>
+  }
+
+  export type UserUpsertWithoutAiInsightsInput = {
+    update: XOR<UserUpdateWithoutAiInsightsInput, UserUncheckedUpdateWithoutAiInsightsInput>
+    create: XOR<UserCreateWithoutAiInsightsInput, UserUncheckedCreateWithoutAiInsightsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiInsightsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiInsightsInput, UserUncheckedUpdateWithoutAiInsightsInput>
+  }
+
+  export type UserUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    greenPoints?: IntFieldUpdateOperationsInput | number
+    isProfilePublic?: BoolFieldUpdateOperationsInput | boolean
+    emailNotifications?: BoolFieldUpdateOperationsInput | boolean
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    trees?: TreeUncheckedUpdateManyWithoutOwnerNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutNewOwnerNestedInput
+    transfers?: TreeAdoptionUncheckedUpdateManyWithoutPreviousOwnerNestedInput
+    updates?: TreeUpdateUncheckedUpdateManyWithoutUserNestedInput
+    badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
+    rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type TreeUpsertWithoutAiInsightsInput = {
+    update: XOR<TreeUpdateWithoutAiInsightsInput, TreeUncheckedUpdateWithoutAiInsightsInput>
+    create: XOR<TreeCreateWithoutAiInsightsInput, TreeUncheckedCreateWithoutAiInsightsInput>
+    where?: TreeWhereInput
+  }
+
+  export type TreeUpdateToOneWithWhereWithoutAiInsightsInput = {
+    where?: TreeWhereInput
+    data: XOR<TreeUpdateWithoutAiInsightsInput, TreeUncheckedUpdateWithoutAiInsightsInput>
+  }
+
+  export type TreeUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner?: UserUpdateOneRequiredWithoutTreesNestedInput
+    organization?: OrganizationUpdateOneWithoutTreesNestedInput
+    campaign?: CampaignUpdateOneWithoutTreesNestedInput
+    updates?: TreeUpdateUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTreeNestedInput
+  }
+
+  export type TreeUncheckedUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+    updates?: TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput
+  }
+
+  export type OrganizationUpsertWithoutAiInsightsInput = {
+    update: XOR<OrganizationUpdateWithoutAiInsightsInput, OrganizationUncheckedUpdateWithoutAiInsightsInput>
+    create: XOR<OrganizationCreateWithoutAiInsightsInput, OrganizationUncheckedCreateWithoutAiInsightsInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutAiInsightsInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutAiInsightsInput, OrganizationUncheckedUpdateWithoutAiInsightsInput>
+  }
+
+  export type OrganizationUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+    members?: OrganizationMemberUpdateManyWithoutOrganizationNestedInput
+    campaigns?: CampaignUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    members?: OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type CampaignUpsertWithoutAiInsightsInput = {
+    update: XOR<CampaignUpdateWithoutAiInsightsInput, CampaignUncheckedUpdateWithoutAiInsightsInput>
+    create: XOR<CampaignCreateWithoutAiInsightsInput, CampaignUncheckedCreateWithoutAiInsightsInput>
+    where?: CampaignWhereInput
+  }
+
+  export type CampaignUpdateToOneWithWhereWithoutAiInsightsInput = {
+    where?: CampaignWhereInput
+    data: XOR<CampaignUpdateWithoutAiInsightsInput, CampaignUncheckedUpdateWithoutAiInsightsInput>
+  }
+
+  export type CampaignUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutCampaignsNestedInput
+    creator?: UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
+    trees?: TreeUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type CampaignUncheckedUpdateWithoutAiInsightsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    trees?: TreeUncheckedUpdateManyWithoutCampaignNestedInput
   }
 
   export type UserBadgeCreateWithoutBadgeInput = {
@@ -20571,6 +34482,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20581,6 +34494,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUncheckedCreateWithoutBadgesInput = {
@@ -20595,6 +34514,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20605,6 +34526,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
   }
 
   export type UserCreateOrConnectWithoutBadgesInput = {
@@ -20664,6 +34591,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20674,6 +34603,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBadgesInput = {
@@ -20688,6 +34623,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20698,6 +34635,12 @@ export namespace Prisma {
     rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type BadgeUpsertWithoutUserBadgesInput = {
@@ -20795,6 +34738,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20805,6 +34750,12 @@ export namespace Prisma {
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUncheckedCreateWithoutRewardsInput = {
@@ -20819,6 +34770,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20829,6 +34782,12 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
   }
 
   export type UserCreateOrConnectWithoutRewardsInput = {
@@ -20888,6 +34847,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20898,6 +34859,12 @@ export namespace Prisma {
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRewardsInput = {
@@ -20912,6 +34879,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -20922,6 +34891,12 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type RewardUpsertWithoutRedemptionsInput = {
@@ -20971,6 +34946,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -20981,6 +34958,12 @@ export namespace Prisma {
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUncheckedCreateWithoutCertificatesInput = {
@@ -20995,6 +34978,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -21005,6 +34990,12 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
   }
 
   export type UserCreateOrConnectWithoutCertificatesInput = {
@@ -21027,9 +35018,17 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     owner: UserCreateNestedOneWithoutTreesInput
+    organization?: OrganizationCreateNestedOneWithoutTreesInput
+    campaign?: CampaignCreateNestedOneWithoutTreesInput
     updates?: TreeUpdateCreateNestedManyWithoutTreeInput
     adoptions?: TreeAdoptionCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutTreeInput
   }
 
   export type TreeUncheckedCreateWithoutCertificatesInput = {
@@ -21047,9 +35046,17 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId: string
+    organizationId?: string | null
+    campaignId?: string | null
     updates?: TreeUpdateUncheckedCreateNestedManyWithoutTreeInput
     adoptions?: TreeAdoptionUncheckedCreateNestedManyWithoutTreeInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutTreeInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutTreeInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutTreeInput
   }
 
   export type TreeCreateOrConnectWithoutCertificatesInput = {
@@ -21080,6 +35087,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21090,6 +35099,12 @@ export namespace Prisma {
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCertificatesInput = {
@@ -21104,6 +35119,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21114,6 +35131,12 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type TreeUpsertWithoutCertificatesInput = {
@@ -21142,9 +35165,17 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     owner?: UserUpdateOneRequiredWithoutTreesNestedInput
+    organization?: OrganizationUpdateOneWithoutTreesNestedInput
+    campaign?: CampaignUpdateOneWithoutTreesNestedInput
     updates?: TreeUpdateUpdateManyWithoutTreeNestedInput
     adoptions?: TreeAdoptionUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTreeNestedInput
   }
 
   export type TreeUncheckedUpdateWithoutCertificatesInput = {
@@ -21162,9 +35193,17 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
     ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
     updates?: TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput
     adoptions?: TreeAdoptionUncheckedUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -21179,6 +35218,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -21189,6 +35230,12 @@ export namespace Prisma {
     badges?: UserBadgeCreateNestedManyWithoutUserInput
     rewards?: RewardRedemptionCreateNestedManyWithoutUserInput
     certificates?: CertificateCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignCreateNestedManyWithoutCreatorInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -21203,6 +35250,8 @@ export namespace Prisma {
     emailNotifications?: boolean
     city?: string | null
     country?: string | null
+    role?: $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
@@ -21213,6 +35262,12 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedCreateNestedManyWithoutUserInput
     rewards?: RewardRedemptionUncheckedCreateNestedManyWithoutUserInput
     certificates?: CertificateUncheckedCreateNestedManyWithoutUserInput
+    organizationMemberships?: OrganizationMemberUncheckedCreateNestedManyWithoutUserInput
+    aiInteractions?: AIInteractionUncheckedCreateNestedManyWithoutUserInput
+    aiRecommendations?: AIRecommendationUncheckedCreateNestedManyWithoutUserInput
+    aiInsights?: AIInsightUncheckedCreateNestedManyWithoutUserInput
+    ownedOrganizations?: OrganizationUncheckedCreateNestedManyWithoutOwnerInput
+    createdCampaigns?: CampaignUncheckedCreateNestedManyWithoutCreatorInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -21243,6 +35298,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21253,6 +35310,12 @@ export namespace Prisma {
     badges?: UserBadgeUpdateManyWithoutUserNestedInput
     rewards?: RewardRedemptionUpdateManyWithoutUserNestedInput
     certificates?: CertificateUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUpdateManyWithoutCreatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -21267,6 +35330,8 @@ export namespace Prisma {
     emailNotifications?: BoolFieldUpdateOperationsInput | boolean
     city?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    aiPreferences?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21277,6 +35342,12 @@ export namespace Prisma {
     badges?: UserBadgeUncheckedUpdateManyWithoutUserNestedInput
     rewards?: RewardRedemptionUncheckedUpdateManyWithoutUserNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutUserNestedInput
+    organizationMemberships?: OrganizationMemberUncheckedUpdateManyWithoutUserNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutUserNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutUserNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutUserNestedInput
+    ownedOrganizations?: OrganizationUncheckedUpdateManyWithoutOwnerNestedInput
+    createdCampaigns?: CampaignUncheckedUpdateManyWithoutCreatorNestedInput
   }
 
   export type TreeCreateManyOwnerInput = {
@@ -21294,6 +35365,11 @@ export namespace Prisma {
     isAdoptable?: boolean
     transferReason?: string | null
     lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    organizationId?: string | null
+    campaignId?: string | null
   }
 
   export type TreeAdoptionCreateManyNewOwnerInput = {
@@ -21302,6 +35378,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     treeId: string
     previousOwnerId: string
   }
@@ -21312,6 +35389,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     treeId: string
     newOwnerId: string
   }
@@ -21323,6 +35401,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     treeId: string
   }
@@ -21351,6 +35430,8 @@ export namespace Prisma {
     message: string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: boolean
+    isActionable?: boolean
+    actionUrl?: string | null
     createdAt?: Date | string
   }
 
@@ -21361,6 +35442,90 @@ export namespace Prisma {
     metadata: JsonNullValueInput | InputJsonValue
     issuedAt?: Date | string
     treeId?: string | null
+  }
+
+  export type OrganizationMemberCreateManyUserInput = {
+    id?: string
+    role?: $Enums.OrganizationRole
+    joinedAt?: Date | string
+    treesContributed?: number
+    isActive?: boolean
+    organizationId: string
+  }
+
+  export type AIInteractionCreateManyUserInput = {
+    id?: string
+    type: $Enums.AIInteractionType
+    input: JsonNullValueInput | InputJsonValue
+    output: JsonNullValueInput | InputJsonValue
+    model: string
+    tokensUsed?: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    responseTime?: number | null
+    success?: boolean
+    error?: string | null
+    createdAt?: Date | string
+    treeId?: string | null
+  }
+
+  export type AIRecommendationCreateManyUserInput = {
+    id?: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority?: $Enums.Priority
+    data: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    treeId?: string | null
+  }
+
+  export type AIInsightCreateManyUserInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    treeId?: string | null
+    organizationId?: string | null
+    campaignId?: string | null
+  }
+
+  export type OrganizationCreateManyOwnerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    logoUrl?: string | null
+    website?: string | null
+    contactEmail: string
+    contactPhone?: string | null
+    address?: string | null
+    isVerified?: boolean
+    aiEnabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CampaignCreateManyCreatorInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organizationId: string
   }
 
   export type TreeUpdateWithoutOwnerInput = {
@@ -21378,9 +35543,17 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    organization?: OrganizationUpdateOneWithoutTreesNestedInput
+    campaign?: CampaignUpdateOneWithoutTreesNestedInput
     updates?: TreeUpdateUpdateManyWithoutTreeNestedInput
     adoptions?: TreeAdoptionUpdateManyWithoutTreeNestedInput
     certificates?: CertificateUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTreeNestedInput
   }
 
   export type TreeUncheckedUpdateWithoutOwnerInput = {
@@ -21398,9 +35571,17 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
     updates?: TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput
     adoptions?: TreeAdoptionUncheckedUpdateManyWithoutTreeNestedInput
     certificates?: CertificateUncheckedUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput
   }
 
   export type TreeUncheckedUpdateManyWithoutOwnerInput = {
@@ -21418,6 +35599,11 @@ export namespace Prisma {
     isAdoptable?: BoolFieldUpdateOperationsInput | boolean
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TreeAdoptionUpdateWithoutNewOwnerInput = {
@@ -21426,6 +35612,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     tree?: TreeUpdateOneRequiredWithoutAdoptionsNestedInput
     previousOwner?: UserUpdateOneRequiredWithoutTransfersNestedInput
   }
@@ -21436,6 +35623,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     treeId?: StringFieldUpdateOperationsInput | string
     previousOwnerId?: StringFieldUpdateOperationsInput | string
   }
@@ -21446,6 +35634,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     treeId?: StringFieldUpdateOperationsInput | string
     previousOwnerId?: StringFieldUpdateOperationsInput | string
   }
@@ -21456,6 +35645,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     tree?: TreeUpdateOneRequiredWithoutAdoptionsNestedInput
     newOwner?: UserUpdateOneRequiredWithoutAdoptionsNestedInput
   }
@@ -21466,6 +35656,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     treeId?: StringFieldUpdateOperationsInput | string
     newOwnerId?: StringFieldUpdateOperationsInput | string
   }
@@ -21476,6 +35667,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     treeId?: StringFieldUpdateOperationsInput | string
     newOwnerId?: StringFieldUpdateOperationsInput | string
   }
@@ -21487,6 +35679,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tree?: TreeUpdateOneRequiredWithoutUpdatesNestedInput
   }
@@ -21498,6 +35691,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     treeId?: StringFieldUpdateOperationsInput | string
   }
@@ -21509,6 +35703,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     treeId?: StringFieldUpdateOperationsInput | string
   }
@@ -21571,6 +35766,8 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    isActionable?: BoolFieldUpdateOperationsInput | boolean
+    actionUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21581,6 +35778,8 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    isActionable?: BoolFieldUpdateOperationsInput | boolean
+    actionUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21591,6 +35790,8 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     data?: NullableJsonNullValueInput | InputJsonValue
     isRead?: BoolFieldUpdateOperationsInput | boolean
+    isActionable?: BoolFieldUpdateOperationsInput | boolean
+    actionUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21621,6 +35822,690 @@ export namespace Prisma {
     treeId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type OrganizationMemberUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    organization?: OrganizationUpdateOneRequiredWithoutMembersNestedInput
+  }
+
+  export type OrganizationMemberUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrganizationMemberUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    organizationId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AIInteractionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tree?: TreeUpdateOneWithoutAiInteractionsNestedInput
+  }
+
+  export type AIInteractionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInteractionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIRecommendationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tree?: TreeUpdateOneWithoutAiRecommendationsNestedInput
+  }
+
+  export type AIRecommendationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIRecommendationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInsightUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tree?: TreeUpdateOneWithoutAiInsightsNestedInput
+    organization?: OrganizationUpdateOneWithoutAiInsightsNestedInput
+    campaign?: CampaignUpdateOneWithoutAiInsightsNestedInput
+  }
+
+  export type AIInsightUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInsightUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OrganizationUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: OrganizationMemberUpdateManyWithoutOrganizationNestedInput
+    campaigns?: CampaignUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: OrganizationMemberUncheckedUpdateManyWithoutOrganizationNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutOrganizationNestedInput
+    trees?: TreeUncheckedUpdateManyWithoutOrganizationNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateManyWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    contactEmail?: StringFieldUpdateOperationsInput | string
+    contactPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    aiEnabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CampaignUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organization?: OrganizationUpdateOneRequiredWithoutCampaignsNestedInput
+    trees?: TreeUpdateManyWithoutCampaignNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type CampaignUncheckedUpdateWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+    trees?: TreeUncheckedUpdateManyWithoutCampaignNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type CampaignUncheckedUpdateManyWithoutCreatorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organizationId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrganizationMemberCreateManyOrganizationInput = {
+    id?: string
+    role?: $Enums.OrganizationRole
+    joinedAt?: Date | string
+    treesContributed?: number
+    isActive?: boolean
+    userId: string
+  }
+
+  export type CampaignCreateManyOrganizationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    targetTrees: number
+    plantedTrees?: number
+    status?: $Enums.CampaignStatus
+    startDate: Date | string
+    endDate: Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: string
+  }
+
+  export type TreeCreateManyOrganizationInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId: string
+    campaignId?: string | null
+  }
+
+  export type AIInsightCreateManyOrganizationInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    userId?: string | null
+    treeId?: string | null
+    campaignId?: string | null
+  }
+
+  export type OrganizationMemberUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneRequiredWithoutOrganizationMembershipsNestedInput
+  }
+
+  export type OrganizationMemberUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OrganizationMemberUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: EnumOrganizationRoleFieldUpdateOperationsInput | $Enums.OrganizationRole
+    joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    treesContributed?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CampaignUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: UserUpdateOneRequiredWithoutCreatedCampaignsNestedInput
+    trees?: TreeUpdateManyWithoutCampaignNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type CampaignUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+    trees?: TreeUncheckedUpdateManyWithoutCampaignNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutCampaignNestedInput
+  }
+
+  export type CampaignUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    targetTrees?: IntFieldUpdateOperationsInput | number
+    plantedTrees?: IntFieldUpdateOperationsInput | number
+    status?: EnumCampaignStatusFieldUpdateOperationsInput | $Enums.CampaignStatus
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableJsonNullValueInput | InputJsonValue
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    aiOptimized?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TreeUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner?: UserUpdateOneRequiredWithoutTreesNestedInput
+    campaign?: CampaignUpdateOneWithoutTreesNestedInput
+    updates?: TreeUpdateUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTreeNestedInput
+  }
+
+  export type TreeUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId?: StringFieldUpdateOperationsInput | string
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+    updates?: TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput
+  }
+
+  export type TreeUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId?: StringFieldUpdateOperationsInput | string
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInsightUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutAiInsightsNestedInput
+    tree?: TreeUpdateOneWithoutAiInsightsNestedInput
+    campaign?: CampaignUpdateOneWithoutAiInsightsNestedInput
+  }
+
+  export type AIInsightUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInsightUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TreeCreateManyCampaignInput = {
+    id?: string
+    qrCode: string
+    species: string
+    source: $Enums.TreeSource
+    commitmentDuration: number
+    initialHealthStatus: $Enums.HealthStatus
+    currentHealthStatus?: $Enums.HealthStatus
+    location: JsonNullValueInput | InputJsonValue
+    photoUrl: string
+    plantedAt?: Date | string
+    isActive?: boolean
+    isAdoptable?: boolean
+    transferReason?: string | null
+    lastUpdateAt?: Date | string | null
+    aiHealthScore?: number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId: string
+    organizationId?: string | null
+  }
+
+  export type AIInsightCreateManyCampaignInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    userId?: string | null
+    treeId?: string | null
+    organizationId?: string | null
+  }
+
+  export type TreeUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    owner?: UserUpdateOneRequiredWithoutTreesNestedInput
+    organization?: OrganizationUpdateOneWithoutTreesNestedInput
+    updates?: TreeUpdateUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUpdateManyWithoutTreeNestedInput
+  }
+
+  export type TreeUncheckedUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    updates?: TreeUpdateUncheckedUpdateManyWithoutTreeNestedInput
+    adoptions?: TreeAdoptionUncheckedUpdateManyWithoutTreeNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutTreeNestedInput
+    aiInsights?: AIInsightUncheckedUpdateManyWithoutTreeNestedInput
+    aiInteractions?: AIInteractionUncheckedUpdateManyWithoutTreeNestedInput
+    aiRecommendations?: AIRecommendationUncheckedUpdateManyWithoutTreeNestedInput
+  }
+
+  export type TreeUncheckedUpdateManyWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    qrCode?: StringFieldUpdateOperationsInput | string
+    species?: StringFieldUpdateOperationsInput | string
+    source?: EnumTreeSourceFieldUpdateOperationsInput | $Enums.TreeSource
+    commitmentDuration?: IntFieldUpdateOperationsInput | number
+    initialHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    currentHealthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+    location?: JsonNullValueInput | InputJsonValue
+    photoUrl?: StringFieldUpdateOperationsInput | string
+    plantedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isAdoptable?: BoolFieldUpdateOperationsInput | boolean
+    transferReason?: NullableStringFieldUpdateOperationsInput | string | null
+    lastUpdateAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    aiHealthScore?: NullableFloatFieldUpdateOperationsInput | number | null
+    aiCareRecommendations?: NullableJsonNullValueInput | InputJsonValue
+    aiGrowthPrediction?: NullableJsonNullValueInput | InputJsonValue
+    ownerId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInsightUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutAiInsightsNestedInput
+    tree?: TreeUpdateOneWithoutAiInsightsNestedInput
+    organization?: OrganizationUpdateOneWithoutAiInsightsNestedInput
+  }
+
+  export type AIInsightUncheckedUpdateWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInsightUncheckedUpdateManyWithoutCampaignInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    treeId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type TreeUpdateCreateManyTreeInput = {
     id?: string
     healthStatus: $Enums.HealthStatus
@@ -21628,6 +36513,7 @@ export namespace Prisma {
     photoUrl: string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     userId: string
   }
@@ -21638,6 +36524,7 @@ export namespace Prisma {
     commitmentMessage?: string | null
     commitmentDuration?: number | null
     adoptedAt?: Date | string
+    aiMatchScore?: number | null
     previousOwnerId: string
     newOwnerId: string
   }
@@ -21651,6 +36538,49 @@ export namespace Prisma {
     userId: string
   }
 
+  export type AIInsightCreateManyTreeInput = {
+    id?: string
+    type: $Enums.AIInsightType
+    title: string
+    content: string
+    data: JsonNullValueInput | InputJsonValue
+    confidence?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    userId?: string | null
+    organizationId?: string | null
+    campaignId?: string | null
+  }
+
+  export type AIInteractionCreateManyTreeInput = {
+    id?: string
+    type: $Enums.AIInteractionType
+    input: JsonNullValueInput | InputJsonValue
+    output: JsonNullValueInput | InputJsonValue
+    model: string
+    tokensUsed?: number
+    cost?: Decimal | DecimalJsLike | number | string | null
+    responseTime?: number | null
+    success?: boolean
+    error?: string | null
+    createdAt?: Date | string
+    userId: string
+  }
+
+  export type AIRecommendationCreateManyTreeInput = {
+    id?: string
+    type: $Enums.AIRecommendationType
+    title: string
+    description: string
+    priority?: $Enums.Priority
+    data: JsonNullValueInput | InputJsonValue
+    isRead?: boolean
+    isApplied?: boolean
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    userId: string
+  }
+
   export type TreeUpdateUpdateWithoutTreeInput = {
     id?: StringFieldUpdateOperationsInput | string
     healthStatus?: EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
@@ -21658,6 +36588,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUpdatesNestedInput
   }
@@ -21669,6 +36600,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
@@ -21680,6 +36612,7 @@ export namespace Prisma {
     photoUrl?: StringFieldUpdateOperationsInput | string
     growthMeasurements?: NullableJsonNullValueInput | InputJsonValue
     gpsLocation?: NullableJsonNullValueInput | InputJsonValue
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
@@ -21690,6 +36623,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     previousOwner?: UserUpdateOneRequiredWithoutTransfersNestedInput
     newOwner?: UserUpdateOneRequiredWithoutAdoptionsNestedInput
   }
@@ -21700,6 +36634,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     previousOwnerId?: StringFieldUpdateOperationsInput | string
     newOwnerId?: StringFieldUpdateOperationsInput | string
   }
@@ -21710,6 +36645,7 @@ export namespace Prisma {
     commitmentMessage?: NullableStringFieldUpdateOperationsInput | string | null
     commitmentDuration?: NullableIntFieldUpdateOperationsInput | number | null
     adoptedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMatchScore?: NullableFloatFieldUpdateOperationsInput | number | null
     previousOwnerId?: StringFieldUpdateOperationsInput | string
     newOwnerId?: StringFieldUpdateOperationsInput | string
   }
@@ -21738,6 +36674,135 @@ export namespace Prisma {
     pdfUrl?: StringFieldUpdateOperationsInput | string
     metadata?: JsonNullValueInput | InputJsonValue
     issuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AIInsightUpdateWithoutTreeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutAiInsightsNestedInput
+    organization?: OrganizationUpdateOneWithoutAiInsightsNestedInput
+    campaign?: CampaignUpdateOneWithoutAiInsightsNestedInput
+  }
+
+  export type AIInsightUncheckedUpdateWithoutTreeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInsightUncheckedUpdateManyWithoutTreeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInsightTypeFieldUpdateOperationsInput | $Enums.AIInsightType
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    confidence?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    campaignId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AIInteractionUpdateWithoutTreeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiInteractionsNestedInput
+  }
+
+  export type AIInteractionUncheckedUpdateWithoutTreeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AIInteractionUncheckedUpdateManyWithoutTreeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIInteractionTypeFieldUpdateOperationsInput | $Enums.AIInteractionType
+    input?: JsonNullValueInput | InputJsonValue
+    output?: JsonNullValueInput | InputJsonValue
+    model?: StringFieldUpdateOperationsInput | string
+    tokensUsed?: IntFieldUpdateOperationsInput | number
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    responseTime?: NullableIntFieldUpdateOperationsInput | number | null
+    success?: BoolFieldUpdateOperationsInput | boolean
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AIRecommendationUpdateWithoutTreeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiRecommendationsNestedInput
+  }
+
+  export type AIRecommendationUncheckedUpdateWithoutTreeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AIRecommendationUncheckedUpdateManyWithoutTreeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumAIRecommendationTypeFieldUpdateOperationsInput | $Enums.AIRecommendationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
+    data?: JsonNullValueInput | InputJsonValue
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    isApplied?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -21819,6 +36884,14 @@ export namespace Prisma {
      */
     export type UserCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use OrganizationCountOutputTypeDefaultArgs instead
+     */
+    export type OrganizationCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OrganizationCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CampaignCountOutputTypeDefaultArgs instead
+     */
+    export type CampaignCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CampaignCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use TreeCountOutputTypeDefaultArgs instead
      */
     export type TreeCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TreeCountOutputTypeDefaultArgs<ExtArgs>
@@ -21835,6 +36908,18 @@ export namespace Prisma {
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use OrganizationDefaultArgs instead
+     */
+    export type OrganizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OrganizationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OrganizationMemberDefaultArgs instead
+     */
+    export type OrganizationMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OrganizationMemberDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CampaignDefaultArgs instead
+     */
+    export type CampaignArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CampaignDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use TreeDefaultArgs instead
      */
     export type TreeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TreeDefaultArgs<ExtArgs>
@@ -21842,6 +36927,18 @@ export namespace Prisma {
      * @deprecated Use TreeAdoptionDefaultArgs instead
      */
     export type TreeAdoptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TreeAdoptionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AIInteractionDefaultArgs instead
+     */
+    export type AIInteractionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AIInteractionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AIRecommendationDefaultArgs instead
+     */
+    export type AIRecommendationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AIRecommendationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use AIInsightDefaultArgs instead
+     */
+    export type AIInsightArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AIInsightDefaultArgs<ExtArgs>
     /**
      * @deprecated Use BadgeDefaultArgs instead
      */

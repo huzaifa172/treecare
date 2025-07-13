@@ -12,21 +12,33 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: authAPI.login,
     onSuccess: (data) => {
-      // Store token and user data
-      authStorage.setToken(data.data.token);
-      authStorage.setUser(data.data.user);
-      
-      // Update cache
-      queryClient.setQueryData(['user'], data.data.user);
-      
-      // Show success message
-      toast.success(data.message);
-      
-      // Redirect to dashboard
-      router.push('/dashboard');
+      try {
+        // Store token and user data
+        authStorage.setToken(data.data.token);
+        authStorage.setUser(data.data.user);
+        
+        // Update cache
+        queryClient.setQueryData(['user'], data.data.user);
+        
+        // Show success message
+        toast.success(data.message);
+        
+        // Small delay to ensure state is updated
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 100);
+      } catch (error) {
+        console.error('Login success error:', error);
+        toast.error('Login successful but redirect failed. Please refresh the page.');
+      }
     },
     onError: (error: any) => {
-      toast.error(error.message || 'Login failed');
+      console.error('Login error:', error);
+      if (error.statusCode === 429) {
+        toast.error('Too many login attempts. Please wait a few minutes before trying again.');
+      } else {
+        toast.error(error.message || 'Login failed');
+      }
     },
   });
 };

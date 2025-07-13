@@ -134,9 +134,55 @@ exports.Prisma.UserScalarFieldEnum = {
   emailNotifications: 'emailNotifications',
   city: 'city',
   country: 'country',
+  role: 'role',
+  aiPreferences: 'aiPreferences',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   lastLoginAt: 'lastLoginAt'
+};
+
+exports.Prisma.OrganizationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  logoUrl: 'logoUrl',
+  website: 'website',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  address: 'address',
+  isVerified: 'isVerified',
+  aiEnabled: 'aiEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  ownerId: 'ownerId'
+};
+
+exports.Prisma.OrganizationMemberScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  joinedAt: 'joinedAt',
+  treesContributed: 'treesContributed',
+  isActive: 'isActive',
+  organizationId: 'organizationId',
+  userId: 'userId'
+};
+
+exports.Prisma.CampaignScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  targetTrees: 'targetTrees',
+  plantedTrees: 'plantedTrees',
+  status: 'status',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  location: 'location',
+  budget: 'budget',
+  aiOptimized: 'aiOptimized',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  organizationId: 'organizationId',
+  createdBy: 'createdBy'
 };
 
 exports.Prisma.TreeScalarFieldEnum = {
@@ -154,7 +200,12 @@ exports.Prisma.TreeScalarFieldEnum = {
   isAdoptable: 'isAdoptable',
   transferReason: 'transferReason',
   lastUpdateAt: 'lastUpdateAt',
-  ownerId: 'ownerId'
+  aiHealthScore: 'aiHealthScore',
+  aiCareRecommendations: 'aiCareRecommendations',
+  aiGrowthPrediction: 'aiGrowthPrediction',
+  ownerId: 'ownerId',
+  organizationId: 'organizationId',
+  campaignId: 'campaignId'
 };
 
 exports.Prisma.TreeUpdateScalarFieldEnum = {
@@ -164,6 +215,7 @@ exports.Prisma.TreeUpdateScalarFieldEnum = {
   photoUrl: 'photoUrl',
   growthMeasurements: 'growthMeasurements',
   gpsLocation: 'gpsLocation',
+  aiAnalysis: 'aiAnalysis',
   createdAt: 'createdAt',
   treeId: 'treeId',
   userId: 'userId'
@@ -175,9 +227,56 @@ exports.Prisma.TreeAdoptionScalarFieldEnum = {
   commitmentMessage: 'commitmentMessage',
   commitmentDuration: 'commitmentDuration',
   adoptedAt: 'adoptedAt',
+  aiMatchScore: 'aiMatchScore',
   treeId: 'treeId',
   previousOwnerId: 'previousOwnerId',
   newOwnerId: 'newOwnerId'
+};
+
+exports.Prisma.AIInteractionScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  input: 'input',
+  output: 'output',
+  model: 'model',
+  tokensUsed: 'tokensUsed',
+  cost: 'cost',
+  responseTime: 'responseTime',
+  success: 'success',
+  error: 'error',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  treeId: 'treeId'
+};
+
+exports.Prisma.AIRecommendationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  priority: 'priority',
+  data: 'data',
+  isRead: 'isRead',
+  isApplied: 'isApplied',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  treeId: 'treeId'
+};
+
+exports.Prisma.AIInsightScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  content: 'content',
+  data: 'data',
+  confidence: 'confidence',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  userId: 'userId',
+  treeId: 'treeId',
+  organizationId: 'organizationId',
+  campaignId: 'campaignId'
 };
 
 exports.Prisma.BadgeScalarFieldEnum = {
@@ -240,6 +339,8 @@ exports.Prisma.NotificationScalarFieldEnum = {
   message: 'message',
   data: 'data',
   isRead: 'isRead',
+  isActionable: 'isActionable',
+  actionUrl: 'actionUrl',
   createdAt: 'createdAt',
   userId: 'userId'
 };
@@ -249,12 +350,11 @@ exports.Prisma.LearningModuleScalarFieldEnum = {
   title: 'title',
   description: 'description',
   content: 'content',
-  duration: 'duration',
   difficulty: 'difficulty',
-  topics: 'topics',
-  thumbnailUrl: 'thumbnailUrl',
+  category: 'category',
+  imageUrl: 'imageUrl',
+  videoUrl: 'videoUrl',
   isActive: 'isActive',
-  order: 'order',
   createdAt: 'createdAt'
 };
 
@@ -262,11 +362,10 @@ exports.Prisma.GlobalStatsScalarFieldEnum = {
   id: 'id',
   totalTrees: 'totalTrees',
   totalUsers: 'totalUsers',
-  totalUpdates: 'totalUpdates',
-  totalAdoptions: 'totalAdoptions',
-  co2OffsetKg: 'co2OffsetKg',
-  countriesActive: 'countriesActive',
-  updatedAt: 'updatedAt'
+  totalOrganizations: 'totalOrganizations',
+  totalCO2Offset: 'totalCO2Offset',
+  totalPoints: 'totalPoints',
+  date: 'date'
 };
 
 exports.Prisma.SortOrder = {
@@ -274,12 +373,12 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -288,21 +387,41 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.UserRole = exports.$Enums.UserRole = {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  MODERATOR: 'MODERATOR'
+};
+
+exports.OrganizationRole = exports.$Enums.OrganizationRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+};
+
+exports.CampaignStatus = exports.$Enums.CampaignStatus = {
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  PAUSED: 'PAUSED',
+  CANCELLED: 'CANCELLED'
+};
+
 exports.TreeSource = exports.$Enums.TreeSource = {
-  NURSERY: 'NURSERY',
-  HOMEGROWN: 'HOMEGROWN',
-  GRAFTED: 'GRAFTED',
-  WILD_SEEDLING: 'WILD_SEEDLING'
+  SEEDLING: 'SEEDLING',
+  SAPLING: 'SAPLING',
+  MATURE_TREE: 'MATURE_TREE',
+  CUTTING: 'CUTTING',
+  SEED: 'SEED'
 };
 
 exports.HealthStatus = exports.$Enums.HealthStatus = {
@@ -315,21 +434,59 @@ exports.HealthStatus = exports.$Enums.HealthStatus = {
   DEAD: 'DEAD'
 };
 
+exports.AIInteractionType = exports.$Enums.AIInteractionType = {
+  TREE_HEALTH_ANALYSIS: 'TREE_HEALTH_ANALYSIS',
+  CARE_RECOMMENDATION: 'CARE_RECOMMENDATION',
+  SPECIES_IDENTIFICATION: 'SPECIES_IDENTIFICATION',
+  GROWTH_PREDICTION: 'GROWTH_PREDICTION',
+  CLIMATE_IMPACT: 'CLIMATE_IMPACT',
+  CARE_SCHEDULE: 'CARE_SCHEDULE',
+  TROUBLESHOOTING: 'TROUBLESHOOTING',
+  GENERAL_QUERY: 'GENERAL_QUERY'
+};
+
+exports.AIRecommendationType = exports.$Enums.AIRecommendationType = {
+  WATERING_SCHEDULE: 'WATERING_SCHEDULE',
+  FERTILIZATION: 'FERTILIZATION',
+  PRUNING: 'PRUNING',
+  PEST_CONTROL: 'PEST_CONTROL',
+  CLIMATE_ADAPTATION: 'CLIMATE_ADAPTATION',
+  GROWTH_OPTIMIZATION: 'GROWTH_OPTIMIZATION',
+  HEALTH_IMPROVEMENT: 'HEALTH_IMPROVEMENT',
+  MAINTENANCE: 'MAINTENANCE'
+};
+
+exports.Priority = exports.$Enums.Priority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+};
+
+exports.AIInsightType = exports.$Enums.AIInsightType = {
+  HEALTH_TREND: 'HEALTH_TREND',
+  GROWTH_PATTERN: 'GROWTH_PATTERN',
+  CLIMATE_IMPACT: 'CLIMATE_IMPACT',
+  CARE_EFFECTIVENESS: 'CARE_EFFECTIVENESS',
+  OPTIMIZATION_OPPORTUNITY: 'OPTIMIZATION_OPPORTUNITY',
+  RISK_ASSESSMENT: 'RISK_ASSESSMENT',
+  SUCCESS_METRIC: 'SUCCESS_METRIC'
+};
+
 exports.BadgeCategory = exports.$Enums.BadgeCategory = {
-  STARTER: 'STARTER',
-  GROWTH: 'GROWTH',
-  CARE: 'CARE',
+  TREE_CARE: 'TREE_CARE',
+  ENVIRONMENTAL_IMPACT: 'ENVIRONMENTAL_IMPACT',
   COMMUNITY: 'COMMUNITY',
-  IMPACT: 'IMPACT',
-  SPECIAL: 'SPECIAL'
+  MILESTONE: 'MILESTONE',
+  SPECIAL_EVENT: 'SPECIAL_EVENT'
 };
 
 exports.RewardCategory = exports.$Enums.RewardCategory = {
-  MERCHANDISE: 'MERCHANDISE',
-  DISCOUNTS: 'DISCOUNTS',
-  EVENTS: 'EVENTS',
-  DIGITAL: 'DIGITAL',
-  PHYSICAL: 'PHYSICAL'
+  ECO_FRIENDLY_PRODUCTS: 'ECO_FRIENDLY_PRODUCTS',
+  TREE_CARE_TOOLS: 'TREE_CARE_TOOLS',
+  EDUCATIONAL_MATERIALS: 'EDUCATIONAL_MATERIALS',
+  EXPERIENCES: 'EXPERIENCES',
+  DONATIONS: 'DONATIONS'
 };
 
 exports.RedemptionStatus = exports.$Enums.RedemptionStatus = {
@@ -341,10 +498,11 @@ exports.RedemptionStatus = exports.$Enums.RedemptionStatus = {
 };
 
 exports.CertificateType = exports.$Enums.CertificateType = {
-  TREE_OWNERSHIP: 'TREE_OWNERSHIP',
-  ADOPTION: 'ADOPTION',
-  ACHIEVEMENT: 'ACHIEVEMENT',
-  PARTICIPATION: 'PARTICIPATION'
+  TREE_GUARDIAN: 'TREE_GUARDIAN',
+  ENVIRONMENTAL_STEWARD: 'ENVIRONMENTAL_STEWARD',
+  CARBON_OFFSET: 'CARBON_OFFSET',
+  MILESTONE: 'MILESTONE',
+  CUSTOM: 'CUSTOM'
 };
 
 exports.NotificationType = exports.$Enums.NotificationType = {
@@ -352,21 +510,29 @@ exports.NotificationType = exports.$Enums.NotificationType = {
   ADOPTION_REQUEST: 'ADOPTION_REQUEST',
   BADGE_EARNED: 'BADGE_EARNED',
   POINT_MILESTONE: 'POINT_MILESTONE',
-  SYSTEM_UPDATE: 'SYSTEM_UPDATE',
-  COMMUNITY_NEWS: 'COMMUNITY_NEWS'
+  CAMPAIGN_UPDATE: 'CAMPAIGN_UPDATE',
+  AI_RECOMMENDATION: 'AI_RECOMMENDATION',
+  SYSTEM_ANNOUNCEMENT: 'SYSTEM_ANNOUNCEMENT'
 };
 
 exports.Difficulty = exports.$Enums.Difficulty = {
   BEGINNER: 'BEGINNER',
   INTERMEDIATE: 'INTERMEDIATE',
-  ADVANCED: 'ADVANCED'
+  ADVANCED: 'ADVANCED',
+  EXPERT: 'EXPERT'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Organization: 'Organization',
+  OrganizationMember: 'OrganizationMember',
+  Campaign: 'Campaign',
   Tree: 'Tree',
   TreeUpdate: 'TreeUpdate',
   TreeAdoption: 'TreeAdoption',
+  AIInteraction: 'AIInteraction',
+  AIRecommendation: 'AIRecommendation',
+  AIInsight: 'AIInsight',
   Badge: 'Badge',
   UserBadge: 'UserBadge',
   Reward: 'Reward',
