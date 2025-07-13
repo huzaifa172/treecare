@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useSignup } from '../../../hooks/useAuth';
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -14,41 +14,28 @@ export default function SignupPage() {
     userType: 'individual',
     agreeToTerms: false
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const router = useRouter();
+  const signupMutation = useSignup();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setError('');
 
     // Basic validation
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
-      setIsLoading(false);
       return;
     }
 
     if (!formData.agreeToTerms) {
       setError('Please agree to the terms and conditions');
-      setIsLoading(false);
       return;
     }
 
     try {
-      // TODO: Implement actual signup logic with TanStack Query
-      console.log('Signup attempt:', formData);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Redirect to dashboard on success
-      router.push('/dashboard');
+      await signupMutation.mutateAsync(formData);
     } catch (err) {
       setError('Failed to create account. Please try again.');
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -210,10 +197,10 @@ export default function SignupPage() {
 
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={signupMutation.isPending}
             className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {isLoading ? 'Creating Account...' : 'Create Account'}
+            {signupMutation.isPending ? 'Creating Account...' : 'Create Account'}
           </button>
 
           <div className="text-center">

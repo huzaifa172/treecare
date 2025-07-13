@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useLogin } from '../../../hooks/useAuth';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -10,28 +10,17 @@ export default function LoginPage() {
     password: '',
     rememberMe: false
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const router = useRouter();
+  const loginMutation = useLogin();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setError('');
 
     try {
-      // TODO: Implement actual login logic with TanStack Query
-      console.log('Login attempt:', formData);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Redirect to dashboard on success
-      router.push('/dashboard');
+      await loginMutation.mutateAsync(formData);
     } catch (err) {
       setError('Invalid email or password');
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -125,10 +114,10 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={loginMutation.isPending}
             className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {isLoading ? 'Signing in...' : 'Sign In'}
+            {loginMutation.isPending ? 'Signing in...' : 'Sign In'}
           </button>
 
           <div className="text-center">

@@ -19,6 +19,7 @@ import rewardRoutes from './routes/reward.routes';
 import notificationRoutes from './routes/notification.routes';
 import learnRoutes from './routes/learn.routes';
 import statsRoutes from './routes/stats.routes';
+import organizationRoutes from './routes/organization.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/error.middleware';
@@ -99,6 +100,7 @@ app.use('/api/rewards', rewardRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/learn', learnRoutes);
 app.use('/api/stats', statsRoutes);
+app.use('/api/organizations', organizationRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {
