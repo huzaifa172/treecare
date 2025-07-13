@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  FiHome, 
+  FiUsers, 
   FiTarget, 
   FiTrendingUp, 
   FiMapPin, 
@@ -15,48 +15,43 @@ import {
   FiBell,
   FiStar,
   FiAward,
-  FiUser,
-  FiHeart,
+  FiHome,
+  FiUserPlus,
   FiUpload,
   FiEye,
   FiEdit,
-  FiTrash2,
-  FiCheckCircle,
-  FiClock,
-  FiAlertCircle
+  FiTrash2
 } from 'react-icons/fi';
-import { useAuth } from '../../hooks/useAuth';
-import { useTrees } from '../../hooks/useTrees';
-import ProtectedRoute from '../../components/auth/ProtectedRoute';
-import UserHeader from '../../components/dashboard/UserHeader';
-import TreeCard from '../../components/dashboard/TreeCard';
-import CareLogCard from '../../components/dashboard/CareLogCard';
-import AdoptionCard from '../../components/dashboard/AdoptionCard';
-import ProgressChart from '../../components/dashboard/ProgressChart';
-import ActivityFeed from '../../components/dashboard/ActivityFeed';
+import { useOrganization } from '../../../hooks/useOrganization';
+import { useAuth } from '../../../hooks/useAuth';
+import ProtectedRoute from '../../../components/auth/ProtectedRoute';
+import OrganizationHeader from '../../../components/organization/OrganizationHeader';
+import CampaignCard from '../../../components/organization/CampaignCard';
+import MemberCard from '../../../components/organization/MemberCard';
+import TreeStats from '../../../components/organization/TreeStats';
+import ProgressChart from '../../../components/organization/ProgressChart';
+import ActivityFeed from '../../../components/organization/ActivityFeed';
 
-export default function UserDashboard() {
+export default function OrganizationDashboard() {
   const { user } = useAuth();
   const { 
-    trees, 
-    careLogs, 
-    adoptions, 
+    organization, 
+    campaigns, 
+    members, 
     stats, 
     isLoading,
-    registerTree,
-    logCare,
-    adoptTree,
-    transferTree,
-    isRegisteringTree,
-    isLoggingCare,
-    isAdoptingTree,
-    isTransferringTree
-  } = useTrees();
+    createCampaign,
+    inviteMember,
+    uploadTrees,
+    isCreatingCampaign,
+    isInvitingMember,
+    isUploadingTrees
+  } = useOrganization();
 
   const [activeTab, setActiveTab] = useState('overview');
-  const [showRegisterTree, setShowRegisterTree] = useState(false);
-  const [showLogCare, setShowLogCare] = useState(false);
-  const [showAdoptTree, setShowAdoptTree] = useState(false);
+  const [showCreateCampaign, setShowCreateCampaign] = useState(false);
+  const [showInviteMember, setShowInviteMember] = useState(false);
+  const [showUploadTrees, setShowUploadTrees] = useState(false);
 
   if (isLoading) {
     return (
@@ -66,11 +61,23 @@ export default function UserDashboard() {
     );
   }
 
+  if (!organization) {
+    return (
+      <div className="text-center py-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">No Organization Found</h2>
+        <p className="text-gray-600 mb-6">You need to be part of an organization to access this dashboard.</p>
+        <button className="bg-forest-600 text-white px-6 py-3 rounded-lg hover:bg-forest-700 transition-colors">
+          Join Organization
+        </button>
+      </div>
+    );
+  }
+
   return (
     <ProtectedRoute requiredRole="USER">
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <UserHeader user={user} />
+        <OrganizationHeader organization={organization} />
 
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -80,34 +87,34 @@ export default function UserDashboard() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setShowRegisterTree(true)}
-                disabled={isRegisteringTree}
+                onClick={() => setShowCreateCampaign(true)}
+                disabled={isCreatingCampaign}
                 className="flex items-center space-x-2 bg-forest-600 text-white px-4 py-2 rounded-lg hover:bg-forest-700 transition-colors disabled:opacity-50"
               >
                 <FiPlus className="w-4 h-4" />
-                <span>Register Tree</span>
+                <span>Create Campaign</span>
               </motion.button>
 
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setShowLogCare(true)}
-                disabled={isLoggingCare}
+                onClick={() => setShowInviteMember(true)}
+                disabled={isInvitingMember}
                 className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
               >
-                <FiHeart className="w-4 h-4" />
-                <span>Log Care</span>
+                <FiUserPlus className="w-4 h-4" />
+                <span>Invite Member</span>
               </motion.button>
 
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setShowAdoptTree(true)}
-                disabled={isAdoptingTree}
+                onClick={() => setShowUploadTrees(true)}
+                disabled={isUploadingTrees}
                 className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
               >
-                <FiUser className="w-4 h-4" />
-                <span>Adopt Tree</span>
+                <FiUpload className="w-4 h-4" />
+                <span>Upload Trees</span>
               </motion.button>
 
               <motion.button
@@ -127,10 +134,10 @@ export default function UserDashboard() {
               <nav className="-mb-px flex space-x-8">
                 {[
                   { id: 'overview', label: 'Overview', icon: FiBarChart },
-                  { id: 'trees', label: 'My Trees', icon: FiHome },
-                  { id: 'care', label: 'Care Logs', icon: FiHeart },
-                  { id: 'adoptions', label: 'Adoptions', icon: FiUser },
-                  { id: 'progress', label: 'Progress', icon: FiTrendingUp },
+                  { id: 'campaigns', label: 'Campaigns', icon: FiTarget },
+                  { id: 'members', label: 'Members', icon: FiUsers },
+                  { id: 'trees', label: 'Trees', icon: FiHome },
+                  { id: 'analytics', label: 'Analytics', icon: FiTrendingUp },
                   { id: 'activity', label: 'Activity', icon: FiBell }
                 ].map((tab) => (
                   <button
@@ -163,23 +170,23 @@ export default function UserDashboard() {
                   <div className="bg-white rounded-xl p-6 shadow-sm border">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium text-gray-600">My Trees</p>
+                        <p className="text-sm font-medium text-gray-600">Total Trees</p>
                         <p className="text-2xl font-bold text-gray-900">{stats?.totalTrees || 0}</p>
                       </div>
-                      <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                        <FiHome className="w-6 h-6 text-green-600" />
-                      </div>
+                                             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                         <FiHome className="w-6 h-6 text-green-600" />
+                       </div>
                     </div>
                   </div>
 
                   <div className="bg-white rounded-xl p-6 shadow-sm border">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium text-gray-600">Care Sessions</p>
-                        <p className="text-2xl font-bold text-gray-900">{stats?.totalCareSessions || 0}</p>
+                        <p className="text-sm font-medium text-gray-600">Active Campaigns</p>
+                        <p className="text-2xl font-bold text-gray-900">{stats?.activeCampaigns || 0}</p>
                       </div>
                       <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                        <FiHeart className="w-6 h-6 text-blue-600" />
+                        <FiTarget className="w-6 h-6 text-blue-600" />
                       </div>
                     </div>
                   </div>
@@ -187,11 +194,11 @@ export default function UserDashboard() {
                   <div className="bg-white rounded-xl p-6 shadow-sm border">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium text-gray-600">Adopted Trees</p>
-                        <p className="text-2xl font-bold text-gray-900">{stats?.adoptedTrees || 0}</p>
+                        <p className="text-sm font-medium text-gray-600">Members</p>
+                        <p className="text-2xl font-bold text-gray-900">{stats?.totalMembers || 0}</p>
                       </div>
                       <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                        <FiUser className="w-6 h-6 text-purple-600" />
+                        <FiUsers className="w-6 h-6 text-purple-600" />
                       </div>
                     </div>
                   </div>
@@ -212,8 +219,8 @@ export default function UserDashboard() {
                 {/* Progress Chart */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <div className="bg-white rounded-xl p-6 shadow-sm border">
-                    <h3 className="text-lg font-semibold mb-4">Tree Care Progress</h3>
-                    <ProgressChart data={stats?.careProgress || []} />
+                    <h3 className="text-lg font-semibold mb-4">Campaign Progress</h3>
+                    <ProgressChart data={stats?.campaignProgress || []} />
                   </div>
 
                   <div className="bg-white rounded-xl p-6 shadow-sm border">
@@ -224,87 +231,73 @@ export default function UserDashboard() {
               </motion.div>
             )}
 
+            {activeTab === 'campaigns' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-6"
+              >
+                <div className="flex justify-between items-center">
+                  <h2 className="text-xl font-semibold">Campaigns</h2>
+                  <button
+                    onClick={() => setShowCreateCampaign(true)}
+                    className="bg-forest-600 text-white px-4 py-2 rounded-lg hover:bg-forest-700 transition-colors"
+                  >
+                    Create Campaign
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {campaigns?.map((campaign) => (
+                    <CampaignCard key={campaign.id} campaign={campaign} />
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {activeTab === 'members' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-6"
+              >
+                <div className="flex justify-between items-center">
+                  <h2 className="text-xl font-semibold">Members</h2>
+                  <button
+                    onClick={() => setShowInviteMember(true)}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Invite Member
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {members?.map((member) => (
+                    <MemberCard key={member.id} member={member} />
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
             {activeTab === 'trees' && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-6"
               >
-                <div className="flex justify-between items-center">
-                  <h2 className="text-xl font-semibold">My Trees</h2>
-                  <button
-                    onClick={() => setShowRegisterTree(true)}
-                    className="bg-forest-600 text-white px-4 py-2 rounded-lg hover:bg-forest-700 transition-colors"
-                  >
-                    Register Tree
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {trees?.map((tree) => (
-                    <TreeCard key={tree.id} tree={tree} />
-                  ))}
-                </div>
+                <TreeStats organizationId={organization.id} />
               </motion.div>
             )}
 
-            {activeTab === 'care' && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-6"
-              >
-                <div className="flex justify-between items-center">
-                  <h2 className="text-xl font-semibold">Care Logs</h2>
-                  <button
-                    onClick={() => setShowLogCare(true)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    Log Care
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {careLogs?.map((log) => (
-                    <CareLogCard key={log.id} log={log} />
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {activeTab === 'adoptions' && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-6"
-              >
-                <div className="flex justify-between items-center">
-                  <h2 className="text-xl font-semibold">Tree Adoptions</h2>
-                  <button
-                    onClick={() => setShowAdoptTree(true)}
-                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
-                  >
-                    Adopt Tree
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {adoptions?.map((adoption) => (
-                    <AdoptionCard key={adoption.id} adoption={adoption} />
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {activeTab === 'progress' && (
+            {activeTab === 'analytics' && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-6"
               >
                 <div className="bg-white rounded-xl p-6 shadow-sm border">
-                  <h3 className="text-lg font-semibold mb-4">Care Progress</h3>
-                  <ProgressChart data={stats?.careProgress || []} />
+                  <h3 className="text-lg font-semibold mb-4">Analytics Dashboard</h3>
+                  <p className="text-gray-600">Detailed analytics and insights coming soon...</p>
                 </div>
               </motion.div>
             )}
@@ -325,31 +318,30 @@ export default function UserDashboard() {
         </div>
 
         {/* Modals */}
-        {showRegisterTree && (
-          <RegisterTreeModal
-            isOpen={showRegisterTree}
-            onClose={() => setShowRegisterTree(false)}
-            onRegister={registerTree}
-            isLoading={isRegisteringTree}
+        {showCreateCampaign && (
+          <CreateCampaignModal
+            isOpen={showCreateCampaign}
+            onClose={() => setShowCreateCampaign(false)}
+            onCreate={createCampaign}
+            isLoading={isCreatingCampaign}
           />
         )}
 
-        {showLogCare && (
-          <LogCareModal
-            isOpen={showLogCare}
-            onClose={() => setShowLogCare(false)}
-            onLog={logCare}
-            isLoading={isLoggingCare}
-            trees={trees || []}
+        {showInviteMember && (
+          <InviteMemberModal
+            isOpen={showInviteMember}
+            onClose={() => setShowInviteMember(false)}
+            onInvite={inviteMember}
+            isLoading={isInvitingMember}
           />
         )}
 
-        {showAdoptTree && (
-          <AdoptTreeModal
-            isOpen={showAdoptTree}
-            onClose={() => setShowAdoptTree(false)}
-            onAdopt={adoptTree}
-            isLoading={isAdoptingTree}
+        {showUploadTrees && (
+          <UploadTreesModal
+            isOpen={showUploadTrees}
+            onClose={() => setShowUploadTrees(false)}
+            onUpload={uploadTrees}
+            isLoading={isUploadingTrees}
           />
         )}
       </div>
@@ -358,20 +350,19 @@ export default function UserDashboard() {
 }
 
 // Modal Components
-function RegisterTreeModal({ isOpen, onClose, onRegister, isLoading }: any) {
+function CreateCampaignModal({ isOpen, onClose, onCreate, isLoading }: any) {
   const [formData, setFormData] = useState({
-    species: '',
-    location: '',
-    height: '',
-    diameter: '',
-    healthStatus: 'HEALTHY',
-    plantedDate: '',
-    notes: ''
+    name: '',
+    description: '',
+    goal: '',
+    startDate: '',
+    endDate: '',
+    area: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onRegister(formData);
+    onCreate(formData);
     onClose();
   };
 
@@ -380,82 +371,70 @@ function RegisterTreeModal({ isOpen, onClose, onRegister, isLoading }: any) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl p-6 w-full max-w-md">
-        <h3 className="text-lg font-semibold mb-4">Register New Tree</h3>
+        <h3 className="text-lg font-semibold mb-4">Create Campaign</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Species</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Campaign Name</label>
             <input
               type="text"
-              value={formData.species}
-              onChange={(e) => setFormData({ ...formData, species: e.target.value })}
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
+              rows={3}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Goal</label>
             <input
               type="text"
-              value={formData.location}
-              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+              value={formData.goal}
+              onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
+              placeholder="e.g., Plant 1000 trees"
               required
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Height (m)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
               <input
-                type="number"
-                step="0.1"
-                value={formData.height}
-                onChange={(e) => setFormData({ ...formData, height: e.target.value })}
+                type="date"
+                value={formData.startDate}
+                onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Diameter (cm)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
               <input
-                type="number"
-                step="0.1"
-                value={formData.diameter}
-                onChange={(e) => setFormData({ ...formData, diameter: e.target.value })}
+                type="date"
+                value={formData.endDate}
+                onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
                 required
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Health Status</label>
-            <select
-              value={formData.healthStatus}
-              onChange={(e) => setFormData({ ...formData, healthStatus: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
-            >
-              <option value="HEALTHY">Healthy</option>
-              <option value="NEEDS_CARE">Needs Care</option>
-              <option value="SICK">Sick</option>
-              <option value="DEAD">Dead</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Planted Date</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Area/Zone</label>
             <input
-              type="date"
-              value={formData.plantedDate}
-              onChange={(e) => setFormData({ ...formData, plantedDate: e.target.value })}
+              type="text"
+              value={formData.area}
+              onChange={(e) => setFormData({ ...formData, area: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
+              placeholder="e.g., Central Park, New York"
               required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
-            <textarea
-              value={formData.notes}
-              onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
-              rows={3}
             />
           </div>
           <div className="flex space-x-3 pt-4">
@@ -471,7 +450,7 @@ function RegisterTreeModal({ isOpen, onClose, onRegister, isLoading }: any) {
               disabled={isLoading}
               className="flex-1 px-4 py-2 bg-forest-600 text-white rounded-lg hover:bg-forest-700 transition-colors disabled:opacity-50"
             >
-              {isLoading ? 'Registering...' : 'Register Tree'}
+              {isLoading ? 'Creating...' : 'Create Campaign'}
             </button>
           </div>
         </form>
@@ -480,17 +459,13 @@ function RegisterTreeModal({ isOpen, onClose, onRegister, isLoading }: any) {
   );
 }
 
-function LogCareModal({ isOpen, onClose, onLog, isLoading, trees }: any) {
-  const [formData, setFormData] = useState({
-    treeId: '',
-    careType: 'WATERING',
-    description: '',
-    date: new Date().toISOString().split('T')[0]
-  });
+function InviteMemberModal({ isOpen, onClose, onInvite, isLoading }: any) {
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('MEMBER');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onLog(formData);
+    onInvite({ email, role });
     onClose();
   };
 
@@ -499,58 +474,29 @@ function LogCareModal({ isOpen, onClose, onLog, isLoading, trees }: any) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl p-6 w-full max-w-md">
-        <h3 className="text-lg font-semibold mb-4">Log Tree Care</h3>
+        <h3 className="text-lg font-semibold mb-4">Invite Member</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Select Tree</label>
-            <select
-              value={formData.treeId}
-              onChange={(e) => setFormData({ ...formData, treeId: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
-              required
-            >
-              <option value="">Choose a tree...</option>
-              {trees.map((tree: any) => (
-                <option key={tree.id} value={tree.id}>
-                  {tree.species} - {tree.location}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Care Type</label>
-            <select
-              value={formData.careType}
-              onChange={(e) => setFormData({ ...formData, careType: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
-            >
-              <option value="WATERING">Watering</option>
-              <option value="FERTILIZING">Fertilizing</option>
-              <option value="PRUNING">Pruning</option>
-              <option value="PEST_CONTROL">Pest Control</option>
-              <option value="MULCHING">Mulching</option>
-              <option value="OTHER">Other</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-            <textarea
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
-              rows={3}
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
             <input
-              type="date"
-              value={formData.date}
-              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
               required
             />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
+            >
+              <option value="MEMBER">Member</option>
+              <option value="ADMIN">Admin</option>
+              <option value="VENDOR">Vendor</option>
+            </select>
           </div>
           <div className="flex space-x-3 pt-4">
             <button
@@ -565,7 +511,7 @@ function LogCareModal({ isOpen, onClose, onLog, isLoading, trees }: any) {
               disabled={isLoading}
               className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
             >
-              {isLoading ? 'Logging...' : 'Log Care'}
+              {isLoading ? 'Inviting...' : 'Send Invitation'}
             </button>
           </div>
         </form>
@@ -574,17 +520,15 @@ function LogCareModal({ isOpen, onClose, onLog, isLoading, trees }: any) {
   );
 }
 
-function AdoptTreeModal({ isOpen, onClose, onAdopt, isLoading }: any) {
-  const [formData, setFormData] = useState({
-    treeId: '',
-    adoptionReason: '',
-    commitmentLevel: 'LOW'
-  });
+function UploadTreesModal({ isOpen, onClose, onUpload, isLoading }: any) {
+  const [file, setFile] = useState<File | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAdopt(formData);
-    onClose();
+    if (file) {
+      onUpload(file);
+      onClose();
+    }
   };
 
   if (!isOpen) return null;
@@ -592,41 +536,20 @@ function AdoptTreeModal({ isOpen, onClose, onAdopt, isLoading }: any) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl p-6 w-full max-w-md">
-        <h3 className="text-lg font-semibold mb-4">Adopt a Tree</h3>
+        <h3 className="text-lg font-semibold mb-4">Upload Trees</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Tree ID</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">CSV File</label>
             <input
-              type="text"
-              value={formData.treeId}
-              onChange={(e) => setFormData({ ...formData, treeId: e.target.value })}
+              type="file"
+              accept=".csv"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
-              placeholder="Enter tree ID to adopt"
               required
             />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Adoption Reason</label>
-            <textarea
-              value={formData.adoptionReason}
-              onChange={(e) => setFormData({ ...formData, adoptionReason: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
-              rows={3}
-              placeholder="Why do you want to adopt this tree?"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Commitment Level</label>
-            <select
-              value={formData.commitmentLevel}
-              onChange={(e) => setFormData({ ...formData, commitmentLevel: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-forest-500 focus:border-transparent"
-            >
-              <option value="LOW">Low - Basic care</option>
-              <option value="MEDIUM">Medium - Regular care</option>
-              <option value="HIGH">High - Intensive care</option>
-            </select>
+            <p className="text-xs text-gray-500 mt-1">
+              Upload a CSV file with tree data (species, location, etc.)
+            </p>
           </div>
           <div className="flex space-x-3 pt-4">
             <button
@@ -638,10 +561,10 @@ function AdoptTreeModal({ isOpen, onClose, onAdopt, isLoading }: any) {
             </button>
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !file}
               className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
             >
-              {isLoading ? 'Adopting...' : 'Adopt Tree'}
+              {isLoading ? 'Uploading...' : 'Upload Trees'}
             </button>
           </div>
         </form>
