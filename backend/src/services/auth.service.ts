@@ -47,6 +47,7 @@ export class AuthService {
         name: true,
         email: true,
         greenPoints: true,
+        role: true,
         createdAt: true
       }
     });
@@ -79,6 +80,7 @@ export class AuthService {
         email: true,
         password: true,
         greenPoints: true,
+        role: true,
         isProfilePublic: true,
         lastLoginAt: true
       }
@@ -182,6 +184,7 @@ export class AuthService {
         name: true,
         email: true,
         greenPoints: true,
+        role: true,
         profilePicture: true,
         isProfilePublic: true
       }

@@ -7,7 +7,7 @@ export interface User {
   profilePicture?: string;
   isProfilePublic?: boolean;
   lastLoginAt?: string;
-  role: 'user' | 'admin';
+  role: 'USER' | 'ADMIN';
   createdAt: string;
   updatedAt?: string;
 }
@@ -99,7 +99,7 @@ export const authAPI = {
 
   // Get current user
   async getCurrentUser(): Promise<User> {
-    const token = localStorage.getItem('auth_token');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
     
     if (!token) {
       throw new APIError('No token found', 401);
@@ -143,7 +143,7 @@ export const authAPI = {
 
   // Refresh token
   async refreshToken(): Promise<{ success: boolean; data: any }> {
-    const token = localStorage.getItem('auth_token');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
     
     if (!token) {
       throw new APIError('No token found', 401);
@@ -161,32 +161,46 @@ export const authAPI = {
 
   // Logout
   async logout(): Promise<void> {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('user');
+    }
   },
 };
 
 // Local storage helpers
 export const authStorage = {
   setToken(token: string) {
-    localStorage.setItem('auth_token', token);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('auth_token', token);
+    }
   },
 
   getToken(): string | null {
-    return localStorage.getItem('auth_token');
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('auth_token');
+    }
+    return null;
   },
 
   setUser(user: User) {
-    localStorage.setItem('user', JSON.stringify(user));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
   },
 
   getUser(): User | null {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+    if (typeof window !== 'undefined') {
+      const user = localStorage.getItem('user');
+      return user ? JSON.parse(user) : null;
+    }
+    return null;
   },
 
   clear() {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('user');
+    }
   },
 };

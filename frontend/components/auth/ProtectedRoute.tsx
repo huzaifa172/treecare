@@ -7,14 +7,14 @@ import { toast } from 'react-hot-toast';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requiredRole?: 'user' | 'admin' | 'organization_admin' | 'organization_owner';
+  requiredRole?: 'USER' | 'ADMIN' | 'organization_admin' | 'organization_owner';
   organizationId?: string;
   fallback?: React.ReactNode;
 }
 
 export default function ProtectedRoute({ 
   children, 
-  requiredRole = 'user',
+  requiredRole = 'USER',
   organizationId,
   fallback 
 }: ProtectedRouteProps) {
@@ -33,7 +33,7 @@ export default function ProtectedRoute({
 
     if (!isLoading && isAuthenticated && user) {
       // Check role-based access
-      if (requiredRole === 'admin' && user.role !== 'admin') {
+      if (requiredRole === 'ADMIN' && user.role !== 'ADMIN') {
         router.push('/dashboard');
         toast.error('Access denied. Admin privileges required.');
         return;
@@ -73,7 +73,7 @@ export default function ProtectedRoute({
   }
 
   // Check role-based access
-  if (requiredRole === 'admin' && user?.role !== 'admin') {
+  if (requiredRole === 'ADMIN' && user?.role !== 'ADMIN') {
     return fallback || (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

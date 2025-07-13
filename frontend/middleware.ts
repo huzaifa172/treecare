@@ -117,30 +117,23 @@ function hasRouteAccess(
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
-  // Get token from cookies or headers
-  const token = request.cookies.get('auth_token')?.value || 
-                request.headers.get('authorization')?.replace('Bearer ', '');
-  
-  // Check if user is authenticated
-  const isAuthenticated = !!token;
-  
   // For API routes, let them handle authentication internally
   if (pathname.startsWith('/api/')) {
     return NextResponse.next();
   }
   
-  // Redirect to login if accessing protected route without authentication
-  if (!isAuthenticated && routeConfig.protected.some(route => routeMatches(route, pathname))) {
-    const loginUrl = new URL('/login', request.url);
-    loginUrl.searchParams.set('redirect', pathname);
-    return NextResponse.redirect(loginUrl);
+  // For static files and public assets, allow access
+  if (pathname.startsWith('/_next/') || pathname.startsWith('/favicon.ico')) {
+    return NextResponse.next();
   }
   
-  // Redirect authenticated users away from auth pages
-  if (isAuthenticated && ['/login', '/signup'].includes(pathname)) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+  // For auth pages, allow access (authentication will be handled client-side)
+  if (['/login', '/signup', '/forgot-password', '/reset-password'].includes(pathname)) {
+    return NextResponse.next();
   }
   
+  // For protected routes, let the client-side handle authentication
+  // The ProtectedRoute component will handle redirects
   return NextResponse.next();
 }
 

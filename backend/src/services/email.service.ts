@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only if API key is provided
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 
 
@@ -8,6 +9,11 @@ export class EmailService {
   private fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 
   async sendWelcomeEmail(to: string, name: string) {
+    if (!resend) {
+      console.log('Email service not configured, skipping welcome email');
+      return;
+    }
+    
     try {
       await resend.emails.send({
         from: this.fromEmail,
@@ -64,6 +70,11 @@ export class EmailService {
   }
 
   async sendPasswordResetEmail(to: string, name: string, resetToken: string) {
+    if (!resend) {
+      console.log('Email service not configured, skipping password reset email');
+      return;
+    }
+    
     const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
     
     try {
@@ -117,6 +128,11 @@ export class EmailService {
   }
 
   async sendTreeUpdateReminder(to: string, name: string, treeName: string, treeId: string, daysSinceUpdate: number) {
+    if (!resend) {
+      console.log('Email service not configured, skipping tree update reminder');
+      return;
+    }
+    
     try {
       await resend.emails.send({
         from: this.fromEmail,
@@ -173,6 +189,11 @@ export class EmailService {
   }
 
   async sendBadgeEarnedEmail(to: string, name: string, badgeName: string, badgeIcon: string, description: string) {
+    if (!resend) {
+      console.log('Email service not configured, skipping badge earned email');
+      return;
+    }
+    
     try {
       await resend.emails.send({
         from: this.fromEmail,
