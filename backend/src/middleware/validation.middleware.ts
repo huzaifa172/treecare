@@ -6,7 +6,7 @@ export const validateSchema = (schema: ZodSchema<any>) => {
     try {
       // Parse and validate request body
       req.body = schema.parse(req.body);
-      next();
+      return next();
     } catch (error) {
       if (error instanceof ZodError) {
         return res.status(400).json({
@@ -15,13 +15,12 @@ export const validateSchema = (schema: ZodSchema<any>) => {
           errors: error.errors.map(err => ({
             field: err.path.join('.'),
             message: err.message,
-            code: err.code,
-            received: err.received
+            code: err.code
           })),
           timestamp: new Date().toISOString()
         });
       }
-      next(error);
+      return next(error);
     }
   };
 };
@@ -31,7 +30,7 @@ export const validateQuery = (schema: ZodSchema<any>) => {
     try {
       // Parse and validate query parameters
       req.query = schema.parse(req.query);
-      next();
+      return next();
     } catch (error) {
       if (error instanceof ZodError) {
         return res.status(400).json({
@@ -40,13 +39,12 @@ export const validateQuery = (schema: ZodSchema<any>) => {
           errors: error.errors.map(err => ({
             field: err.path.join('.'),
             message: err.message,
-            code: err.code,
-            received: err.received
+            code: err.code
           })),
           timestamp: new Date().toISOString()
         });
       }
-      next(error);
+      return next(error);
     }
   };
 };
@@ -56,7 +54,7 @@ export const validateParams = (schema: ZodSchema<any>) => {
     try {
       // Parse and validate route parameters
       req.params = schema.parse(req.params);
-      next();
+      return next();
     } catch (error) {
       if (error instanceof ZodError) {
         return res.status(400).json({
@@ -65,13 +63,12 @@ export const validateParams = (schema: ZodSchema<any>) => {
           errors: error.errors.map(err => ({
             field: err.path.join('.'),
             message: err.message,
-            code: err.code,
-            received: err.received
+            code: err.code
           })),
           timestamp: new Date().toISOString()
         });
       }
-      next(error);
+      return next(error);
     }
   };
 };

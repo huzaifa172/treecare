@@ -23,10 +23,9 @@ export const useLogin = () => {
         // Show success message
         toast.success(data.message);
         
-        // Small delay to ensure state is updated
-        setTimeout(() => {
-          router.push('/dashboard');
-        }, 100);
+        // Force router refresh and redirect
+        router.refresh();
+        router.push('/dashboard');
       } catch (error) {
         console.error('Login success error:', error);
         toast.error('Login successful but redirect failed. Please refresh the page.');

@@ -3,6 +3,7 @@ import DashboardOverview from '../../components/dashboard/DashboardOverview';
 import TreeStats from '../../components/ui/TreeStats';
 import HealthOverview from '../../components/ui/HealthOverview';
 import RecentActivity from '../../components/ui/RecentActivity';
+import AIDashboard from '../../components/AIDashboard';
 import ProtectedRoute from '../../components/auth/ProtectedRoute';
 
 export default function Dashboard() {
@@ -14,16 +15,21 @@ export default function Dashboard() {
           {/* Main Dashboard Overview */}
           <DashboardOverview />
           
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              <TreeStats />
-              <HealthOverview />
-            </div>
+          <div className="mt-8 space-y-8">
+            {/* AI Dashboard */}
+            <AIDashboard />
             
-            {/* Sidebar */}
-            <div className="space-y-8">
-              <RecentActivity />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-2 space-y-8">
+                <TreeStats />
+                <HealthOverview />
+              </div>
+              
+              {/* Sidebar */}
+              <div className="space-y-8">
+                <RecentActivity />
+              </div>
             </div>
           </div>
         </main>

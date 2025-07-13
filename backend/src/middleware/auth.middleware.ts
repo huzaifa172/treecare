@@ -51,7 +51,7 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
       email: user.email
     };
 
-    next();
+    return next();
   } catch (error) {
     return res.status(401).json({
       success: false,
@@ -82,9 +82,9 @@ export const optionalAuth = async (req: Request, res: Response, next: NextFuncti
       }
     }
 
-    next();
+    return next();
   } catch (error) {
     // Ignore authentication errors in optional auth
-    next();
+    return next();
   }
 };

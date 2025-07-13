@@ -1,519 +1,561 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import prisma from '../utils/database';
-import { CustomError } from '../middleware/error.middleware';
-import { ERROR_MESSAGES } from '../utils/constants';
+import { PrismaClient } from '../generated/client';
+import { API_RESPONSE } from '../utils/constants';
+
+const prisma = new PrismaClient();
 
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
-export class AIService {
-  private model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-  private visionModel = genAI.getGenerativeModel({ model: 'gemini-pro-vision' });
+export interface AIAnalysisRequest {
+  type: 'tree_health' | 'care_recommendation' | 'growth_prediction' | 'environmental_impact' | 'care_schedule';
+  treeData?: any;
+  userData?: any;
+  environmentalData?: any;
+  context?: string;
+}
 
-  // Tree Health Analysis
-  async analyzeTreeHealth(treeId: string, photoUrl?: string, notes?: string) {
+export interface AIRecommendation {
+  type: string;
+  title: string;
+  description: string;
+  priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
+  data: any;
+  actionable: boolean;
+  estimatedImpact: string;
+}
+
+export interface AIInsight {
+  type: string;
+  title: string;
+  description: string;
+  data: any;
+  confidence: number;
+  timestamp: Date;
+}
+
+class AIService {
+  private model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+
+  /**
+   * Analyze tree health using AI
+   */
+  async analyzeTreeHealth(treeId: string, updateData: any): Promise<AIInsight> {
     try {
       const tree = await prisma.tree.findUnique({
         where: { id: treeId },
         include: {
-          updates: {
-            orderBy: { createdAt: 'desc' },
-            take: 5
-          },
-          owner: {
-            select: { name: true, city: true, country: true }
-          }
-        }
+          updates: { orderBy: { createdAt: 'desc' }, take: 5 },
+          owner: true,
+        },
       });
 
       if (!tree) {
-        throw new CustomError('Tree not found', 404);
+        throw new Error('Tree not found');
       }
 
-      const prompt = this.buildHealthAnalysisPrompt(tree, photoUrl, notes);
+      const prompt = `
+        Analyze the health of this tree based on the following data:
+        
+        Tree Information:
+        - Species: ${tree.species}
+        - Planted: ${tree.plantedAt}
+        - Current Health: ${tree.currentHealthStatus}
+        - Location: ${JSON.stringify(tree.location)}
+        
+        Recent Updates:
+        ${tree.updates.map(update => `
+          - Date: ${update.createdAt}
+          - Health: ${update.healthStatus}
+          - Notes: ${update.notes || 'None'}
+          - Growth: ${JSON.stringify(update.growthMeasurements || {})}
+        `).join('\n')}
+        
+        Latest Update:
+        - Health Status: ${updateData.healthStatus}
+        - Notes: ${updateData.notes || 'None'}
+        - Growth Measurements: ${JSON.stringify(updateData.growthMeasurements || {})}
+        
+        Please provide:
+        1. Health score (0-100)
+        2. Key health indicators
+        3. Potential issues
+        4. Recommendations
+        5. Growth analysis
+        6. Environmental factors to consider
+        
+        Format as JSON with fields: healthScore, indicators, issues, recommendations, growthAnalysis, environmentalFactors
+      `;
+
       const result = await this.model.generateContent(prompt);
       const response = await result.response;
-      const analysis = response.text();
+      const analysis = JSON.parse(response.text());
 
-      // Parse AI response and extract structured data
-      const structuredAnalysis = this.parseHealthAnalysis(analysis);
+             // Store AI insight
+       const insight = await prisma.aIInsight.create({
+         data: {
+           type: 'HEALTH_TREND',
+           title: 'Tree Health Analysis',
+           content: `AI analysis of ${tree.species} health status`,
+           data: analysis,
+           confidence: 0.85,
+           treeId: treeId,
+           userId: tree.ownerId,
+         },
+       });
 
-      // Save AI interaction
-      await prisma.aIInteraction.create({
-        data: {
-          type: 'TREE_HEALTH_ANALYSIS',
-          input: { treeId, photoUrl, notes },
-          output: structuredAnalysis,
-          model: 'gemini-pro',
-          tokensUsed: response.usageMetadata?.totalTokenCount || 0,
-          userId: tree.ownerId,
-          treeId: tree.id,
-          success: true
-        }
-      });
-
-      // Update tree with AI insights
+      // Update tree with AI health score
       await prisma.tree.update({
         where: { id: treeId },
         data: {
-          aiHealthScore: structuredAnalysis.healthScore,
-          aiCareRecommendations: structuredAnalysis.recommendations,
-          currentHealthStatus: structuredAnalysis.healthStatus
-        }
+          aiHealthScore: analysis.healthScore,
+          aiCareRecommendations: analysis.recommendations,
+        },
       });
 
-      return structuredAnalysis;
+             return {
+         type: 'HEALTH_TREND',
+         title: 'Tree Health Analysis',
+         description: `AI analysis of ${tree.species} health status`,
+         data: analysis,
+         confidence: 0.85,
+         timestamp: new Date(),
+       };
     } catch (error) {
-      console.error('AI Health Analysis Error:', error);
-      throw new CustomError('Failed to analyze tree health', 500);
+      console.error('AI Tree Health Analysis Error:', error);
+      throw new Error('Failed to analyze tree health');
     }
   }
 
-  // Generate Care Recommendations
-  async generateCareRecommendations(treeId: string, userId: string) {
+  /**
+   * Generate personalized care recommendations
+   */
+  async generateCareRecommendations(userId: string, treeId?: string): Promise<AIRecommendation[]> {
     try {
-      const tree = await prisma.tree.findUnique({
-        where: { id: treeId },
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
         include: {
-          updates: {
-            orderBy: { createdAt: 'desc' },
-            take: 10
+          trees: {
+            include: {
+              updates: { orderBy: { createdAt: 'desc' }, take: 3 },
+            },
           },
-          owner: {
-            select: { name: true, city: true, country: true }
-          }
-        }
+        },
       });
 
-      if (!tree) {
-        throw new CustomError('Tree not found', 404);
+      if (!user) {
+        throw new Error('User not found');
       }
 
-      const prompt = this.buildCareRecommendationPrompt(tree);
+      const trees = treeId 
+        ? user.trees.filter(t => t.id === treeId)
+        : user.trees;
+
+      const prompt = `
+        Generate personalized tree care recommendations for this user:
+        
+        User Profile:
+        - Name: ${user.name}
+        - Location: ${user.city}, ${user.country}
+        - Experience Level: Based on ${user.trees.length} trees
+        - Green Points: ${user.greenPoints}
+        
+        Trees to Care For:
+        ${trees.map(tree => `
+          - Species: ${tree.species}
+          - Health: ${tree.currentHealthStatus}
+          - Planted: ${tree.plantedAt}
+          - Recent Updates: ${tree.updates.length}
+          - AI Health Score: ${tree.aiHealthScore || 'N/A'}
+        `).join('\n')}
+        
+        Generate 3-5 specific, actionable recommendations including:
+        1. Immediate actions needed
+        2. Seasonal care tips
+        3. Long-term maintenance
+        4. Environmental optimization
+        5. Growth enhancement
+        
+        For each recommendation include:
+        - Priority (LOW/MEDIUM/HIGH)
+        - Estimated time commitment
+        - Expected impact
+        - Difficulty level
+        - Required resources
+        
+        Format as JSON array with fields: type, title, description, priority, data, actionable, estimatedImpact
+      `;
+
       const result = await this.model.generateContent(prompt);
       const response = await result.response;
-      const recommendations = response.text();
+      const recommendations = JSON.parse(response.text());
 
-      const structuredRecommendations = this.parseCareRecommendations(recommendations);
+      // Store recommendations
+      const storedRecommendations = await Promise.all(
+                 recommendations.map((rec: any) =>
+           prisma.aIRecommendation.create({
+             data: {
+               type: 'MAINTENANCE',
+               title: rec.title,
+               description: rec.description,
+               priority: rec.priority,
+               data: rec.data,
+               userId: userId,
+               treeId: treeId,
+             },
+           })
+         )
+      );
 
-      // Save recommendations
-      for (const rec of structuredRecommendations) {
-        await prisma.aIRecommendation.create({
-          data: {
-            type: rec.type,
-            title: rec.title,
-            description: rec.description,
-            priority: rec.priority,
-            data: rec.data,
-            userId: userId,
-            treeId: treeId
-          }
-        });
-      }
-
-      return structuredRecommendations;
+      return storedRecommendations.map(rec => ({
+        type: rec.type,
+        title: rec.title,
+        description: rec.description,
+        priority: rec.priority,
+        data: rec.data,
+        actionable: true,
+        estimatedImpact: rec.data.estimatedImpact || 'Medium',
+      }));
     } catch (error) {
       console.error('AI Care Recommendations Error:', error);
-      throw new CustomError('Failed to generate care recommendations', 500);
+      throw new Error('Failed to generate care recommendations');
     }
   }
 
-  // Species Identification
-  async identifySpecies(photoUrl: string, location?: { latitude: number; longitude: number }) {
-    try {
-      const prompt = `Analyze this tree photo and identify the species. 
-      Consider the location: ${location ? `${location.latitude}, ${location.longitude}` : 'Unknown'}
-      
-      Provide:
-      1. Species name (common and scientific)
-      2. Confidence level (0-100%)
-      3. Key identifying features
-      4. Care requirements
-      5. Growth characteristics
-      6. Environmental benefits`;
-
-      const result = await this.model.generateContent(prompt);
-      const response = await result.response;
-      const identification = response.text();
-
-      return this.parseSpeciesIdentification(identification);
-    } catch (error) {
-      console.error('AI Species Identification Error:', error);
-      throw new CustomError('Failed to identify species', 500);
-    }
-  }
-
-  // Growth Prediction
-  async predictGrowth(treeId: string, months: number = 12) {
+  /**
+   * Predict tree growth and environmental impact
+   */
+  async predictGrowthAndImpact(treeId: string): Promise<AIInsight> {
     try {
       const tree = await prisma.tree.findUnique({
         where: { id: treeId },
         include: {
-          updates: {
-            orderBy: { createdAt: 'desc' },
-            take: 20
-          }
-        }
+          updates: { orderBy: { createdAt: 'desc' }, take: 10 },
+          owner: true,
+        },
       });
 
       if (!tree) {
-        throw new CustomError('Tree not found', 404);
+        throw new Error('Tree not found');
       }
 
-      const prompt = this.buildGrowthPredictionPrompt(tree, months);
+      const prompt = `
+        Predict the growth and environmental impact of this tree:
+        
+        Tree Data:
+        - Species: ${tree.species}
+        - Age: ${Math.floor((Date.now() - new Date(tree.plantedAt).getTime()) / (1000 * 60 * 60 * 24 * 365))} years
+        - Current Health: ${tree.currentHealthStatus}
+        - Location: ${JSON.stringify(tree.location)}
+        
+        Growth History:
+        ${tree.updates.map(update => `
+          - Date: ${update.createdAt}
+          - Growth: ${JSON.stringify(update.growthMeasurements || {})}
+        `).join('\n')}
+        
+        Predict for the next 1, 5, and 10 years:
+        1. Expected height and canopy spread
+        2. CO2 sequestration potential
+        3. Oxygen production
+        4. Soil improvement impact
+        5. Wildlife habitat value
+        6. Maintenance requirements
+        7. Potential challenges
+        
+        Include confidence levels and environmental factors.
+        
+        Format as JSON with fields: shortTerm, mediumTerm, longTerm, environmentalImpact, maintenanceNeeds, challenges
+      `;
+
       const result = await this.model.generateContent(prompt);
       const response = await result.response;
-      const prediction = response.text();
+      const prediction = JSON.parse(response.text());
 
-      const structuredPrediction = this.parseGrowthPrediction(prediction);
+             // Store AI insight
+       const insight = await prisma.aIInsight.create({
+         data: {
+           type: 'GROWTH_PATTERN',
+           title: 'Growth and Impact Prediction',
+           content: `AI prediction for ${tree.species} growth and environmental impact`,
+           data: prediction,
+           confidence: 0.80,
+           treeId: treeId,
+           userId: tree.ownerId,
+         },
+       });
 
       // Update tree with growth prediction
       await prisma.tree.update({
         where: { id: treeId },
         data: {
-          aiGrowthPrediction: structuredPrediction
-        }
+          aiGrowthPrediction: prediction,
+        },
       });
 
-      return structuredPrediction;
+             return {
+         type: 'GROWTH_PATTERN',
+         title: 'Growth and Impact Prediction',
+         description: `AI prediction for ${tree.species} growth and environmental impact`,
+         data: prediction,
+         confidence: 0.80,
+         timestamp: new Date(),
+       };
     } catch (error) {
       console.error('AI Growth Prediction Error:', error);
-      throw new CustomError('Failed to predict growth', 500);
+      throw new Error('Failed to predict growth and impact');
     }
   }
 
-  // Climate Impact Analysis
-  async analyzeClimateImpact(treeId: string) {
+  /**
+   * Generate environmental impact report
+   */
+  async generateEnvironmentalReport(userId: string, timeframe: 'week' | 'month' | 'year' = 'month'): Promise<AIInsight> {
     try {
-      const tree = await prisma.tree.findUnique({
-        where: { id: treeId },
-        include: {
-          owner: {
-            select: { city: true, country: true }
-          }
-        }
-      });
-
-      if (!tree) {
-        throw new CustomError('Tree not found', 404);
-      }
-
-      const prompt = this.buildClimateImpactPrompt(tree);
-      const result = await this.model.generateContent(prompt);
-      const response = await result.response;
-      const analysis = response.text();
-
-      const structuredAnalysis = this.parseClimateImpact(analysis);
-
-      // Save AI insight
-      await prisma.aIInsight.create({
-        data: {
-          type: 'CLIMATE_IMPACT',
-          title: 'Climate Impact Analysis',
-          content: structuredAnalysis.summary,
-          data: structuredAnalysis,
-          confidence: structuredAnalysis.confidence,
-          userId: tree.ownerId,
-          treeId: tree.id
-        }
-      });
-
-      return structuredAnalysis;
-    } catch (error) {
-      console.error('AI Climate Impact Error:', error);
-      throw new CustomError('Failed to analyze climate impact', 500);
-    }
-  }
-
-  // Generate Care Schedule
-  async generateCareSchedule(treeId: string, userId: string) {
-    try {
-      const tree = await prisma.tree.findUnique({
-        where: { id: treeId },
-        include: {
-          owner: {
-            select: { city: true, country: true }
-          }
-        }
-      });
-
-      if (!tree) {
-        throw new CustomError('Tree not found', 404);
-      }
-
-      const prompt = this.buildCareSchedulePrompt(tree);
-      const result = await this.model.generateContent(prompt);
-      const response = await result.response;
-      const schedule = response.text();
-
-      const structuredSchedule = this.parseCareSchedule(schedule);
-
-      return structuredSchedule;
-    } catch (error) {
-      console.error('AI Care Schedule Error:', error);
-      throw new CustomError('Failed to generate care schedule', 500);
-    }
-  }
-
-  // Organization Insights
-  async generateOrganizationInsights(organizationId: string) {
-    try {
-      const organization = await prisma.organization.findUnique({
-        where: { id: organizationId },
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
         include: {
           trees: {
             include: {
-              updates: {
-                orderBy: { createdAt: 'desc' },
-                take: 5
-              }
-            }
+              updates: { orderBy: { createdAt: 'desc' } },
+            },
           },
-          campaigns: true,
-          members: true
-        }
+        },
       });
 
-      if (!organization) {
-        throw new CustomError('Organization not found', 404);
+      if (!user) {
+        throw new Error('User not found');
       }
 
-      const prompt = this.buildOrganizationInsightsPrompt(organization);
+      const prompt = `
+        Generate an environmental impact report for this tree guardian:
+        
+        Guardian Profile:
+        - Name: ${user.name}
+        - Trees Managed: ${user.trees.length}
+        - Green Points: ${user.greenPoints}
+        - Location: ${user.city}, ${user.country}
+        
+        Tree Portfolio:
+        ${user.trees.map(tree => `
+          - Species: ${tree.species}
+          - Age: ${Math.floor((Date.now() - new Date(tree.plantedAt).getTime()) / (1000 * 60 * 60 * 24 * 365))} years
+          - Health: ${tree.currentHealthStatus}
+          - Updates: ${tree.updates.length}
+        `).join('\n')}
+        
+        Timeframe: ${timeframe}
+        
+        Calculate and analyze:
+        1. Total CO2 sequestered
+        2. Oxygen produced
+        3. Water filtered
+        4. Soil improved
+        5. Wildlife supported
+        6. Carbon footprint offset
+        7. Environmental contribution ranking
+        8. Future impact projections
+        9. Recommendations for optimization
+        
+        Include comparisons to common benchmarks and actionable insights.
+        
+        Format as JSON with fields: summary, metrics, impact, projections, recommendations, benchmarks
+      `;
+
       const result = await this.model.generateContent(prompt);
       const response = await result.response;
-      const insights = response.text();
+      const report = JSON.parse(response.text());
 
-      const structuredInsights = this.parseOrganizationInsights(insights);
+             // Store AI insight
+       const insight = await prisma.aIInsight.create({
+         data: {
+           type: 'CLIMATE_IMPACT',
+           title: `${timeframe.charAt(0).toUpperCase() + timeframe.slice(1)}ly Environmental Report`,
+           content: `Environmental impact report for ${user.name}`,
+           data: report,
+           confidence: 0.90,
+           userId: userId,
+         },
+       });
 
-      // Save insights
-      for (const insight of structuredInsights) {
-        await prisma.aIInsight.create({
-          data: {
-            type: insight.type,
-            title: insight.title,
-            content: insight.content,
-            data: insight.data,
-            confidence: insight.confidence,
-            organizationId: organizationId
-          }
-        });
+             return {
+         type: 'CLIMATE_IMPACT',
+         title: `${timeframe.charAt(0).toUpperCase() + timeframe.slice(1)}ly Environmental Report`,
+         description: `Environmental impact report for ${user.name}`,
+         data: report,
+         confidence: 0.90,
+         timestamp: new Date(),
+       };
+    } catch (error) {
+      console.error('AI Environmental Report Error:', error);
+      throw new Error('Failed to generate environmental report');
+    }
+  }
+
+  /**
+   * Create personalized care schedule
+   */
+  async createCareSchedule(userId: string): Promise<AIRecommendation[]> {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        include: {
+          trees: {
+            include: {
+              updates: { orderBy: { createdAt: 'desc' }, take: 1 },
+            },
+          },
+        },
+      });
+
+      if (!user) {
+        throw new Error('User not found');
       }
 
-      return structuredInsights;
+      const prompt = `
+        Create a personalized tree care schedule for this guardian:
+        
+        Guardian Profile:
+        - Name: ${user.name}
+        - Location: ${user.city}, ${user.country}
+        - Trees: ${user.trees.length}
+        - Experience: ${user.greenPoints} green points
+        
+        Trees:
+        ${user.trees.map(tree => `
+          - Species: ${tree.species}
+          - Health: ${tree.currentHealthStatus}
+          - Last Update: ${tree.updates[0]?.createdAt || 'Never'}
+          - Age: ${Math.floor((Date.now() - new Date(tree.plantedAt).getTime()) / (1000 * 60 * 60 * 24 * 365))} years
+        `).join('\n')}
+        
+        Create a 3-month care schedule with:
+        1. Daily tasks (watering, monitoring)
+        2. Weekly tasks (detailed inspection, minor care)
+        3. Monthly tasks (major maintenance, updates)
+        4. Seasonal tasks (pruning, fertilization, protection)
+        5. Priority-based scheduling
+        6. Time estimates for each task
+        7. Required tools and resources
+        
+        Consider local climate, tree species, and guardian's experience level.
+        
+        Format as JSON array with fields: type, title, description, priority, data, actionable, estimatedImpact
+      `;
+
+      const result = await this.model.generateContent(prompt);
+      const response = await result.response;
+      const schedule = JSON.parse(response.text());
+
+      // Store schedule as recommendations
+      const storedSchedule = await Promise.all(
+                 schedule.map((item: any) =>
+           prisma.aIRecommendation.create({
+             data: {
+               type: 'MAINTENANCE',
+               title: item.title,
+               description: item.description,
+               priority: item.priority,
+               data: item.data,
+               userId: userId,
+             },
+           })
+         )
+      );
+
+      return storedSchedule.map(item => ({
+        type: item.type,
+        title: item.title,
+        description: item.description,
+        priority: item.priority,
+        data: item.data,
+        actionable: true,
+        estimatedImpact: item.data.estimatedImpact || 'High',
+      }));
     } catch (error) {
-      console.error('AI Organization Insights Error:', error);
-      throw new CustomError('Failed to generate organization insights', 500);
+      console.error('AI Care Schedule Error:', error);
+      throw new Error('Failed to create care schedule');
     }
   }
 
-  // Helper methods for building prompts
-  private buildHealthAnalysisPrompt(tree: any, photoUrl?: string, notes?: string): string {
-    return `Analyze the health of this ${tree.species} tree.
-
-Tree Information:
-- Species: ${tree.species}
-- Planted: ${tree.plantedAt}
-- Location: ${tree.location}
-- Current Health Status: ${tree.currentHealthStatus}
-- Owner: ${tree.owner.name} (${tree.owner.city}, ${tree.owner.country})
-
-Recent Updates: ${tree.updates.map(u => `- ${u.createdAt}: ${u.healthStatus} - ${u.notes}`).join('\n')}
-
-${photoUrl ? 'Photo URL: ' + photoUrl : ''}
-${notes ? 'Additional Notes: ' + notes : ''}
-
-Provide analysis in JSON format:
-{
-  "healthScore": 85,
-  "healthStatus": "HEALTHY",
-  "issues": ["slight yellowing of leaves"],
-  "recommendations": ["increase watering frequency"],
-  "confidence": 0.9,
-  "summary": "Tree is generally healthy with minor care needed"
-}`;
-  }
-
-  private buildCareRecommendationPrompt(tree: any): string {
-    return `Generate care recommendations for this ${tree.species} tree.
-
-Tree Details:
-- Age: ${this.calculateAge(tree.plantedAt)} months
-- Current Health: ${tree.currentHealthStatus}
-- Location: ${tree.location}
-- Recent Care: ${tree.updates.map(u => `${u.createdAt}: ${u.notes}`).join(', ')}
-
-Provide recommendations in JSON format:
-[
-  {
-    "type": "WATERING_SCHEDULE",
-    "title": "Adjust Watering",
-    "description": "Increase watering frequency during dry season",
-    "priority": "HIGH",
-    "data": {"frequency": "twice weekly", "amount": "2 liters"}
-  }
-]`;
-  }
-
-  private buildGrowthPredictionPrompt(tree: any, months: number): string {
-    return `Predict growth for this ${tree.species} tree over the next ${months} months.
-
-Tree History:
-- Planted: ${tree.plantedAt}
-- Growth History: ${tree.updates.map(u => `${u.createdAt}: ${JSON.stringify(u.growthMeasurements)}`).join('\n')}
-
-Provide prediction in JSON format:
-{
-  "height": {"current": 1.5, "predicted": 2.1, "unit": "meters"},
-  "trunkDiameter": {"current": 0.05, "predicted": 0.08, "unit": "meters"},
-  "canopyWidth": {"current": 1.0, "predicted": 1.8, "unit": "meters"},
-  "confidence": 0.85,
-  "factors": ["good care", "optimal climate"]
-}`;
-  }
-
-  private buildClimateImpactPrompt(tree: any): string {
-    return `Analyze the climate impact of this ${tree.species} tree.
-
-Tree Details:
-- Species: ${tree.species}
-- Location: ${tree.location}
-- Age: ${this.calculateAge(tree.plantedAt)} months
-
-Provide analysis in JSON format:
-{
-  "co2Absorbed": 25.5,
-  "oxygenProduced": 22.0,
-  "airQualityImpact": "high",
-  "temperatureReduction": 2.5,
-  "confidence": 0.9,
-  "summary": "This tree significantly contributes to local climate improvement"
-}`;
-  }
-
-  private buildCareSchedulePrompt(tree: any): string {
-    return `Generate a care schedule for this ${tree.species} tree.
-
-Tree Information:
-- Species: ${tree.species}
-- Location: ${tree.location}
-- Current Health: ${tree.currentHealthStatus}
-
-Provide schedule in JSON format:
-{
-  "watering": {"frequency": "weekly", "amount": "2 liters", "bestTime": "morning"},
-  "fertilization": {"frequency": "monthly", "type": "organic", "amount": "100g"},
-  "pruning": {"frequency": "quarterly", "type": "light pruning"},
-  "pestControl": {"frequency": "as needed", "method": "natural repellents"}
-}`;
-  }
-
-  private buildOrganizationInsightsPrompt(organization: any): string {
-    return `Generate insights for organization: ${organization.name}
-
-Organization Data:
-- Total Trees: ${organization.trees.length}
-- Total Members: ${organization.members.length}
-- Active Campaigns: ${organization.campaigns.length}
-- Trees by Health: ${this.groupTreesByHealth(organization.trees)}
-
-Provide insights in JSON format:
-[
-  {
-    "type": "HEALTH_TREND",
-    "title": "Overall Tree Health",
-    "content": "85% of trees are in good health",
-    "confidence": 0.9,
-    "data": {"healthyTrees": 85, "totalTrees": 100}
-  }
-]`;
-  }
-
-  // Helper methods for parsing AI responses
-  private parseHealthAnalysis(response: string): any {
+  /**
+   * Log AI interaction for analytics
+   */
+  async logInteraction(
+    userId: string,
+    type: string,
+    input: any,
+    output: any,
+    treeId?: string
+  ): Promise<void> {
     try {
-      const jsonMatch = response.match(/\{[\s\S]*\}/);
-      return jsonMatch ? JSON.parse(jsonMatch[0]) : { error: 'Invalid response format' };
-    } catch (error) {
-      return { error: 'Failed to parse response' };
-    }
-  }
-
-  private parseCareRecommendations(response: string): any[] {
-    try {
-      const jsonMatch = response.match(/\[[\s\S]*\]/);
-      return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
-    } catch (error) {
-      return [];
-    }
-  }
-
-  private parseSpeciesIdentification(response: string): any {
-    try {
-      const lines = response.split('\n');
-      const result: any = {};
-      
-      lines.forEach(line => {
-        if (line.includes('Species:')) result.species = line.split(':')[1].trim();
-        if (line.includes('Confidence:')) result.confidence = parseFloat(line.split(':')[1].replace('%', ''));
-        if (line.includes('Features:')) result.features = line.split(':')[1].trim();
+      await prisma.aIInteraction.create({
+        data: {
+          type: type as any,
+          input,
+          output,
+          model: 'gemini-pro',
+          tokensUsed: 0, // Could be calculated if needed
+          responseTime: 0, // Could be measured
+          success: true,
+          userId,
+          treeId,
+        },
       });
-      
-      return result;
     } catch (error) {
-      return { error: 'Failed to parse identification' };
+      console.error('Failed to log AI interaction:', error);
     }
   }
 
-  private parseGrowthPrediction(response: string): any {
+  /**
+   * Get AI insights for user
+   */
+  async getUserInsights(userId: string, limit: number = 10): Promise<AIInsight[]> {
     try {
-      const jsonMatch = response.match(/\{[\s\S]*\}/);
-      return jsonMatch ? JSON.parse(jsonMatch[0]) : { error: 'Invalid response format' };
+      const insights = await prisma.aIInsight.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        take: limit,
+      });
+
+             return insights.map(insight => ({
+         type: insight.type,
+         title: insight.title,
+         description: insight.content,
+         data: insight.data,
+         confidence: insight.confidence,
+         timestamp: insight.createdAt,
+       }));
     } catch (error) {
-      return { error: 'Failed to parse prediction' };
+      console.error('Failed to get user insights:', error);
+      throw new Error('Failed to retrieve AI insights');
     }
   }
 
-  private parseClimateImpact(response: string): any {
+  /**
+   * Get AI recommendations for user
+   */
+  async getUserRecommendations(userId: string, limit: number = 10): Promise<AIRecommendation[]> {
     try {
-      const jsonMatch = response.match(/\{[\s\S]*\}/);
-      return jsonMatch ? JSON.parse(jsonMatch[0]) : { error: 'Invalid response format' };
+      const recommendations = await prisma.aIRecommendation.findMany({
+        where: { userId, isRead: false },
+        orderBy: { createdAt: 'desc' },
+        take: limit,
+      });
+
+             return recommendations.map(rec => ({
+         type: rec.type,
+         title: rec.title,
+         description: rec.description,
+         priority: rec.priority,
+         data: rec.data,
+         actionable: true,
+         estimatedImpact: (rec.data as any)?.estimatedImpact || 'Medium',
+       }));
     } catch (error) {
-      return { error: 'Failed to parse climate impact' };
+      console.error('Failed to get user recommendations:', error);
+      throw new Error('Failed to retrieve AI recommendations');
     }
-  }
-
-  private parseCareSchedule(response: string): any {
-    try {
-      const jsonMatch = response.match(/\{[\s\S]*\}/);
-      return jsonMatch ? JSON.parse(jsonMatch[0]) : { error: 'Invalid response format' };
-    } catch (error) {
-      return { error: 'Failed to parse care schedule' };
-    }
-  }
-
-  private parseOrganizationInsights(response: string): any[] {
-    try {
-      const jsonMatch = response.match(/\[[\s\S]*\]/);
-      return jsonMatch ? JSON.parse(jsonMatch[0]) : [];
-    } catch (error) {
-      return [];
-    }
-  }
-
-  // Utility methods
-  private calculateAge(plantedAt: string): number {
-    const planted = new Date(plantedAt);
-    const now = new Date();
-    return Math.floor((now.getTime() - planted.getTime()) / (1000 * 60 * 60 * 24 * 30));
-  }
-
-  private groupTreesByHealth(trees: any[]): any {
-    const healthCounts: any = {};
-    trees.forEach(tree => {
-      const status = tree.currentHealthStatus;
-      healthCounts[status] = (healthCounts[status] || 0) + 1;
-    });
-    return healthCounts;
   }
 }
 

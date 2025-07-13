@@ -59,9 +59,9 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     const decoded = verifyJWT(token);
     const result = await authService.verifyUserToken(decoded.userId);
     
-    res.json(API_RESPONSE.SUCCESS('Token is valid', result));
+    return res.json(API_RESPONSE.SUCCESS('Token is valid', result));
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 
@@ -77,8 +77,8 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     const decoded = verifyJWT(token);
     const result = await authService.verifyUserToken(decoded.userId);
     
-    res.json(API_RESPONSE.SUCCESS('Token verified successfully', result));
+    return res.json(API_RESPONSE.SUCCESS('Token verified successfully', result));
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };

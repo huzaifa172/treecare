@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import path from 'path/win32';
+import path from 'path';
 dotenv.config({
   path: path.resolve(__dirname, '../.env'),
 });
@@ -20,6 +20,7 @@ import notificationRoutes from './routes/notification.routes';
 import learnRoutes from './routes/learn.routes';
 import statsRoutes from './routes/stats.routes';
 import organizationRoutes from './routes/organization.routes';
+import aiRoutes from './routes/ai.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/error.middleware';
@@ -46,19 +47,21 @@ app.use(cors({
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100'), // limit each IP to 100 requests per windowMs
   message: {
     success: false,
     message: 'Too many requests from this IP, please try again later.',
     error: 'RATE_LIMIT_EXCEEDED'
-  }
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
 // Authentication rate limiting (more reasonable)
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes  
-  max: 20, // limit each IP to 20 requests per windowMs for auth endpoints
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes  
+  max: parseInt(process.env.AUTH_RATE_LIMIT_MAX_REQUESTS || '20'), // limit each IP to 20 requests per windowMs for auth endpoints
   message: {
     success: false,
     message: 'Too many authentication attempts, please try again later.',
@@ -103,6 +106,7 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/learn', learnRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/organizations', organizationRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Welcome route
 app.get('/', (req, res) => {
