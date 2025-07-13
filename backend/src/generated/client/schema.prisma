@@ -1,0 +1,550 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client" // 👈 Add this line
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String    @id @default(uuid()) @db.Uuid
+  name               String    @db.VarChar(100)
+  email              String    @unique @db.VarChar(255)
+  password           String    @db.VarChar(255)
+  profilePicture     String?   @db.VarChar(500)
+  bio                String?   @db.Text
+  greenPoints        Int       @default(0)
+  isProfilePublic    Boolean   @default(true)
+  emailNotifications Boolean   @default(true)
+  city               String?   @db.VarChar(100)
+  country            String?   @db.VarChar(100)
+  role               UserRole  @default(USER)
+  aiPreferences      Json? // AI customization preferences
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  lastLoginAt        DateTime?
+
+  // Relations
+  trees                   Tree[]
+  adoptions               TreeAdoption[]       @relation("UserAdoptions")
+  transfers               TreeAdoption[]       @relation("UserTransfers")
+  updates                 TreeUpdate[]
+  badges                  UserBadge[]
+  rewards                 RewardRedemption[]
+  notifications           Notification[]
+  certificates            Certificate[]
+  organizationMemberships OrganizationMember[]
+  aiInteractions          AIInteraction[]
+  aiRecommendations       AIRecommendation[]
+  aiInsights              AIInsight[]
+  ownedOrganizations      Organization[]       @relation("OrganizationOwner")
+  createdCampaigns        Campaign[]           @relation("CampaignCreator")
+
+  @@map("users")
+}
+
+model Organization {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @db.VarChar(200)
+  description  String?  @db.Text
+  logoUrl      String?  @db.VarChar(500)
+  website      String?  @db.VarChar(255)
+  contactEmail String   @db.VarChar(255)
+  contactPhone String?  @db.VarChar(50)
+  address      String?  @db.Text
+  isVerified   Boolean  @default(false)
+  aiEnabled    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  ownerId    String               @db.Uuid
+  owner      User                 @relation("OrganizationOwner", fields: [ownerId], references: [id])
+  members    OrganizationMember[]
+  campaigns  Campaign[]
+  trees      Tree[]
+  aiInsights AIInsight[]
+
+  @@index([ownerId])
+  @@map("organizations")
+}
+
+model OrganizationMember {
+  id               String           @id @default(uuid()) @db.Uuid
+  role             OrganizationRole @default(MEMBER)
+  joinedAt         DateTime         @default(now())
+  treesContributed Int              @default(0)
+  isActive         Boolean          @default(true)
+
+  // Relations
+  organizationId String       @db.Uuid
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String       @db.Uuid
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([organizationId])
+  @@index([userId])
+  @@map("organization_members")
+}
+
+model Campaign {
+  id           String         @id @default(uuid()) @db.Uuid
+  name         String         @db.VarChar(200)
+  description  String?        @db.Text
+  targetTrees  Int
+  plantedTrees Int            @default(0)
+  status       CampaignStatus @default(ACTIVE)
+  startDate    DateTime
+  endDate      DateTime
+  location     Json? // {area, coordinates: {lat, lng}}
+  budget       Decimal?       @db.Decimal(10, 2)
+  aiOptimized  Boolean        @default(false)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  // Relations
+  organizationId String       @db.Uuid
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdBy      String       @db.Uuid
+  creator        User         @relation("CampaignCreator", fields: [createdBy], references: [id])
+  trees          Tree[]
+  aiInsights     AIInsight[]
+
+  @@index([organizationId])
+  @@index([status])
+  @@map("campaigns")
+}
+
+model Tree {
+  id                    String       @id @default(uuid()) @db.Uuid
+  qrCode                String       @unique @db.VarChar(50)
+  species               String       @db.VarChar(100)
+  source                TreeSource
+  commitmentDuration    Int // in months
+  initialHealthStatus   HealthStatus
+  currentHealthStatus   HealthStatus @default(HEALTHY)
+  location              Json // {latitude, longitude, address}
+  photoUrl              String       @db.VarChar(500)
+  plantedAt             DateTime     @default(now())
+  isActive              Boolean      @default(true)
+  isAdoptable           Boolean      @default(false)
+  transferReason        String?      @db.Text
+  lastUpdateAt          DateTime?
+  aiHealthScore         Float? // AI-calculated health score
+  aiCareRecommendations Json? // AI care recommendations
+  aiGrowthPrediction    Json? // AI growth predictions
+
+  // Owner relations
+  ownerId String @db.Uuid
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  // Organization relations
+  organizationId String?       @db.Uuid
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  campaignId     String?       @db.Uuid
+  campaign       Campaign?     @relation(fields: [campaignId], references: [id])
+
+  // Relations
+  updates           TreeUpdate[]
+  adoptions         TreeAdoption[]
+  certificates      Certificate[]
+  aiInsights        AIInsight[]
+  aiInteractions    AIInteraction[]
+  aiRecommendations AIRecommendation[]
+
+  @@index([ownerId])
+  @@index([species])
+  @@index([plantedAt])
+  @@index([isAdoptable])
+  @@index([organizationId])
+  @@map("trees")
+}
+
+model TreeUpdate {
+  id                 String       @id @default(uuid()) @db.Uuid
+  healthStatus       HealthStatus
+  notes              String?      @db.Text
+  photoUrl           String       @db.VarChar(500)
+  growthMeasurements Json? // {height, trunk_diameter, canopy_width}
+  gpsLocation        Json? // verification of current location
+  aiAnalysis         Json? // AI analysis of the update
+  createdAt          DateTime     @default(now())
+
+  // Relations
+  treeId String @db.Uuid
+  tree   Tree   @relation(fields: [treeId], references: [id], onDelete: Cascade)
+  userId String @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([treeId])
+  @@index([createdAt])
+  @@map("tree_updates")
+}
+
+model TreeAdoption {
+  id                 String   @id @default(uuid()) @db.Uuid
+  reason             String?  @db.Text
+  commitmentMessage  String?  @db.Text
+  commitmentDuration Int? // in months
+  adoptedAt          DateTime @default(now())
+  aiMatchScore       Float? // AI-calculated match score
+
+  // Relations
+  treeId          String @db.Uuid
+  tree            Tree   @relation(fields: [treeId], references: [id], onDelete: Cascade)
+  previousOwnerId String @db.Uuid
+  previousOwner   User   @relation("UserTransfers", fields: [previousOwnerId], references: [id])
+  newOwnerId      String @db.Uuid
+  newOwner        User   @relation("UserAdoptions", fields: [newOwnerId], references: [id])
+
+  @@index([treeId])
+  @@index([adoptedAt])
+  @@map("tree_adoptions")
+}
+
+// AI Models
+model AIInteraction {
+  id           String            @id @default(uuid()) @db.Uuid
+  type         AIInteractionType
+  input        Json // User input
+  output       Json // AI response
+  model        String            @db.VarChar(100) // e.g., "gemini-pro"
+  tokensUsed   Int               @default(0)
+  cost         Decimal?          @db.Decimal(10, 6)
+  responseTime Int? // in milliseconds
+  success      Boolean           @default(true)
+  error        String?           @db.Text
+  createdAt    DateTime          @default(now())
+
+  // Relations
+  userId String  @db.Uuid
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  treeId String? @db.Uuid
+  tree   Tree?   @relation(fields: [treeId], references: [id])
+
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+  @@map("ai_interactions")
+}
+
+model AIRecommendation {
+  id          String               @id @default(uuid()) @db.Uuid
+  type        AIRecommendationType
+  title       String               @db.VarChar(200)
+  description String               @db.Text
+  priority    Priority             @default(MEDIUM)
+  data        Json // Recommendation data
+  isRead      Boolean              @default(false)
+  isApplied   Boolean              @default(false)
+  expiresAt   DateTime?
+  createdAt   DateTime             @default(now())
+
+  // Relations
+  userId String  @db.Uuid
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  treeId String? @db.Uuid
+  tree   Tree?   @relation(fields: [treeId], references: [id])
+
+  @@index([userId])
+  @@index([type])
+  @@index([priority])
+  @@map("ai_recommendations")
+}
+
+model AIInsight {
+  id         String        @id @default(uuid()) @db.Uuid
+  type       AIInsightType
+  title      String        @db.VarChar(200)
+  content    String        @db.Text
+  data       Json // Insight data
+  confidence Float         @default(0.0) // 0.0 to 1.0
+  isActive   Boolean       @default(true)
+  createdAt  DateTime      @default(now())
+
+  // Relations
+  userId         String?       @db.Uuid
+  user           User?         @relation(fields: [userId], references: [id])
+  treeId         String?       @db.Uuid
+  tree           Tree?         @relation(fields: [treeId], references: [id])
+  organizationId String?       @db.Uuid
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  campaignId     String?       @db.Uuid
+  campaign       Campaign?     @relation(fields: [campaignId], references: [id])
+
+  @@index([type])
+  @@index([confidence])
+  @@index([createdAt])
+  @@map("ai_insights")
+}
+
+model Badge {
+  id          String        @id @default(uuid()) @db.Uuid
+  name        String        @unique @db.VarChar(100)
+  description String        @db.Text
+  icon        String        @db.VarChar(10)
+  category    BadgeCategory
+  requirement Json // criteria for earning badge
+  pointsValue Int           @default(0)
+  isActive    Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+
+  // Relations
+  userBadges UserBadge[]
+
+  @@map("badges")
+}
+
+model UserBadge {
+  id       String   @id @default(uuid()) @db.Uuid
+  earnedAt DateTime @default(now())
+
+  // Relations
+  userId  String @db.Uuid
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId String @db.Uuid
+  badge   Badge  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+  @@index([userId])
+  @@map("user_badges")
+}
+
+model Reward {
+  id          String         @id @default(uuid()) @db.Uuid
+  name        String         @db.VarChar(200)
+  description String         @db.Text
+  pointsCost  Int
+  category    RewardCategory
+  imageUrl    String?        @db.VarChar(500)
+  inStock     Boolean        @default(true)
+  isActive    Boolean        @default(true)
+  createdAt   DateTime       @default(now())
+
+  // Relations
+  redemptions RewardRedemption[]
+
+  @@map("rewards")
+}
+
+model RewardRedemption {
+  id              String           @id @default(uuid()) @db.Uuid
+  pointsSpent     Int
+  shippingAddress Json? // address object
+  status          RedemptionStatus @default(PENDING)
+  redeemedAt      DateTime         @default(now())
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+
+  // Relations
+  userId   String @db.Uuid
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rewardId String @db.Uuid
+  reward   Reward @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([redeemedAt])
+  @@map("reward_redemptions")
+}
+
+model Certificate {
+  id       String          @id @default(uuid()) @db.Uuid
+  type     CertificateType
+  pdfUrl   String          @db.VarChar(500)
+  metadata Json // certificate data
+  issuedAt DateTime        @default(now())
+
+  // Relations
+  userId String  @db.Uuid
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  treeId String? @db.Uuid
+  tree   Tree?   @relation(fields: [treeId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([issuedAt])
+  @@map("certificates")
+}
+
+model Notification {
+  id           String           @id @default(uuid()) @db.Uuid
+  type         NotificationType
+  title        String           @db.VarChar(200)
+  message      String           @db.Text
+  data         Json? // additional data
+  isRead       Boolean          @default(false)
+  isActionable Boolean          @default(false)
+  actionUrl    String?          @db.VarChar(500)
+  createdAt    DateTime         @default(now())
+
+  // Relations
+  userId String @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@index([isRead])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model LearningModule {
+  id          String     @id @default(uuid()) @db.Uuid
+  title       String     @db.VarChar(200)
+  description String     @db.Text
+  content     String     @db.Text
+  difficulty  Difficulty @default(BEGINNER)
+  category    String     @db.VarChar(100)
+  imageUrl    String?    @db.VarChar(500)
+  videoUrl    String?    @db.VarChar(500)
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+
+  @@index([category])
+  @@index([difficulty])
+  @@map("learning_modules")
+}
+
+model GlobalStats {
+  id                 String   @id @default(uuid()) @db.Uuid
+  totalTrees         Int      @default(0)
+  totalUsers         Int      @default(0)
+  totalOrganizations Int      @default(0)
+  totalCO2Offset     Float    @default(0.0) // in kg
+  totalPoints        Int      @default(0)
+  date               DateTime @default(now())
+
+  @@unique([date])
+  @@map("global_stats")
+}
+
+// Enums
+enum UserRole {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+enum OrganizationRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum CampaignStatus {
+  ACTIVE
+  COMPLETED
+  PAUSED
+  CANCELLED
+}
+
+enum TreeSource {
+  SEEDLING
+  SAPLING
+  MATURE_TREE
+  CUTTING
+  SEED
+}
+
+enum HealthStatus {
+  EXCELLENT
+  HEALTHY
+  GOOD
+  FAIR
+  POOR
+  CRITICAL
+  DEAD
+}
+
+enum BadgeCategory {
+  TREE_CARE
+  ENVIRONMENTAL_IMPACT
+  COMMUNITY
+  MILESTONE
+  SPECIAL_EVENT
+}
+
+enum RewardCategory {
+  ECO_FRIENDLY_PRODUCTS
+  TREE_CARE_TOOLS
+  EDUCATIONAL_MATERIALS
+  EXPERIENCES
+  DONATIONS
+}
+
+enum RedemptionStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum CertificateType {
+  TREE_GUARDIAN
+  ENVIRONMENTAL_STEWARD
+  CARBON_OFFSET
+  MILESTONE
+  CUSTOM
+}
+
+enum NotificationType {
+  TREE_UPDATE_REMINDER
+  ADOPTION_REQUEST
+  BADGE_EARNED
+  POINT_MILESTONE
+  CAMPAIGN_UPDATE
+  AI_RECOMMENDATION
+  SYSTEM_ANNOUNCEMENT
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+enum AIInteractionType {
+  TREE_HEALTH_ANALYSIS
+  CARE_RECOMMENDATION
+  SPECIES_IDENTIFICATION
+  GROWTH_PREDICTION
+  CLIMATE_IMPACT
+  CARE_SCHEDULE
+  TROUBLESHOOTING
+  GENERAL_QUERY
+}
+
+enum AIRecommendationType {
+  WATERING_SCHEDULE
+  FERTILIZATION
+  PRUNING
+  PEST_CONTROL
+  CLIMATE_ADAPTATION
+  GROWTH_OPTIMIZATION
+  HEALTH_IMPROVEMENT
+  MAINTENANCE
+}
+
+enum AIInsightType {
+  HEALTH_TREND
+  GROWTH_PATTERN
+  CLIMATE_IMPACT
+  CARE_EFFECTIVENESS
+  OPTIMIZATION_OPPORTUNITY
+  RISK_ASSESSMENT
+  SUCCESS_METRIC
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
